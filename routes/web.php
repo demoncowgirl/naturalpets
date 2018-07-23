@@ -11,10 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PagesController@getHome');
+Route::get('about', 'PagesController@getAbout');
+Route::get('contact', 'PagesController@getContact');
+Route::get('profile', 'PagesController@getPetSearch');
+Route::get('petSearch', 'PagesController@getPetSearch');
+Route::get('vetServices', 'PagesController@getVetServices');
+Route::get('kennels', 'PagesController@getKennels');
+Route::get('groomers', 'PagesController@getGroomers');
+Route::get('petSupplies', 'PagesController@getPetSupplies');
+
+Route::post('/contact', 'MessagesController@submit');
+Route::get('/messages', 'MessagesController@getMessages');
+// Route::post('/profile', 'ProfileCRequest@submit');
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
