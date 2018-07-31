@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title', 'Pet Search')
+
 @section('content')
-<h1>PetSearch</h1>
+
+Stuff goes here....
+
 @endsection

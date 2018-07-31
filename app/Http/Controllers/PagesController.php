@@ -1,44 +1,41 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    // Route::get('protected', ['middleware' => ['auth', 'admin'],
-    //   function() {
-    //     return "Access to this page requires Admin login";
-    //   }]);
-    Route::get('/', function () {
+
+    public function getHome() {
         return view('home');
     }
-    Route::get('/about', function () {
+    public function getAbout() {
         return view('about');
     }
-    Route::get('/contact', function () {
+    public function getContact() {
         return view('contact');
     }
     //need a get for profile information
-    Route::get('/profile', function () {
+    public function getProfile() {
         return view('profile');
     }
-    Route::get('/petSearch', function () {
+    public function getPetSearch() {
         return view('petSearch');
     }
-    Route::get('/serviceSearch', function () {
+    public function getPetServices() {
         return view('serviceSearch');
     }
-    Route::get('/vetServices', function () {
+    public function getVetServices() {
         return view('vetServices');
     }
-    Route::get('/kennels', function () {
+    public function getKennels() {
         return view('kennels');
     }
-    Route::get('/groomers', function () {
+    public function getGroomers() {
         return view('groomers');
     }
-    Route::get('/petSupplies', function () {
+    public function getPetSupplies() {
         return view('petSupplies');
     }
+
 }

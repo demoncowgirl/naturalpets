@@ -1,6 +1,7 @@
 <nav class="navbar-inverse navbar-toggleable-md" style="border: none; height: 110px;">
-  <div class = "navbar-brand">
-      <a href="{{ url('/') }}">
+  <div class = "container-fluid">
+    <div class="navbar-header">
+      <a class ="navbar-brand" href="{{ url('/') }}">
         <div id="imageBlock">
         <img id="logo" src="{{ asset('assets/images/love-825283_640.png') }}" alt="heart with pawprint" style="width:150px;height:150px;">
         </div>
@@ -17,7 +18,8 @@
            <a class="nav-link" v-pre>
                {{ Auth::user()->name }} <span class="caret"></span>
            </a>
-
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Logout<span class="caret"></span></a>
+        <ul class="dropdown-menu">
            <li><a href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">Logout</a></li>
@@ -32,4 +34,5 @@
         <li><a class="{{ Request::is ('petSearch') ? 'active': ''}}" href="/petSearch">Pet Search</a></li>
         <li><a class="{{ Request::is ('serviceSearch') ? 'active': ''}}" href="/serviceSearch">Pet Services</a></li>
       </ul>
+    </div>
 </nav>

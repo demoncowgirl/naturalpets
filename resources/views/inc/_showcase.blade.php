@@ -4,6 +4,11 @@
       </row>
 </div>
 
+  <div id="centerContainer" class="container">
+    <h1>Welcome to Pet Stop</h1>
+    <p class="lead">Your one-stop-shop for what you need to....</p>
+  </div>
+
 
 <div id="animation2" class="page-footer text-center">
       <row>
