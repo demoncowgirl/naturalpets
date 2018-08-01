@@ -2,8 +2,17 @@
 
 @section('title', 'Pet Search')
 
-@section('content')
+  <!-- <div class="container">
+		<form>
+				<legend> Find A Cat Near You! </legend>
+				<label for="zip">Zip</label>
+				<input type="text" name="zip" id="zip">
+				<input type="submit" id="submitZip">
+		</form>
+  <div> -->
 
-Stuff goes here....
+@section('results')
+
+search results go here....
 
 @endsection
