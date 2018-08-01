@@ -15,15 +15,6 @@
     // import { convertKtoF, convertKtoC } from '../utils';
 
     export default {
-        mounted() {
-            // if ("geolocation" in navigator) {
-            //     /* geolocation is available */
-            //     navigator.geolocation.getCurrentPosition(this.getWeather, this.locationDenied);
-            // } else {
-            //   /* geolocation IS NOT available */
-            //   alert("Geolocation is NOT available!");
-            }
-        },
         props: ['location', //zipcode
                 'animal',  //barnyard, bird, cat, dog, horse, reptile, smallfurry
                 'breed', // need to use breeds.list method here
@@ -50,15 +41,12 @@
             }
         },
         methods: {
-            locationDenied: function() {
-                // this.status = "<p>'Weather' is an application that helps you view current conditions for places you choose.</><p>Login or Register using the links in the upper right, then save zip codes to quickly access weather for the locations you care about.</p>";
-            },
             getPet: function(location) {
                 // Set up url for fetching adoptable pet data.
                 var url = 'http://api.petfinder.com/pet.getRandom';
                 var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
                 var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
-                var cross-origin = '&output=basic&format=json&callback=?' //added to end for cross-origin request
+                var cross_origin = '&output=basic&format=json&callback=?' //added to end for cross-origin request
 
             getBreed: function(){
               //Set up url to fetch breed list
