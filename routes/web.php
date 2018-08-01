@@ -20,11 +20,30 @@ Route::get('vetServices', 'PagesController@getVetServices');
 Route::get('kennels', 'PagesController@getKennels');
 Route::get('groomers', 'PagesController@getGroomers');
 Route::get('petSupplies', 'PagesController@getPetSupplies');
+Route::get('serviceSearch', 'PagesController@getPetServices');
+
 Route::get('messages', 'PagesController@getMessages');
+
+Route::get('search', 'SearchController@getSearchResults');
+
+// this will add a csrf code to profile
+// Route::post('profile',
+//     [
+//         'before' => 'csrf',
+//         function()
+//         {
+//             //
+//         }
+//     ]
+// );
 
 // Route::post('/contact', 'MessagesController@submit');
 // Route::get('/messages', 'MessagesController@getMessages');
 // Route::post('/profile', 'ProfileCRequest@submit');
 
 Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
 Route::get('/home', 'HomeController@index')->name('home');

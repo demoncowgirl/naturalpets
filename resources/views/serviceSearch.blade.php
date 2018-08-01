@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('title', 'Service Search')
+
 @section('content')
-<h1>Service Search</h1>
+<p> Groomer, kennel, dog sitters/walkers, and pet supply retailers will go here.</p>
 @endsection
