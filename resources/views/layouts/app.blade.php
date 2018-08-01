@@ -25,6 +25,7 @@
       	 @include('inc._showcase')
       @endif
 
+      <!-- includes footer -->
       @include('inc._footer')
 
 

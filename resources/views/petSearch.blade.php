@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@includes()
+
 @section('title', 'Pet Search')
 
 @section('content')
