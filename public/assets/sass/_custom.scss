@@ -21,17 +21,12 @@ body{
   margin-bottom: 10px;
 }
 
-.nav.li a{
-  margin-left: 160px;
-}
-
-.navbar a{
-  // float: right;
-  // position: fixed;
-  // display: block;
+.nav-bar a{
+  float: right;
   font-size: 18px;
-  text-align: left;
+  text-align: right;
   list-style-type: none;
+
 }
 
 // #logo{
@@ -41,9 +36,9 @@ body{
 
 #imageBlock{
   height: 150px;
-  border: solid;
-  border-width: thin;
-  border-color: #000;
+  // border: solid;
+  // border-width: thin;
+  // border-color: #000;
   width: auto;
   background-color: #FCFFFD;
 }
