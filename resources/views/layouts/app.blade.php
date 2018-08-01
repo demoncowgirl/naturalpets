@@ -16,33 +16,19 @@
 </head>
 <body>
   <div id="app">
-      <!-- <title>{{ 'title' }}</title> -->
+
       <!-- provides navbar on every page -->
-    <header class="row">
       @include('inc._navbar')
-    </header>
 
-    <div id="display" class="row">
-  	@if(Request::is('/'))
-      <!-- include showcase only on home page -->
-    	 @include('inc._showcase')
-    @endif
-    </div>
-
-    <div id="topRow" class="row" style="height: 120px; background-color: #145A56; z-index: -1;"></div>
-
-    <div id='leftContainer' class='container d-flex justify-content-start' style="height: 460px:">
-      <h1>@yield('title')</h1>
-
-        @yield('content')
-    </div>
-
-
-  </div>
+    	@if(Request::is('/'))
+        <!-- include showcase only on home page -->
+      	 @include('inc._showcase')
+      @endif
 
       @include('inc._footer')
 
 
+    </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

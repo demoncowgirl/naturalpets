@@ -37,5 +37,9 @@ class PagesController extends Controller
     public function getPetSupplies() {
         return view('petSupplies');
     }
+    public function getMessages() {
+        return view('messages');
+    }
+
 
 }

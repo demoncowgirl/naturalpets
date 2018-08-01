@@ -20,9 +20,10 @@ Route::get('vetServices', 'PagesController@getVetServices');
 Route::get('kennels', 'PagesController@getKennels');
 Route::get('groomers', 'PagesController@getGroomers');
 Route::get('petSupplies', 'PagesController@getPetSupplies');
+Route::get('messages', 'PagesController@getMessages');
 
-Route::post('/contact', 'MessagesController@submit');
-Route::get('/messages', 'MessagesController@getMessages');
+// Route::post('/contact', 'MessagesController@submit');
+// Route::get('/messages', 'MessagesController@getMessages');
 // Route::post('/profile', 'ProfileCRequest@submit');
 
 Auth::routes();

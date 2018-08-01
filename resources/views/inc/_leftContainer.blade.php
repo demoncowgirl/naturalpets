@@ -1,13 +1,7 @@
 @extends('layouts.app')
-<html>
-  <div>
-    <div id='leftContainer' class='container d-flex flex-column justify-content-start'>
-      <head>
-      @yield('title')
-    </head>
-    <body>
-      @yield('content')
-    </body>
+
+    <div id='leftContainer' class='container d-flex justify-content-start' style="height: 460px:">
+      <h1>@yield('title')</h1>
+
+        @yield('content')
     </div>
-  </div>
-</html>

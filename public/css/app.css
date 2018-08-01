@@ -8386,6 +8386,7 @@ body {
 }
 
 #logo {
+  margin-top: 10px;
   position: fixed;
 }
 
@@ -8405,7 +8406,7 @@ body {
 .page-header {
   position: fixed;
   z-index: -1;
-  height: 100px;
+  height: 75px;
   width: 100%;
   margin: 0;
   opacity: 0.8;
@@ -8413,10 +8414,15 @@ body {
 }
 
 #centerContainer {
-  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 400px;
   Width: 100%;
-  top-margin: 140px;
+  margin-top: 100px;
   background-color: #FCFFFD;
 }
 
@@ -8463,6 +8469,7 @@ form.text {
 
 .page-footer {
   position: fixed;
+  z-index: -1;
   left: 0;
   bottom: 0;
   width: 100%;

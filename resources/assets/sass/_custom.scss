@@ -37,6 +37,7 @@ body{
 }
 
 #logo{
+  margin-top: 10px;
   position: fixed;
   // float: left;
 }
@@ -50,6 +51,14 @@ body{
   background-color: #FCFFFD;
 }
 
+// #animation1{
+//   margin-right: -10px;
+// }
+//
+// #animation2{
+//   margin-bottom: 0px;
+// }
+
 .panel{
   margin-top: 20px;
 }
@@ -57,7 +66,7 @@ body{
 .page-header{
   position: fixed;
   z-index: -1;
-  height: 100px;
+  height: 75px;
   width: 100%;
   margin: 0;
   opacity: 0.8;
@@ -65,10 +74,12 @@ body{
 }
 
 #centerContainer{
-  text-align: center;
+  display: flex;
+  align-items: center;
+  // text-align: center;
   height: 400px;
   Width: 100%;
-  top-margin: 140px;
+  margin-top: 100px;
   background-color: #FCFFFD;
 }
 
@@ -126,6 +137,7 @@ form.text{
 
 .page-footer{
     position: fixed;
+    z-index: -1;
     left: 0;
     bottom: 0;
     width: 100%;
