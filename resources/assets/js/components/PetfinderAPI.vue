@@ -1,61 +1,102 @@
 <template>
+  <!-- input form for pet search -->
+  <div id="petSearchInput" class="container">
+      <div class="form-group">
+        <label for="location">ZipCode</label>
+          <input type="text" name="zipCode" value="" class="form-control">
 
-  <div class="container">
-    <div class="status-section text-center" v-if="showStatus">
-        <span v-html="status"></span>
-    </div>
-    <div class="error-section" v-if="showError">
-        <div class="card mb-3 border-dark">
-            <div class="card-header bg-danger text-center font-weight-bold border-dark">Error</div>
-            <div class="card-body"><span v-html="error"></span></div>
-        </div>
-    </div>
-    <div class="output-section" v-if="showOutput">
-        <div class="row">
-          <div class="col" style="min-width: 300px;">
-              <div class="card mb-3 border-dark">
-                  <div class="card-header bg-warning text-center font-weight-bold border-dark">Location</div>
-                  <div class="card-body">
-                      <h3 v-if="zipCode"><strong>Zipcode:</strong> {{ zipCode }}</h3>
-                      <div><strong>Location:</strong> {{ city }}</div>
-                      <div><strong>Name:</strong> {{ name }}</div>
-                      <div><strong>Age:</strong> {{ age }}</div>
-                      <div><strong>Sex:</strong> {{ sex }}</div>
-                      <div><strong>Size:</strong> {{ size }}</div>
-                      <div><strong>Breed:</strong> {{ breed }}</div>
-                      <div><strong>Description:</strong> {{ description }}</div>
-                  </div>
-              </div>
-              <div class="card mb-3 border-dark">
-                  <div class="card-header bg-warning text-center font-weight-bold border-dark">Temperature</div>
+        <label for="animal">Animal Type</label>
+          <select name="animal">
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="bird">Bird</option>
+            <option value="horse">Horse</option>
+            <option value="barnyard">Barnyard</option>
+            <option value="reptile">Reptile</option>
+            <option value="smallfurry">Small Furry</option>
+          </select>
+
+          <!-- <label for="breed">Breed</label> -->
+          <!-- how do i bring up breed list here -->
+
+        <label for="age">Age</label>
+          <select name="age">
+            <option value = ''>Any</option>
+            <option value = "Baby">Baby</option>
+            <option value="Young">Young</option>
+            <option value="Adult">Adult</option>
+            <option value="Senior">Senior</option>
+          </select>
+
+          <!-- todo: add approximate weight to size labels -->
+          <label for="size">Size</label>
+            <select name="size">
+              <option value = ''>Any</option>
+              <option value="S">Small</option>
+              <option value="M">Medium</option>
+              <option value="L">Large</option>
+              <option value="XL">Extra Large</option>
+            </select>
+
+          <label for="sex">Animal Type</label>
+            <select name="sex">
+              <option value = ''>Any</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          <input type="submit" id="submitZip">
+      </div>
+
+    <div class="container">
+      <div class="status-section text-center" v-if="showStatus">
+          <span v-html="status"></span>
+      </div>
+      <div class="error-section" v-if="showError">
+          <div class="card mb-3 border-dark">
+              <div class="card-header bg-danger text-center font-weight-bold border-dark">Error</div>
+              <div class="card-body"><span v-html="error"></span></div>
+          </div>
+      </div>
+      <div class="output-section" v-if="showOutput">
+          <div class="row">
+            <div class="col" style="min-width: 300px;">
+                <div class="card mb-3 border-dark">
+                    <div class="card-header bg-warning text-center font-weight-bold border-dark">Location</div>
                     <div class="card-body">
-                        <div class="row align-items-center justify-content-center no-gutters">
-                            <div class="border border-secondary col text-center pt-3 pb-3">{{ tempK }}</div>
-                            <div class="border border-secondary col text-center pt-3 pb-3"><span v-html="tempF"></span></div>
-                            <div class="border border-secondary col text-center pt-3 pb-3"><span v-html="tempC"></span></div>
-                        </div>
+                        <h3 v-if="zipCode"><strong>Zipcode:</strong> {{ zipCode }}</h3>
+                        <div><strong>Location:</strong> {{ city }}</div>
+                        <div><strong>Name:</strong> {{ name }}</div>
+                        <div><strong>Age:</strong> {{ age }}</div>
+                        <div><strong>Sex:</strong> {{ sex }}</div>
+                        <div><strong>Size:</strong> {{ size }}</div>
+                        <div><strong>Breed:</strong> {{ breed }}</div>
+                        <div><strong>Description:</strong> {{ description }}</div>
                     </div>
+                </div>
               </div>
             </div>
           </div>
-      </div>
+        </div>
+    </div>
   </div>
 
 </template>
 
 <script>
 
-
  export default {
+   mounted(){
+     console.log('DERP!!')
+   },
    // from input form
-          props: [
-            'zipCode',
-            'location',
-            'animal',
-            'breed',
-            'size',
-            'sex'
-          ],
+          // props: [
+          //   'zipCode',
+          //   'location',
+          //   'animal',
+          //   'breed',
+          //   'size',
+          //   'sex'
+          // ],
           // retrieved from API
         data: function() {
             return {

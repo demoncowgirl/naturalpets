@@ -27,9 +27,6 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {
-    "vue-template-compiler": "^2.5.17"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/demoncowgirl/finalproject-petstop.git"
