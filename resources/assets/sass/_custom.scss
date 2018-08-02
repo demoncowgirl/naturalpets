@@ -16,6 +16,7 @@ body{
 .navbar{
   overflow: hidden;
   position: fixed;
+  z-index: -1;
   margin-bottom: 10px;
 }
 
@@ -94,16 +95,26 @@ form.text{
 }
 
 #centerContainer{
-  height: 550px;
-  Width: 66%;
-  margin-top: 100px;
+  padding: 10px;
+  align-content: center;
+  height: 640px;
+  Width: 75%;
+  margin-top: -60px;
   margin-left: 15px;
   margin-right: 15px;
   border-style: solid;
   border-width: 3px;
   border-color: #145A56;
   background-color: #F1F1ED;
+}
 
+.form-group{
+  max-width: 700px;
+}
+
+input{
+  margin-bottom: 10px;
+  max-width: 85px;
 }
 
 #leftContainer{

@@ -46,5 +46,5 @@
                        {{ csrf_field() }}
             </form>
        @endguest
+    </div>
   </nav>
-</div>

@@ -43481,22 +43481,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         getPet: function bindButtons() {
             //Set up url to fetch individual pet ID
             // var url = 'http://api.petfinder.com/pet.getRandom';
-            var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>&animal=<animal>&breed=<breed>&size=<size>&sex=<sex>&shelterID=<shelterID>&output=basic<cross-origin>";
+            // var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>$location=<zipCode>&animal=<animal>&breed=<breed>&size=<size>&sex=<sex>&shelterID=<shelterID>&output=basic<cross-origin>";
+
             document.getElementById('submitZip').addEventListener('click', function (event) {
                 event.preventDefault();
 
                 var zipCode = document.getElementById('zip').value; // this line gets the zip code from the form entry
-                // input from form
-                var city = document.getElementByID('city').value;
-                var animal = document.getElementByID('animal').value;
-                var breed = document.getElementById('breed').value;
-                var size = document.getElementById('size').value;
-                var sex = document.getElementById('sex').value;
-                var id = document.getElementById('id').value;
-                var email = document.getElementById('id').value;
-                var output = document.getElementById('output').value;
 
+                // input from form?
+                // var city = document.getElementByID('city').value;
+                // var animal = document.getElementByID('animal').value;
+                // var breed = document.getElementById('breed').value;
+                // var size = document.getElementById('size').value;
+                // var sex = document.getElementById('sex').value;
+                // var id = document.getElementById('id').value;
+                // var email = document.getElementById('id').value;
+                // var output = document.getElementById('output').value;
+                //
+                // if (this.zipcode && value!='') {
+                url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>$location=40515&output=basic<cross_origin>";
+                //   url = url.replace("<animal>", ('&animal=' + this.what do i put here?));
+                //   url = url.replace("<age>", ('&age=' + this.what do i put here?));
+                //   url = url.replace("<size>", ('&size=' + this.what do i put here?));
+                //   url = url.replace("<sex>", ('&sex=' + this.what do i put here?));
+                // }
+                // else {
+                //     // url = url.replace("<zipCode>", this.zipcode);
+                // }
                 url = url.replace("<apiKey>", this.apiKey);
+                // url=url.replace("zip", this.zipCode);
                 // Code that fetches data from the API URL and stores it in results.
                 this.apiRequest = new XMLHttpRequest();
                 this.apiRequest.onload = this.catchResponse;
