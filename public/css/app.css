@@ -8359,15 +8359,6 @@ body {
   background-color: #5DAFA8;
 }
 
-.container {
-  border-style: solid;
-  border-width: 3px;
-  border-color: #F1F1ED;
-  margin-left: 15px;
-  margin-right: 15px;
-  border-color: #72958C;
-}
-
 .navbar {
   overflow: hidden;
   position: fixed;
@@ -8413,23 +8404,6 @@ body {
   background-color: #2B7C62;
 }
 
-#centerContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 400px;
-  Width: 100%;
-  margin-top: 100px;
-  background-color: #FCFFFD;
-}
-
-#smallNavbar {
-  width: auto;
-}
-
 h1 {
   color: #145A56;
   text-align: center;
@@ -8445,20 +8419,45 @@ form.text {
   width: 200px;
 }
 
+#showcase {
+  border-style: solid;
+  border-width: 3px;
+  border-color: #145A56;
+  background-color: #F1F1ED;
+}
+
+#centerContainer {
+  height: 400px;
+  Width: 66%;
+  margin-top: 100px;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #145A56;
+  background-color: #F1F1ED;
+}
+
 #leftContainer {
-  background-color: #FCFFFD;
   float: left;
   height: 630px;
   width: 49%;
   margin-left: 15px;
   margin-right: 15px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #145A56;
+  background-color: #F1F1ED;
 }
 
 #topRightContainer {
   float: right;
   height: 310px;
   Width: 47%;
-  background-color: #18FAFF;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #145A56;
+  background-color: #F1F1ED;
 }
 
 #map {
