@@ -18,7 +18,7 @@
     "jquery": "^3.2",
     "laravel-mix": "^1.7.2",
     "lodash": "^4.17.4",
-    "vue": "^2.5.7"
+    "vue": "^2.5.17"
   },
   "name": "finalproject-petstop",
   "description": "<p align=\"center\"><img src=\"https://laravel.com/assets/img/components/logo-laravel.svg\"></p>",
@@ -27,7 +27,9 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {},
+  "dependencies": {
+    "vue-template-compiler": "^2.5.17"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/demoncowgirl/finalproject-petstop.git"

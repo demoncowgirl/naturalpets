@@ -990,7 +990,7 @@ window.Vue = __webpack_require__(35);
 Vue.component('petfinder_api', __webpack_require__(38));
 
 var app = new Vue({
-  el: '#app'
+  el: '#services'
 });
 
 /***/ }),
@@ -31844,7 +31844,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.5.16
+ * Vue.js v2.5.17
  * (c) 2014-2018 Evan You
  * Released under the MIT License.
  */
@@ -36933,7 +36933,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.5.16';
+Vue.version = '2.5.17';
 
 /*  */
 
@@ -43225,9 +43225,154 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 /* 40 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: Unexpected token (149:4)\n\n\u001b[0m \u001b[90m 147 | \u001b[39m        \u001b[90m//   list.appendChild(newImg);\u001b[39m\n \u001b[90m 148 | \u001b[39m        \u001b[90m// }\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 149 | \u001b[39m    }\n \u001b[90m     | \u001b[39m    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 150 | \u001b[39m}\u001b[33m;\u001b[39m\n \u001b[90m 151 | \u001b[39m\n \u001b[90m 152 | \u001b[39m\u001b[0m\n");
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    // from input form
+    props: ['zipCode', 'location', 'animal', 'breed', 'size', 'sex'],
+    // retrieved from API
+    data: function data() {
+        var _ref;
+
+        return _ref = {
+            showOutput: false,
+            status: 'A',
+            zipCode: '',
+            city: '',
+            id: '',
+            name: '',
+            size: '',
+            age: '',
+            sex: '',
+            breed: ''
+        }, _defineProperty(_ref, 'sex', ''), _defineProperty(_ref, 'output', 'basic'), _defineProperty(_ref, 'description', ''), _defineProperty(_ref, 'phone', ''), _defineProperty(_ref, 'email', ''), _defineProperty(_ref, 'showError', false), _defineProperty(_ref, 'error', ''), _defineProperty(_ref, 'showStatus', true), _defineProperty(_ref, 'status', '<h1>Fetching a list of your potential new best friends...</h1>'), _defineProperty(_ref, 'apiRequest', null), _defineProperty(_ref, 'apiKey', "d37c684a8dee07c9424f59462cfd9f15"), _ref;
+    },
+    methods: {
+        getAPI: function getAPI(location) {
+            // Set up url for fetching adoptable pet data.
+            var url = 'http://api.petfinder.com/pet.getRandom';
+            var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
+            var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
+            var cross_origin = '&output=basic&format=json&callback=?'; //added to end for cross-origin request
+        },
+        getPet: function bindButtons() {
+            //Set up url to fetch individual pet ID
+            // var url = 'http://api.petfinder.com/pet.getRandom';
+            var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>&animal=<animal>&breed=<breed>&size=<size>&sex=<sex>&shelterID=<shelterID>&output=basic<cross-origin>";
+            document.getElementById('submitZip').addEventListener('click', function (event) {
+                event.preventDefault();
+
+                var zipCode = document.getElementById('zip').value; // this line gets the zip code from the form entry
+                // input from form
+                var city = document.getElementByID('city').value;
+                var animal = document.getElementByID('animal').value;
+                var breed = document.getElementById('breed').value;
+                var size = document.getElementById('size').value;
+                var sex = document.getElementById('sex').value;
+                var id = document.getElementById('id').value;
+                var email = document.getElementById('id').value;
+                var output = document.getElementById('output').value;
+
+                url = url.replace("<apiKey>", this.apiKey);
+                // Code that fetches data from the API URL and stores it in results.
+                this.apiRequest = new XMLHttpRequest();
+                this.apiRequest.onload = this.catchResponse;
+                this.apiRequest.onerror = this.httpRequestOnError;
+                this.apiRequest.open('get', url, true);
+                this.apiRequest.send();
+            });
+        },
+
+        catchResponse: function catchResponse() {
+            if (this.apiRequest.status.$t === "A") {
+                var response = JSON.parse(this.apiRequest.responseText);
+                console.log(response);
+                this.showError = false;
+                this.showStatus = false;
+                this.status = pet.status.$t;
+                this.zipCode = pet.contact.zip.$t;
+                this.city = pet.contact.response.city.$t;
+                this.id = response.pet.id.$t;
+                this.name = response.pet.name.$t;
+                this.breed = response.pet.breeds.breed.$t;
+                this.size = respone.pet.size.$t;
+                this.age = response.pet.age.$t;
+                this.sex = response.pet.sex.$t;
+                this.description = response.description.$t;
+                this.email = response.pet.contact.email.$t;
+                this.phone = response.pet.contact.phone.$t;
+                this.showOutput = true;
+            } else {
+                this.showError = true;
+                this.showStatus = false;
+                this.showOutput = false;
+                this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
+            }
+        },
+        displayImage: function displayImage(id) {
+            var img = response.petfinder.pet.media.photos.photo[0].$t;
+            var newImg = document.createElement('img');
+            newImg.src = img;
+
+            var list = document.createElement("div");
+            list.setAttribute("id", "List");
+            document.body.appendChild(list);
+
+            list.appendChild(newImg);
+        }
+    }
+});
 
 /***/ }),
 /* 41 */

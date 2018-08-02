@@ -18,5 +18,5 @@ window.Vue = require('vue');
 Vue.component('petfinder_api', require('./components/PetfinderAPI.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#services'
 });

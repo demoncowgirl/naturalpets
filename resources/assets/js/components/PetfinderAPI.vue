@@ -1,6 +1,5 @@
 <template>
 
-  <!-- @section('results') -->
   <div class="container">
     <div class="status-section text-center" v-if="showStatus">
         <span v-html="status"></span>
@@ -41,68 +40,74 @@
           </div>
       </div>
   </div>
-  <!-- @endsection -->
 
 </template>
 
 <script>
 
-    export default {
-        props: ['location', //zipcode
-                'animal',  //barnyard, bird, cat, dog, horse, reptile, smallfurry
-                'breed', // need to use breeds.list method here
-                'size',  // S = small, M = medium, L= Large,  XL = Extra Large
-                'sex', // M = male, F = female
-                'id', // petfinder ID of pet
-                'output'], //how much of pet ID do you want to fetch? id, basic or full. basic will be what I use
 
+ export default {
+   // from input form
+          props: [
+            'zipCode',
+            'location',
+            'animal',
+            'breed',
+            'size',
+            'sex'
+          ],
+          // retrieved from API
         data: function() {
             return {
                 showOutput: false,
+                status:'A',
+                zipCode: '',
+                city:'',
                 id: '',
-                city: '',
                 name: '',
-                age: '',
                 size: '',
+                age: '',
+                sex:'',
                 breed: '',
+                sex: '',
+                output: 'basic',
                 description: '',
+                phone: '',
+                email: '',
                 showError: false,
                 error: '',
                 showStatus: true,
-                status: '<h1>Fetching a list of your potential adoptees...</h1>',
+                status: '<h1>Fetching a list of your potential new best friends...</h1>',
                 apiRequest: null,
                 apiKey: "d37c684a8dee07c9424f59462cfd9f15"
             }
-        },
+          },
         methods: {
-            getPet: function(location) {
+            getAPI: function(location) {
                 // Set up url for fetching adoptable pet data.
                 var url = 'http://api.petfinder.com/pet.getRandom';
                 var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
                 var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
                 var cross_origin = '&output=basic&format=json&callback=?' //added to end for cross-origin request
               },
-            // getBreed: function(){
-            //   //Set up url to fetch breed list
-            //   var url = 'http://api.petfinder.com/breed.list';
-            //   var animal = document.getElementByID('animal').value;
-            //   var breed = document.getElementById('breed').value;
-            // },
             getPet: function bindButtons(){
                 //Set up url to fetch individual pet ID
-                var url = 'http://api.petfinder.com/pet.getRandom';
+                // var url = 'http://api.petfinder.com/pet.getRandom';
+                 var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>&animal=<animal>&breed=<breed>&size=<size>&sex=<sex>&shelterID=<shelterID>&output=basic<cross-origin>";
                 document.getElementById('submitZip').addEventListener('click', function(event){
             		event.preventDefault();
+
+                var zipCode = document.getElementById('zip').value; // this line gets the zip code from the form entry
                 // input from form
-                var zipCode = document.getElementByID('location').value;
+                var city = document.getElementByID('city').value;
                 var animal = document.getElementByID('animal').value;
                 var breed = document.getElementById('breed').value;
                 var size = document.getElementById('size').value;
                 var sex = document.getElementById('sex').value;
-                var shelterID = document.getElementById('shelterID').value;
-                var output = document.getElementById('output').value; //needs to be set to basic as preventDefault
+                var id = document.getElementById('id').value;
+                var email = document.getElementById('id').value;
+                var output = document.getElementById('output').value;
 
-                var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>&animal=<animal>&breed=<breed>&size=<size>&sex=<sex>&shelterID=<shelterID>&output=basic<cross-origin>";
 
                 url = url.replace("<apiKey>", this.apiKey);
                 // Code that fetches data from the API URL and stores it in results.
@@ -111,42 +116,48 @@
                 this.apiRequest.onerror = this.httpRequestOnError;
                 this.apiRequest.open('get', url, true);
                 this.apiRequest.send();
-              },
-            // catchResponse: function() {
-            //     if (this.apiRequest.status.$t === "A") {
-            //         var response = JSON.parse(this.apiRequest.responseText);
-            //         console.log(response);
-            //         this.showError = false;
-            //         this.showStatus = false;
-            //         this.id = response.it.$t;
-            //         this.city = response.city.$t;
-            //         this.name = response.name.$t;
-            //         this.age = response.age.$t;
-            //         this.size = respone.size.$t;
-            //         this.breed = response.breed.$t;
-            //         this.sex = response.sex.$t;
-            //         this.description = response.description.$t;
-            //         this.showOutput = true;
-            //     }
-            //     else {
-            //         this.showError = true;
-            //         this.showStatus = false;
-            //         this.showOutput = false;
-            //         this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
-            //     }
-            //   },
-            // displayImage: function(id) {
-            //   var img = response.petfinder.pet.media.photos.photo[0].$t;
-            //   var newImg = document.createElement('img');
-            //   newImg.src = img;
-            //
-            //   var list = document.createElement("div");
-            //   list.setAttribute("id", "List");
-            //   document.body.appendChild(list);
-            //
-            //   list.appendChild(newImg);
-            // }
-        }
-    };
+                });
+            },
+
+                catchResponse: function() {
+                 if (this.apiRequest.status.$t === "A") {
+                     var response = JSON.parse(this.apiRequest.responseText);
+                     console.log(response);
+                     this.showError = false;
+                     this.showStatus = false;
+                     this.status = pet.status.$t;
+                     this.zipCode = pet.contact.zip.$t;
+                     this.city = pet.contact.response.city.$t;
+                     this.id = response.pet.id.$t;
+                     this.name = response.pet.name.$t;
+                     this.breed = response.pet.breeds.breed.$t;
+                     this.size = respone.pet.size.$t;
+                     this.age = response.pet.age.$t;
+                     this.sex = response.pet.sex.$t;
+                     this.description = response.description.$t;
+                     this.email = response.pet.contact.email.$t;
+                     this.phone = response.pet.contact.phone.$t;
+                     this.showOutput = true;
+                 }
+                 else {
+                     this.showError = true;
+                     this.showStatus = false;
+                     this.showOutput = false;
+                     this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
+                 }
+               },
+             displayImage: function(id) {
+               var img = response.petfinder.pet.media.photos.photo[0].$t;
+               var newImg = document.createElement('img');
+               newImg.src = img;
+
+               var list = document.createElement("div");
+               list.setAttribute("id", "List");
+               document.body.appendChild(list);
+
+               list.appendChild(newImg);
+             }
+          }
+    }
 
 </script>

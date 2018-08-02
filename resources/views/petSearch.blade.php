@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@includes()
+@extends('layouts.services')
 
 @section('title', 'Pet Search')
 
@@ -20,12 +18,22 @@
         <option value="smallfurry">Small Furry</option>
       </select>
 
-      <label for="breed">Breed</label>
+      <!-- <label for="breed">Breed</label> -->
       <!-- how do i bring up breed list here -->
+
+      <label for="age">Age</label>
+        <select name="age">
+          <option value = ''>Any</option>
+          <option value = "Baby">Baby</option>
+          <option value="Young">Young</option>
+          <option value="Adult">Adult</option>
+          <option value="Senior">Senior</option>
+        </select>
 
       <!-- todo: add approximate weight to size labels -->
       <label for="size">Size</label>
         <select name="size">
+          <option value = ''>Any</option>
           <option value="S">Small</option>
           <option value="M">Medium</option>
           <option value="L">Large</option>
@@ -34,14 +42,10 @@
 
       <label for="sex">Animal Type</label>
         <select name="sex">
+          <option value = ''>Any</option>
           <option value="M">Male</option>
           <option value="F">Female</option>
         </select>
+      <input type="submit" id="submitZip">
     </div>
 @endsection
-
-<!-- @section('results')
-
-search results go here....
-
-@endsection -->

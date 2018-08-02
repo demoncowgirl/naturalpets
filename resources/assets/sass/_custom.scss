@@ -1,3 +1,9 @@
+@font-face {
+    font-family: gooddog;
+    // src: url(assets/fonts/GOODDC_.TTC);
+    src: url(https://www.dafont.com/good-dog.font);
+}
+
 *{
   margin: 0;
 }
@@ -63,15 +69,10 @@ body{
   background-color: #2B7C62;
 }
 
-//
-// #smallNavbar{
-//   width: auto;
-// }
-
 h1{
   color: #145A56;
   text-align: center;
-  font-family: McLaren, cursive;
+  font-family:gooddog;
 }
 
 label.form-control{
@@ -84,14 +85,16 @@ form.text{
 }
 
 #showcase{
-    border-style: solid;
-    border-width: 3px;
-    border-color: #145A56;
-    background-color: #F1F1ED;
+  height: 400px;
+  Width: 85%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #145A56;
+  background-color: #F1F1ED;
 }
 
 #centerContainer{
-  height: 400px;
+  height: 550px;
   Width: 66%;
   margin-top: 100px;
   margin-left: 15px;

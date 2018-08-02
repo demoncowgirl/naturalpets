@@ -16,7 +16,7 @@
 </head>
 <body>
 
-  <div id="app">
+  <div id="app" class="font-family:GOODDC_.TTC justify-content-center">
 
       <!-- provides navbar on every page -->
       @include('inc._navbar')
@@ -28,6 +28,8 @@
 
       <!-- includes footer -->
       @include('inc._footer')
+
+      @yield('content')
     </div>
 
     <!-- Scripts -->
