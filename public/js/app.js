@@ -43428,20 +43428,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
-
 
   data: function data() {
     return {
@@ -43466,7 +43456,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       apiKey: "d37c684a8dee07c9424f59462cfd9f15"
     };
   },
-
   methods: {
     getAPI: function getAPI(location) {
       // Set up url for fetching adoptable pet data.
@@ -43476,7 +43465,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     getPet: function bindButtons() {
-
       var url = "http://api.petfinder.com/pet.getRandom?key=d37c684a8dee07c9424f59462cfd9f15&animal=dog&location=<zipCode>&output=basic&format=json&callback=?";
       // var url ="http://api.petfinder.com/pet.getRandom?location=<zipCode>&animal=<animal>?format=json&key=<apiKey>&callback=?";
       // var url = "http://api.petfinder.com/pet.getRandom?format=json&key=<apiKey>&callback=?<&location=<zipCode>&animal=<animal>";
@@ -43529,11 +43517,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //for response, displayed
         this.city = pet.contact.city.$t;
         this.name = pet.name.$t;
-        this.breed = pet.breeds.breed.$t;
         this.description = pet.description.$t;
         this.email = pet.contact.email.$t;
         this.phone = pet.contact.phone.$t;
         this.showOutput = true;
+
+        this.breed = pet.breeds.breed.$t;
+
+        if (pet.breeds.breed.length > 0) {
+          console.log("this is mixed breed");
+          for (var i = 0; pet.breeds.breed.length > 0; i++) {
+            this.breed[i];
+          }
+        } else {
+          this.breed = pet.breeds.breed.$t;
+          console.log("this is not a mixed breed");
+        }
       } else {
         this.showError = true;
         this.showStatus = false;
@@ -43541,8 +43540,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
       }
     },
-    displayImage: function displayImage(id) {
-      var img = response.petfinder.pet.media.photos.photo[0].$t;
+    displayImage: function displayImage(data) {
+      var img = data.petfinder.pet.media.photos.photo[0].$t;
       var newImg = document.createElement('img');
       newImg.src = img;
 
@@ -43780,32 +43779,16 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _vm.showStatus
-        ? _c("div", { staticClass: "status-section text-center" }, [
-            _c("span", { domProps: { innerHTML: _vm._s(_vm.status) } })
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.showOutput
-        ? _c("div", { staticClass: "output-section" }, [
-            _c("div", { staticClass: "row" }, [
-              _c(
-                "div",
-                { staticClass: "col", staticStyle: { "min-width": "300px" } },
-                [
-                  _c("div", { staticClass: "card mb-3 border-dark" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "card-header bg-warning text-center font-weight-bold border-dark"
-                      },
-                      [_vm._v("Location")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("p", [_vm._v("Is returning something")]),
-                      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _vm.showStatus
+          ? _c("div", { staticClass: "status-section center" }, [
+              _c("span", { domProps: { innerHTML: _vm._s(_vm.status) } }),
+              _vm._v(" "),
+              _vm.showOutput
+                ? _c(
+                    "div",
+                    { staticClass: "output-section w-85 border border-dark" },
+                    [
                       _vm.searchZip
                         ? _c("h3", [
                             _c("strong", [_vm._v("Zipcode:")]),
@@ -43847,17 +43830,65 @@ var render = function() {
                         _c("strong", [_vm._v("Description:")]),
                         _vm._v(" " + _vm._s(_vm.description))
                       ])
-                    ])
-                  ])
-                ]
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-lg",
+                  attrs: { type: "button", id: "prevpage" },
+                  on: {
+                    click: function($event) {
+                      _vm.previousPage()
+                    }
+                  }
+                },
+                [_vm._m(0)]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-lg",
+                  attrs: { type: "button", id: "nextPage" },
+                  on: {
+                    click: function($event) {
+                      _vm.nextPage()
+                    }
+                  }
+                },
+                [_vm._m(1)]
               )
             ])
-          ])
-        : _vm._e()
+          : _vm._e()
+      ])
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "previous", attrs: { href: "#" } }, [
+      _c("span", { staticClass: "arrow-icon" }, [
+        _c("i", { staticClass: "fas fa-arrow-circle-left" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "next", attrs: { href: "#" } }, [
+      _c("span", { staticClass: "arrow-icon" }, [
+        _c("i", { staticClass: "fas fa-arrow-circle-right" })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

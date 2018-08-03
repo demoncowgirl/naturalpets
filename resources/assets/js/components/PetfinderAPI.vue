@@ -1,81 +1,72 @@
 <template>
   <!-- input form for pet search -->
   <div id="petSearchInput" class="container">
-      <div class="form-group justify-content-center">
-        <label for="searchZip">ZipCode</label>
-          <input type="text" name="zipCode" value="" class="form-control" v-model='searchZip'>
+    <div class="form-group justify-content-center">
+      <label for="searchZip">ZipCode</label>
+      <input type="text" name="zipCode" value="" class="form-control" v-model='searchZip'>
+      <label for="animal">Animal Type</label>
+      <select name="animal" v-model='animalType'>
+        <option selected="selected" value="dog">Dog</option>
+        <option value="cat">Cat</option>
+        <option value="bird">Bird</option>
+        <option value="horse">Horse</option>
+        <option value="barnyard">Barnyard</option>
+        <option value="reptile">Reptile</option>
+        <option value="smallfurry">Small Furry</option>
+      </select>
 
-        <label for="animal">Animal Type</label>
-          <select name="animal" v-model='animalType'>
-            <option selected="selected" value="dog">Dog</option>
-            <option value="cat">Cat</option>
-            <option value="bird">Bird</option>
-            <option value="horse">Horse</option>
-            <option value="barnyard">Barnyard</option>
-            <option value="reptile">Reptile</option>
-            <option value="smallfurry">Small Furry</option>
-          </select>
-
-        <label for="age">Age</label>
-          <select name="age" v-model='animalAge'>
-            <option value = ''>Any</option>
-            <option value = "Baby">Baby</option>
-            <option value="Young">Young</option>
-            <option value="Adult">Adult</option>
-            <option value="Senior">Senior</option>
-          </select>
+      <label for="age">Age</label>
+      <select name="age" v-model='animalAge'>
+        <option value = ''>Any</option>
+        <option value = "Baby">Baby</option>
+        <option value="Young">Young</option>
+        <option value="Adult">Adult</option>
+        <option value="Senior">Senior</option>
+      </select>
 
           <!-- todo: add approximate weight to size labels -->
-          <label for="size">Size</label>
-            <select name="size" v-model='animalSize'>
-              <option value = ''>Any</option>
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">Extra Large</option>
-            </select>
+      <label for="size">Size</label>
+      <select name="size" v-model='animalSize'>
+        <option value = ''>Any</option>
+        <option value="S">Small</option>
+        <option value="M">Medium</option>
+        <option value="L">Large</option>
+        <option value="XL">Extra Large</option>
+      </select>
 
-          <label for="sex">Sex</label>
-            <select name="sex" v-model="animalSex">
-              <option value = ''>Any</option>
-              <option value="M">Male</option>
-              <option value="F">Female</option>
-            </select>
-          <input type="submit" id="submitZip" @click="getPet()">
-      </div>
-
-    <!-- <div class="container"> -->
-      <div class="status-section text-center" v-if="showStatus">
-          <span v-html="status"></span>
-      </div>
-      <!-- <div class="error-section" v-if="showError">
-          <div class="card mb-3 border-dark">
-              <div class="card-header bg-danger text-center font-weight-bold border-dark">Error</div>
-              <div class="card-body"><span v-html="error"></span></div>
-          </div>
-      </div> -->
-      <div class="output-section" v-if="showOutput">
-          <div class="row">
-            <div class="col" style="min-width: 300px;">
-                <div class="card mb-3 border-dark">
-                    <div class="card-header bg-warning text-center font-weight-bold border-dark">Location</div>
-                    <div class="card-body">
-                      <p>Is returning something</p>
-                        <h3 v-if="searchZip"><strong>Zipcode:</strong> {{ searchZip }}</h3>
-                        <div><strong>Location:</strong> {{ city }}</div>
-                        <div><strong>Name:</strong> {{ name }}</div>
-                        <div><strong>Age:</strong> {{ age }}</div>
-                        <div><strong>Sex:</strong> {{ sex }}</div>
-                        <div><strong>Size:</strong> {{ size }}</div>
-                        <div><strong>Breed:</strong> {{ breed }}</div>
-                        <div><strong>Description:</strong> {{ description }}</div>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <label for="sex">Sex</label>
+      <select name="sex" v-model="animalSex">
+        <option value = ''>Any</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+      </select>
+      <input type="submit" id="submitZip" @click="getPet()">
+    </div>
+    <div class="container">
+      <div class="status-section center" v-if="showStatus">
+        <span v-html="status"></span>
+        <div class="output-section w-85 border border-dark" v-if="showOutput">
+          <h3 v-if="searchZip"><strong>Zipcode:</strong> {{ searchZip }}</h3>
+          <div><strong>Location:</strong> {{ city }}</div>
+          <div><strong>Name:</strong> {{ name }}</div>
+          <div><strong>Age:</strong> {{ age }}</div>
+          <div><strong>Sex:</strong> {{ sex }}</div>
+          <div><strong>Size:</strong> {{ size }}</div>
+          <div><strong>Breed:</strong> {{ breed }}</div>
+          <div><strong>Description:</strong> {{ description }}</div>
         </div>
-    <!-- </div> -->
+        <button type="button" class="btn btn-lg" id="prevpage" @click="previousPage()">
+          <a href="#" class="previous">
+            <span class="arrow-icon"><i class="fas fa-arrow-circle-left"></i></span>
+          </a>
+        </button>
+        <button type="button" class="btn btn-lg" id="nextPage" @click="nextPage()">
+          <a href="#" class="next">
+            <span class ="arrow-icon"><i class="fas fa-arrow-circle-right"></i></span>
+          </a>
+        </button>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -85,7 +76,6 @@
  export default {
    mounted(){
    },
-
         data: function() {
             return {
                 showOutput: false,
@@ -109,8 +99,6 @@
                 apiKey: "d37c684a8dee07c9424f59462cfd9f15"
             }
           },
-
-
         methods: {
             getAPI: function(location) {
                 // Set up url for fetching adoptable pet data.
@@ -120,7 +108,6 @@
               },
 
             getPet: function bindButtons(){
-
                 var url = "http://api.petfinder.com/pet.getRandom?key=d37c684a8dee07c9424f59462cfd9f15&animal=dog&location=<zipCode>&output=basic&format=json&callback=?";
                 // var url ="http://api.petfinder.com/pet.getRandom?location=<zipCode>&animal=<animal>?format=json&key=<apiKey>&callback=?";
                 // var url = "http://api.petfinder.com/pet.getRandom?format=json&key=<apiKey>&callback=?<&location=<zipCode>&animal=<animal>";
@@ -176,11 +163,24 @@
                      //for response, displayed
                      this.city = pet.contact.city.$t;
                      this.name = pet.name.$t;
-                     this.breed = pet.breeds.breed.$t;
                      this.description = pet.description.$t;
                      this.email = pet.contact.email.$t;
                      this.phone = pet.contact.phone.$t;
                      this.showOutput = true;
+
+                     this.breed = pet.breeds.breed.$t;
+
+                     if(pet.breeds.breed.length > 0){
+                       console.log("this is mixed breed");
+                        for(var i = 0; pet.breeds.breed.length > 0; i++){
+                          this.breed[i];
+                        }
+                     }
+                     else {
+                       this.breed = pet.breeds.breed.$t;
+                       console.log("this is not a mixed breed");
+                     }
+
                  }
                  else {
                      this.showError = true;
@@ -189,8 +189,8 @@
                      this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
                  }
                },
-             displayImage: function(id) {
-               var img = response.petfinder.pet.media.photos.photo[0].$t;
+             displayImage: function(data) {
+               var img = data.petfinder.pet.media.photos.photo[0].$t;
                var newImg = document.createElement('img');
                newImg.src = img;
 

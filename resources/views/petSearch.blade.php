@@ -5,6 +5,6 @@
 @section('content')
 <div id="results">
   <petfinderapi></petfinderapi>
-<div>
+</div>
 
 @endsection

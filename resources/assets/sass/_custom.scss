@@ -28,13 +28,6 @@ body{
   list-style-type: none;
 }
 
-#logo{
-  margin-top: 20px;
-  margin-right: 10px;
-  position: fixed;
-
-}
-
 #imageBlock{
   height: 150px;
   border: solid;
@@ -108,9 +101,8 @@ form.text{
   max-width: 700px;
 }
 
-input{
-  margin-bottom: 10px;
-  max-width: 85px;
+i{
+  color: #145A56;
 }
 
 #leftContainer{
