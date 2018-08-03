@@ -44,22 +44,23 @@
           <input type="submit" id="submitZip" @click="getPet()">
       </div>
 
-    <div class="container">
+    <!-- <div class="container"> -->
       <div class="status-section text-center" v-if="showStatus">
           <span v-html="status"></span>
       </div>
-      <div class="error-section" v-if="showError">
+      <!-- <div class="error-section" v-if="showError">
           <div class="card mb-3 border-dark">
               <div class="card-header bg-danger text-center font-weight-bold border-dark">Error</div>
               <div class="card-body"><span v-html="error"></span></div>
           </div>
-      </div>
+      </div> -->
       <div class="output-section" v-if="showOutput">
           <div class="row">
             <div class="col" style="min-width: 300px;">
                 <div class="card mb-3 border-dark">
                     <div class="card-header bg-warning text-center font-weight-bold border-dark">Location</div>
                     <div class="card-body">
+                      <p>Is returning something</p>
                         <h3 v-if="searchZip"><strong>Zipcode:</strong> {{ searchZip }}</h3>
                         <div><strong>Location:</strong> {{ city }}</div>
                         <div><strong>Name:</strong> {{ name }}</div>
@@ -74,7 +75,7 @@
             </div>
           </div>
         </div>
-    </div>
+    <!-- </div> -->
   </div>
 
 </template>
@@ -120,14 +121,15 @@
 
             getPet: function bindButtons(){
 
-              console.log('submitted');
-
-                var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>&location=<zipCode>&animal=<animal>,<cross_origin>";
+                var url = "http://api.petfinder.com/pet.getRandom?key=d37c684a8dee07c9424f59462cfd9f15&animal=dog&location=<zipCode>&output=basic&format=json&callback=?";
+                // var url ="http://api.petfinder.com/pet.getRandom?location=<zipCode>&animal=<animal>?format=json&key=<apiKey>&callback=?";
+                // var url = "http://api.petfinder.com/pet.getRandom?format=json&key=<apiKey>&callback=?<&location=<zipCode>&animal=<animal>";
 
                 url = url.replace("<apiKey>", this.apiKey);
                 url = url.replace("<zipCode>", this.searchZip);
                 url = url.replace("<animal>", this.animalType);
-                url = url.replace("<cross_origin>", '&output=basic&format=json&callback=?'); //added to end for cross-origin request
+                url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
+                // &output=basic
 
                 if(this.animalAge.length > 0){
                   (url = url + '&age=' + this.animalAge)
@@ -143,35 +145,41 @@
 
 
                 // Code that fetches data from the API URL and stores it in results.
-                this.apiRequest = new XMLHttpRequest();
-                this.apiRequest.onload = this.catchResponse;
-                this.apiRequest.onerror = this.httpRequestOnError;
-                this.apiRequest.open('get', url, true);
-                this.apiRequest.send();
+                // this.apiRequest = new XMLHttpRequest();
+                // this.apiRequest.onload = this.catchResponse;
+                // this.apiRequest.onerror = this.httpRequestOnError;
+                // this.apiRequest.open('get', url, true);
+                // this.apiRequest.send();
+
+                $.getJSON(url)
+                  .done(this.catchResponse)
+                  .catch(function(err) { alert('Error retrieving data!');
+                });
+
             },
 
-                catchResponse: function() {
-                 if (this.apiRequest.status.$t === "A") {
-                     var response = JSON.parse(this.apiRequest.responseText);
-                     console.log(response);
+                catchResponse: function(data) {
+                  console.log(data);
+                  var pet = data.petfinder.pet;
+                 if (pet.status.$t === "A") {
                      // used in search
                      this.showError = false;
                      this.showStatus = false;
                      this.animalType = pet.animal.$t;
-                     this.animalAge = response.pet.age.$t;
-                     this.animalSize = response.pet.size.$t;
-                     this.animalSex = response.pet.sex.$t;
+                     this.animalAge = pet.age.$t;
+                     this.animalSize = pet.size.$t;
+                     this.animalSex = pet.sex.$t;
                      this.status = pet.status.$t; //default of 'A'
                      // for response, not displayed
-                     this.id = response.pet.id.$t;
+                     this.id = pet.id.$t;
                      this.zipCode = pet.contact.zip.$t;
                      //for response, displayed
-                     this.city = pet.contact.response.city.$t;
-                     this.name = response.pet.name.$t;
-                     this.breed = response.pet.breeds.breed.$t;
-                     this.description = response.description.$t;
-                     this.email = response.pet.contact.email.$t;
-                     this.phone = response.pet.contact.phone.$t;
+                     this.city = pet.contact.city.$t;
+                     this.name = pet.name.$t;
+                     this.breed = pet.breeds.breed.$t;
+                     this.description = pet.description.$t;
+                     this.email = pet.contact.email.$t;
+                     this.phone = pet.contact.phone.$t;
                      this.showOutput = true;
                  }
                  else {

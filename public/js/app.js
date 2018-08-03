@@ -43436,6 +43436,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43476,14 +43477,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     getPet: function bindButtons() {
 
-      console.log('submitted');
-
-      var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>&location=<zipCode>&animal=<animal>,<cross_origin>";
+      var url = "http://api.petfinder.com/pet.getRandom?key=d37c684a8dee07c9424f59462cfd9f15&animal=dog&location=<zipCode>&output=basic&format=json&callback=?";
+      // var url ="http://api.petfinder.com/pet.getRandom?location=<zipCode>&animal=<animal>?format=json&key=<apiKey>&callback=?";
+      // var url = "http://api.petfinder.com/pet.getRandom?format=json&key=<apiKey>&callback=?<&location=<zipCode>&animal=<animal>";
 
       url = url.replace("<apiKey>", this.apiKey);
       url = url.replace("<zipCode>", this.searchZip);
       url = url.replace("<animal>", this.animalType);
-      url = url.replace("<cross_origin>", '&output=basic&format=json&callback=?'); //added to end for cross-origin request
+      url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
+      // &output=basic
 
       if (this.animalAge.length > 0) {
         url = url + '&age=' + this.animalAge;
@@ -43498,35 +43500,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
 
       // Code that fetches data from the API URL and stores it in results.
-      this.apiRequest = new XMLHttpRequest();
-      this.apiRequest.onload = this.catchResponse;
-      this.apiRequest.onerror = this.httpRequestOnError;
-      this.apiRequest.open('get', url, true);
-      this.apiRequest.send();
+      // this.apiRequest = new XMLHttpRequest();
+      // this.apiRequest.onload = this.catchResponse;
+      // this.apiRequest.onerror = this.httpRequestOnError;
+      // this.apiRequest.open('get', url, true);
+      // this.apiRequest.send();
+
+      $.getJSON(url).done(this.catchResponse).catch(function (err) {
+        alert('Error retrieving data!');
+      });
     },
 
-    catchResponse: function catchResponse() {
-      if (this.apiRequest.status.$t === "A") {
-        var response = JSON.parse(this.apiRequest.responseText);
-        console.log(response);
+    catchResponse: function catchResponse(data) {
+      console.log(data);
+      var pet = data.petfinder.pet;
+      if (pet.status.$t === "A") {
         // used in search
         this.showError = false;
         this.showStatus = false;
         this.animalType = pet.animal.$t;
-        this.animalAge = response.pet.age.$t;
-        this.animalSize = response.pet.size.$t;
-        this.animalSex = response.pet.sex.$t;
+        this.animalAge = pet.age.$t;
+        this.animalSize = pet.size.$t;
+        this.animalSex = pet.sex.$t;
         this.status = pet.status.$t; //default of 'A'
         // for response, not displayed
-        this.id = response.pet.id.$t;
+        this.id = pet.id.$t;
         this.zipCode = pet.contact.zip.$t;
         //for response, displayed
-        this.city = pet.contact.response.city.$t;
-        this.name = response.pet.name.$t;
-        this.breed = response.pet.breeds.breed.$t;
-        this.description = response.description.$t;
-        this.email = response.pet.contact.email.$t;
-        this.phone = response.pet.contact.phone.$t;
+        this.city = pet.contact.city.$t;
+        this.name = pet.name.$t;
+        this.breed = pet.breeds.breed.$t;
+        this.description = pet.description.$t;
+        this.email = pet.contact.email.$t;
+        this.phone = pet.contact.phone.$t;
         this.showOutput = true;
       } else {
         this.showError = true;
@@ -43774,99 +43780,80 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        _vm.showStatus
-          ? _c("div", { staticClass: "status-section text-center" }, [
-              _c("span", { domProps: { innerHTML: _vm._s(_vm.status) } })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.showError
-          ? _c("div", { staticClass: "error-section" }, [
-              _c("div", { staticClass: "card mb-3 border-dark" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "card-header bg-danger text-center font-weight-bold border-dark"
-                  },
-                  [_vm._v("Error")]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("span", { domProps: { innerHTML: _vm._s(_vm.error) } })
-                ])
-              ])
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.showOutput
-          ? _c("div", { staticClass: "output-section" }, [
-              _c("div", { staticClass: "row" }, [
-                _c(
-                  "div",
-                  { staticClass: "col", staticStyle: { "min-width": "300px" } },
-                  [
-                    _c("div", { staticClass: "card mb-3 border-dark" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "card-header bg-warning text-center font-weight-bold border-dark"
-                        },
-                        [_vm._v("Location")]
-                      ),
+      _vm.showStatus
+        ? _c("div", { staticClass: "status-section text-center" }, [
+            _c("span", { domProps: { innerHTML: _vm._s(_vm.status) } })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showOutput
+        ? _c("div", { staticClass: "output-section" }, [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col", staticStyle: { "min-width": "300px" } },
+                [
+                  _c("div", { staticClass: "card mb-3 border-dark" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "card-header bg-warning text-center font-weight-bold border-dark"
+                      },
+                      [_vm._v("Location")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("p", [_vm._v("Is returning something")]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
-                        _vm.searchZip
-                          ? _c("h3", [
-                              _c("strong", [_vm._v("Zipcode:")]),
-                              _vm._v(" " + _vm._s(_vm.searchZip))
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Location:")]),
-                          _vm._v(" " + _vm._s(_vm.city))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Name:")]),
-                          _vm._v(" " + _vm._s(_vm.name))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Age:")]),
-                          _vm._v(" " + _vm._s(_vm.age))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Sex:")]),
-                          _vm._v(" " + _vm._s(_vm.sex))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Size:")]),
-                          _vm._v(" " + _vm._s(_vm.size))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Breed:")]),
-                          _vm._v(" " + _vm._s(_vm.breed))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Description:")]),
-                          _vm._v(" " + _vm._s(_vm.description))
-                        ])
+                      _vm.searchZip
+                        ? _c("h3", [
+                            _c("strong", [_vm._v("Zipcode:")]),
+                            _vm._v(" " + _vm._s(_vm.searchZip))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Location:")]),
+                        _vm._v(" " + _vm._s(_vm.city))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Name:")]),
+                        _vm._v(" " + _vm._s(_vm.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Age:")]),
+                        _vm._v(" " + _vm._s(_vm.age))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Sex:")]),
+                        _vm._v(" " + _vm._s(_vm.sex))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Size:")]),
+                        _vm._v(" " + _vm._s(_vm.size))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Breed:")]),
+                        _vm._v(" " + _vm._s(_vm.breed))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Description:")]),
+                        _vm._v(" " + _vm._s(_vm.description))
                       ])
                     ])
-                  ]
-                )
-              ])
+                  ])
+                ]
+              )
             ])
-          : _vm._e()
-      ])
+          ])
+        : _vm._e()
     ]
   )
 }

@@ -20,7 +20,7 @@
         <hr class="clearfix w-100 d-md-none pb-1">
 
         <!-- Grid column -->
-        <div class="col-sm-1 mb-md-0 mb-2">
+        <div class="col-sm-3 mb-md-0 mb-2">
 
             <!-- Links -->
             <h5 class="text-uppercase">Links</h5>
@@ -32,12 +32,10 @@
             </ul>
 
           </div>
-          <!-- Grid column -->
 
           <!-- Grid column -->
-          <div class="col-md-2 mb-md-0 mb-2">
+          <div class="col-md-1 mb-md-0 mb-2">
 
-            <!-- Links -->
             <h5 class="text-uppercase">Links</h5>
 
             <ul class="list-unstyled">
@@ -49,7 +47,7 @@
 
           </div>
 
-            <div class="col-sm-3 mt-md-0 ">
+            <div class="col-sm-2 mt-md-0 ">
 
             @include('inc._logo')
 
@@ -58,9 +56,14 @@
           @if(Request::is('/'))
           <div class="row">
             <div id="animation2" class="page-footer text-center">
-                  <row>
+                  <div class="row">
                     <img id="cat-left-to-right" src="{{ asset('assets/images/cat_prints.gif') }}" alt="silhouette of cat walking across page from left to right, leaving pawprints" style="height:80px;">
-                  </row>
+                  </div>
+                  <div id="adoptLogo" class="images align-right">
+                        <div class = "row">
+                          <img src="{{ asset('assets/images/adopt.png') }}" alt="adopt, don't shop logo" style="height:140px;">
+                        </div>
+                  </div>
             </div>
           </div>
           @endif
