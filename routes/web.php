@@ -21,6 +21,8 @@ Route::get('kennels', 'PagesController@getKennels');
 Route::get('groomers', 'PagesController@getGroomers');
 Route::get('petSupplies', 'PagesController@getPetSupplies');
 Route::get('serviceSearch', 'PagesController@getPetServices');
+Route::get('elliesList', 'PagesController@getList');
+Route::get('loveOurPets', 'PagesController@getLove');
 
 Route::get('messages', 'PagesController@getMessages');
 
@@ -42,8 +44,4 @@ Route::get('search', 'SearchController@getSearchResults');
 // Route::post('/profile', 'ProfileCRequest@submit');
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');

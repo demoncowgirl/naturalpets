@@ -40,5 +40,16 @@ class PagesController extends Controller
     public function getMessages() {
         return view('messages');
     }
+    public function getList() {
+        return view('elliesList');
+    }
+    public function getLove() {
+        return view('loveOurPets');
+    }
+
+    //remove after testing
+    public function getTest() {
+        return view('apiTest');
+    }
 
 }

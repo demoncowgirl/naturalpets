@@ -18,8 +18,6 @@ Vue.component('example', require('./components/ExampleComponent.vue'));
 
 Vue.component('petfinderapi', require('./components/PetfinderAPI.vue'));
 
-console.log("Beth loves to make things difficult!");
-
 const app = new Vue({
     el: '#services'
 });

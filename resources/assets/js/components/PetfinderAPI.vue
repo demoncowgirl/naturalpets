@@ -1,13 +1,13 @@
 <template>
   <!-- input form for pet search -->
   <div id="petSearchInput" class="container">
-      <div class="form-group">
-        <label for="location">ZipCode</label>
-          <input type="text" name="zipCode" value="" class="form-control">
+      <div class="form-group justify-content-center">
+        <label for="searchZip">ZipCode</label>
+          <input type="text" name="zipCode" value="" class="form-control" v-model='searchZip'>
 
         <label for="animal">Animal Type</label>
-          <select name="animal">
-            <option value="dog">Dog</option>
+          <select name="animal" v-model='animalType'>
+            <option selected="selected" value="dog">Dog</option>
             <option value="cat">Cat</option>
             <option value="bird">Bird</option>
             <option value="horse">Horse</option>
@@ -16,11 +16,8 @@
             <option value="smallfurry">Small Furry</option>
           </select>
 
-          <!-- <label for="breed">Breed</label> -->
-          <!-- how do i bring up breed list here -->
-
         <label for="age">Age</label>
-          <select name="age">
+          <select name="age" v-model='animalAge'>
             <option value = ''>Any</option>
             <option value = "Baby">Baby</option>
             <option value="Young">Young</option>
@@ -30,7 +27,7 @@
 
           <!-- todo: add approximate weight to size labels -->
           <label for="size">Size</label>
-            <select name="size">
+            <select name="size" v-model='animalSize'>
               <option value = ''>Any</option>
               <option value="S">Small</option>
               <option value="M">Medium</option>
@@ -38,13 +35,13 @@
               <option value="XL">Extra Large</option>
             </select>
 
-          <label for="sex">Animal Type</label>
-            <select name="sex">
+          <label for="sex">Sex</label>
+            <select name="sex" v-model="animalSex">
               <option value = ''>Any</option>
               <option value="M">Male</option>
               <option value="F">Female</option>
             </select>
-          <input type="submit" id="submitZip">
+          <input type="submit" id="submitZip" @click="getPet()">
       </div>
 
     <div class="container">
@@ -63,7 +60,7 @@
                 <div class="card mb-3 border-dark">
                     <div class="card-header bg-warning text-center font-weight-bold border-dark">Location</div>
                     <div class="card-body">
-                        <h3 v-if="zipCode"><strong>Zipcode:</strong> {{ zipCode }}</h3>
+                        <h3 v-if="searchZip"><strong>Zipcode:</strong> {{ searchZip }}</h3>
                         <div><strong>Location:</strong> {{ city }}</div>
                         <div><strong>Name:</strong> {{ name }}</div>
                         <div><strong>Age:</strong> {{ age }}</div>
@@ -86,107 +83,92 @@
 
  export default {
    mounted(){
-     console.log('DERP!!')
    },
-   // from input form
-          // props: [
-          //   'zipCode',
-          //   'location',
-          //   'animal',
-          //   'breed',
-          //   'size',
-          //   'sex'
-          // ],
-          // retrieved from API
+
         data: function() {
             return {
                 showOutput: false,
-                status:'A',
-                zipCode: '',
-                city:'',
-                id: '',
-                name: '',
-                size: '',
-                age: '',
-                sex:'',
-                breed: '',
-                sex: '',
                 output: 'basic',
+                searchZip: '',
+                city:'',
+                name: '',
+                animalType: '',
+                animalSize: '',
+                animalAge: '',
+                animalSex:'',
+                breed: '',
                 description: '',
                 phone: '',
                 email: '',
                 showError: false,
                 error: '',
                 showStatus: true,
-                status: '<h1>Fetching a list of your potential new best friends...</h1>',
+                status: '<h1>Fetching a list of potential new best friends...</h1>',
                 apiRequest: null,
                 apiKey: "d37c684a8dee07c9424f59462cfd9f15"
             }
           },
+
+
         methods: {
             getAPI: function(location) {
                 // Set up url for fetching adoptable pet data.
                 var url = 'http://api.petfinder.com/pet.getRandom';
                 var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
                 var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
-                var cross_origin = '&output=basic&format=json&callback=?' //added to end for cross-origin request
               },
+
             getPet: function bindButtons(){
-                //Set up url to fetch individual pet ID
-                // var url = 'http://api.petfinder.com/pet.getRandom';
-                 // var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>$location=<zipCode>&animal=<animal>&breed=<breed>&size=<size>&sex=<sex>&shelterID=<shelterID>&output=basic<cross-origin>";
 
-                document.getElementById('submitZip').addEventListener('click', function(event){
-            		event.preventDefault();
+              console.log('submitted');
 
-                var zipCode = document.getElementById('zip').value; // this line gets the zip code from the form entry
+                var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>&location=<zipCode>&animal=<animal>,<cross_origin>";
 
-                // input from form?
-                // var city = document.getElementByID('city').value;
-                // var animal = document.getElementByID('animal').value;
-                // var breed = document.getElementById('breed').value;
-                // var size = document.getElementById('size').value;
-                // var sex = document.getElementById('sex').value;
-                // var id = document.getElementById('id').value;
-                // var email = document.getElementById('id').value;
-                // var output = document.getElementById('output').value;
-                //
-                // if (this.zipcode && value!='') {
-                url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>$location=40515&output=basic<cross_origin>";
-                //   url = url.replace("<animal>", ('&animal=' + this.what do i put here?));
-                //   url = url.replace("<age>", ('&age=' + this.what do i put here?));
-                //   url = url.replace("<size>", ('&size=' + this.what do i put here?));
-                //   url = url.replace("<sex>", ('&sex=' + this.what do i put here?));
-                // }
-                // else {
-                //     // url = url.replace("<zipCode>", this.zipcode);
-                // }
                 url = url.replace("<apiKey>", this.apiKey);
-                // url=url.replace("zip", this.zipCode);
+                url = url.replace("<zipCode>", this.searchZip);
+                url = url.replace("<animal>", this.animalType);
+                url = url.replace("<cross_origin>", '&output=basic&format=json&callback=?'); //added to end for cross-origin request
+
+                if(this.animalAge.length > 0){
+                  (url = url + '&age=' + this.animalAge)
+                }
+
+                if(this.animalSize.length > 0){
+                  (url = url + '&size=' + this.animalSize)
+                }
+
+                if(this.animalSex.length > 0){
+                  (url = url + '&sex=' + this.animalSex)
+                }
+
+
                 // Code that fetches data from the API URL and stores it in results.
                 this.apiRequest = new XMLHttpRequest();
                 this.apiRequest.onload = this.catchResponse;
                 this.apiRequest.onerror = this.httpRequestOnError;
                 this.apiRequest.open('get', url, true);
                 this.apiRequest.send();
-                });
             },
 
                 catchResponse: function() {
                  if (this.apiRequest.status.$t === "A") {
                      var response = JSON.parse(this.apiRequest.responseText);
                      console.log(response);
+                     // used in search
                      this.showError = false;
                      this.showStatus = false;
-                     this.status = pet.status.$t;
-                     this.zipCode = pet.contact.zip.$t;
-                     this.city = pet.contact.response.city.$t;
+                     this.animalType = pet.animal.$t;
+                     this.animalAge = response.pet.age.$t;
+                     this.animalSize = response.pet.size.$t;
+                     this.animalSex = response.pet.sex.$t;
+                     this.status = pet.status.$t; //default of 'A'
+                     // for response, not displayed
                      this.id = response.pet.id.$t;
+                     this.zipCode = pet.contact.zip.$t;
+                     //for response, displayed
+                     this.city = pet.contact.response.city.$t;
                      this.name = response.pet.name.$t;
                      this.breed = response.pet.breeds.breed.$t;
-                     this.size = respone.pet.size.$t;
-                     this.age = response.pet.age.$t;
-                     this.sex = response.pet.sex.$t;
                      this.description = response.description.$t;
                      this.email = response.pet.contact.email.$t;
                      this.phone = response.pet.contact.phone.$t;

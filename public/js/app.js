@@ -1099,8 +1099,6 @@ Vue.component('example', __webpack_require__(39));
 
 Vue.component('petfinderapi', __webpack_require__(42));
 
-console.log("Beth loves to make things difficult!");
-
 var app = new Vue({
   el: '#services'
 });
@@ -43249,10 +43247,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         console.log('Component mounted.');
-    }
+    },
+
+    data: function data() {
+        return {};
+    },
+    methods: {}
 });
 
 /***/ }),
@@ -43351,11 +43355,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
 //
 //
 //
@@ -43440,123 +43439,114 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('DERP!!');
+  mounted: function mounted() {},
+
+
+  data: function data() {
+    return {
+      showOutput: false,
+      output: 'basic',
+      searchZip: '',
+      city: '',
+      name: '',
+      animalType: '',
+      animalSize: '',
+      animalAge: '',
+      animalSex: '',
+      breed: '',
+      description: '',
+      phone: '',
+      email: '',
+      showError: false,
+      error: '',
+      showStatus: true,
+      status: '<h1>Fetching a list of potential new best friends...</h1>',
+      apiRequest: null,
+      apiKey: "d37c684a8dee07c9424f59462cfd9f15"
+    };
+  },
+
+  methods: {
+    getAPI: function getAPI(location) {
+      // Set up url for fetching adoptable pet data.
+      var url = 'http://api.petfinder.com/pet.getRandom';
+      var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
+      var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
     },
 
-    // from input form
-    // props: [
-    //   'zipCode',
-    //   'location',
-    //   'animal',
-    //   'breed',
-    //   'size',
-    //   'sex'
-    // ],
-    // retrieved from API
-    data: function data() {
-        var _ref;
+    getPet: function bindButtons() {
 
-        return _ref = {
-            showOutput: false,
-            status: 'A',
-            zipCode: '',
-            city: '',
-            id: '',
-            name: '',
-            size: '',
-            age: '',
-            sex: '',
-            breed: ''
-        }, _defineProperty(_ref, 'sex', ''), _defineProperty(_ref, 'output', 'basic'), _defineProperty(_ref, 'description', ''), _defineProperty(_ref, 'phone', ''), _defineProperty(_ref, 'email', ''), _defineProperty(_ref, 'showError', false), _defineProperty(_ref, 'error', ''), _defineProperty(_ref, 'showStatus', true), _defineProperty(_ref, 'status', '<h1>Fetching a list of your potential new best friends...</h1>'), _defineProperty(_ref, 'apiRequest', null), _defineProperty(_ref, 'apiKey', "d37c684a8dee07c9424f59462cfd9f15"), _ref;
+      console.log('submitted');
+
+      var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>&location=<zipCode>&animal=<animal>,<cross_origin>";
+
+      url = url.replace("<apiKey>", this.apiKey);
+      url = url.replace("<zipCode>", this.searchZip);
+      url = url.replace("<animal>", this.animalType);
+      url = url.replace("<cross_origin>", '&output=basic&format=json&callback=?'); //added to end for cross-origin request
+
+      if (this.animalAge.length > 0) {
+        url = url + '&age=' + this.animalAge;
+      }
+
+      if (this.animalSize.length > 0) {
+        url = url + '&size=' + this.animalSize;
+      }
+
+      if (this.animalSex.length > 0) {
+        url = url + '&sex=' + this.animalSex;
+      }
+
+      // Code that fetches data from the API URL and stores it in results.
+      this.apiRequest = new XMLHttpRequest();
+      this.apiRequest.onload = this.catchResponse;
+      this.apiRequest.onerror = this.httpRequestOnError;
+      this.apiRequest.open('get', url, true);
+      this.apiRequest.send();
     },
-    methods: {
-        getAPI: function getAPI(location) {
-            // Set up url for fetching adoptable pet data.
-            var url = 'http://api.petfinder.com/pet.getRandom';
-            var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
-            var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
-            var cross_origin = '&output=basic&format=json&callback=?'; //added to end for cross-origin request
-        },
-        getPet: function bindButtons() {
-            //Set up url to fetch individual pet ID
-            // var url = 'http://api.petfinder.com/pet.getRandom';
-            // var url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>$location=<zipCode>&animal=<animal>&breed=<breed>&size=<size>&sex=<sex>&shelterID=<shelterID>&output=basic<cross-origin>";
 
-            document.getElementById('submitZip').addEventListener('click', function (event) {
-                event.preventDefault();
+    catchResponse: function catchResponse() {
+      if (this.apiRequest.status.$t === "A") {
+        var response = JSON.parse(this.apiRequest.responseText);
+        console.log(response);
+        // used in search
+        this.showError = false;
+        this.showStatus = false;
+        this.animalType = pet.animal.$t;
+        this.animalAge = response.pet.age.$t;
+        this.animalSize = response.pet.size.$t;
+        this.animalSex = response.pet.sex.$t;
+        this.status = pet.status.$t; //default of 'A'
+        // for response, not displayed
+        this.id = response.pet.id.$t;
+        this.zipCode = pet.contact.zip.$t;
+        //for response, displayed
+        this.city = pet.contact.response.city.$t;
+        this.name = response.pet.name.$t;
+        this.breed = response.pet.breeds.breed.$t;
+        this.description = response.description.$t;
+        this.email = response.pet.contact.email.$t;
+        this.phone = response.pet.contact.phone.$t;
+        this.showOutput = true;
+      } else {
+        this.showError = true;
+        this.showStatus = false;
+        this.showOutput = false;
+        this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
+      }
+    },
+    displayImage: function displayImage(id) {
+      var img = response.petfinder.pet.media.photos.photo[0].$t;
+      var newImg = document.createElement('img');
+      newImg.src = img;
 
-                var zipCode = document.getElementById('zip').value; // this line gets the zip code from the form entry
+      var list = document.createElement("div");
+      list.setAttribute("id", "List");
+      document.body.appendChild(list);
 
-                // input from form?
-                // var city = document.getElementByID('city').value;
-                // var animal = document.getElementByID('animal').value;
-                // var breed = document.getElementById('breed').value;
-                // var size = document.getElementById('size').value;
-                // var sex = document.getElementById('sex').value;
-                // var id = document.getElementById('id').value;
-                // var email = document.getElementById('id').value;
-                // var output = document.getElementById('output').value;
-                //
-                // if (this.zipcode && value!='') {
-                url = "http://api.petfinder.com/pet.getRandom?key=<apiKey>$location=40515&output=basic<cross_origin>";
-                //   url = url.replace("<animal>", ('&animal=' + this.what do i put here?));
-                //   url = url.replace("<age>", ('&age=' + this.what do i put here?));
-                //   url = url.replace("<size>", ('&size=' + this.what do i put here?));
-                //   url = url.replace("<sex>", ('&sex=' + this.what do i put here?));
-                // }
-                // else {
-                //     // url = url.replace("<zipCode>", this.zipcode);
-                // }
-                url = url.replace("<apiKey>", this.apiKey);
-                // url=url.replace("zip", this.zipCode);
-                // Code that fetches data from the API URL and stores it in results.
-                this.apiRequest = new XMLHttpRequest();
-                this.apiRequest.onload = this.catchResponse;
-                this.apiRequest.onerror = this.httpRequestOnError;
-                this.apiRequest.open('get', url, true);
-                this.apiRequest.send();
-            });
-        },
-
-        catchResponse: function catchResponse() {
-            if (this.apiRequest.status.$t === "A") {
-                var response = JSON.parse(this.apiRequest.responseText);
-                console.log(response);
-                this.showError = false;
-                this.showStatus = false;
-                this.status = pet.status.$t;
-                this.zipCode = pet.contact.zip.$t;
-                this.city = pet.contact.response.city.$t;
-                this.id = response.pet.id.$t;
-                this.name = response.pet.name.$t;
-                this.breed = response.pet.breeds.breed.$t;
-                this.size = respone.pet.size.$t;
-                this.age = response.pet.age.$t;
-                this.sex = response.pet.sex.$t;
-                this.description = response.description.$t;
-                this.email = response.pet.contact.email.$t;
-                this.phone = response.pet.contact.phone.$t;
-                this.showOutput = true;
-            } else {
-                this.showError = true;
-                this.showStatus = false;
-                this.showOutput = false;
-                this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
-            }
-        },
-        displayImage: function displayImage(id) {
-            var img = response.petfinder.pet.media.photos.photo[0].$t;
-            var newImg = document.createElement('img');
-            newImg.src = img;
-
-            var list = document.createElement("div");
-            list.setAttribute("id", "List");
-            document.body.appendChild(list);
-
-            list.appendChild(newImg);
-        }
+      list.appendChild(newImg);
     }
+  }
 });
 
 /***/ }),
@@ -43571,7 +43561,218 @@ var render = function() {
     "div",
     { staticClass: "container", attrs: { id: "petSearchInput" } },
     [
-      _vm._m(0),
+      _c("div", { staticClass: "form-group justify-content-center" }, [
+        _c("label", { attrs: { for: "searchZip" } }, [_vm._v("ZipCode")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.searchZip,
+              expression: "searchZip"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "zipCode", value: "" },
+          domProps: { value: _vm.searchZip },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.searchZip = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "animal" } }, [_vm._v("Animal Type")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.animalType,
+                expression: "animalType"
+              }
+            ],
+            attrs: { name: "animal" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.animalType = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { attrs: { selected: "selected", value: "dog" } }, [
+              _vm._v("Dog")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "cat" } }, [_vm._v("Cat")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "bird" } }, [_vm._v("Bird")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "horse" } }, [_vm._v("Horse")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "barnyard" } }, [
+              _vm._v("Barnyard")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "reptile" } }, [_vm._v("Reptile")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "smallfurry" } }, [
+              _vm._v("Small Furry")
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "age" } }, [_vm._v("Age")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.animalAge,
+                expression: "animalAge"
+              }
+            ],
+            attrs: { name: "age" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.animalAge = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Baby" } }, [_vm._v("Baby")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Young" } }, [_vm._v("Young")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Adult" } }, [_vm._v("Adult")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Senior" } }, [_vm._v("Senior")])
+          ]
+        ),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "size" } }, [_vm._v("Size")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.animalSize,
+                expression: "animalSize"
+              }
+            ],
+            attrs: { name: "size" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.animalSize = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "S" } }, [_vm._v("Small")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "M" } }, [_vm._v("Medium")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "L" } }, [_vm._v("Large")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "XL" } }, [_vm._v("Extra Large")])
+          ]
+        ),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "sex" } }, [_vm._v("Sex")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.animalSex,
+                expression: "animalSex"
+              }
+            ],
+            attrs: { name: "sex" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.animalSex = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "M" } }, [_vm._v("Male")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "F" } }, [_vm._v("Female")])
+          ]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "submit", id: "submitZip" },
+          on: {
+            click: function($event) {
+              _vm.getPet()
+            }
+          }
+        })
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
         _vm.showStatus
@@ -43617,10 +43818,10 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
-                        _vm.zipCode
+                        _vm.searchZip
                           ? _c("h3", [
                               _c("strong", [_vm._v("Zipcode:")]),
-                              _vm._v(" " + _vm._s(_vm.zipCode))
+                              _vm._v(" " + _vm._s(_vm.searchZip))
                             ])
                           : _vm._e(),
                         _vm._v(" "),
@@ -43669,81 +43870,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "location" } }, [_vm._v("ZipCode")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", name: "zipCode", value: "" }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "animal" } }, [_vm._v("Animal Type")]),
-      _vm._v(" "),
-      _c("select", { attrs: { name: "animal" } }, [
-        _c("option", { attrs: { value: "dog" } }, [_vm._v("Dog")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "cat" } }, [_vm._v("Cat")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "bird" } }, [_vm._v("Bird")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "horse" } }, [_vm._v("Horse")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "barnyard" } }, [_vm._v("Barnyard")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "reptile" } }, [_vm._v("Reptile")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "smallfurry" } }, [
-          _vm._v("Small Furry")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "age" } }, [_vm._v("Age")]),
-      _vm._v(" "),
-      _c("select", { attrs: { name: "age" } }, [
-        _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "Baby" } }, [_vm._v("Baby")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "Young" } }, [_vm._v("Young")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "Adult" } }, [_vm._v("Adult")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "Senior" } }, [_vm._v("Senior")])
-      ]),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "size" } }, [_vm._v("Size")]),
-      _vm._v(" "),
-      _c("select", { attrs: { name: "size" } }, [
-        _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "S" } }, [_vm._v("Small")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "M" } }, [_vm._v("Medium")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "L" } }, [_vm._v("Large")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "XL" } }, [_vm._v("Extra Large")])
-      ]),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "sex" } }, [_vm._v("Animal Type")]),
-      _vm._v(" "),
-      _c("select", { attrs: { name: "sex" } }, [
-        _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "M" } }, [_vm._v("Male")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "F" } }, [_vm._v("Female")])
-      ]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "submit", id: "submitZip" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
