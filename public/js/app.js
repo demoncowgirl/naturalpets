@@ -43526,9 +43526,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         if (pet.breeds.breed.length > 0) {
           console.log("this is mixed breed");
-          for (var i = 0; pet.breeds.breed.length > 0; i++) {
-            this.breed[i];
-          }
+          console.log(Object.values(pet.breeds.breed[0]));
+          console.log(Object.values(pet.breeds.breed[1]));
+          // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
+          // console.log(this.breed);
+
         } else {
           this.breed = pet.breeds.breed.$t;
           console.log("this is not a mixed breed");
@@ -43622,7 +43624,7 @@ var render = function() {
             }
           },
           [
-            _c("option", { attrs: { selected: "selected", value: "dog" } }, [
+            _c("option", { attrs: { value: "dog", selected: "" } }, [
               _vm._v("Dog")
             ]),
             _vm._v(" "),

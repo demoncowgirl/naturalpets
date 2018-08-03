@@ -6,7 +6,7 @@
       <input type="text" name="zipCode" value="" class="form-control" v-model='searchZip'>
       <label for="animal">Animal Type</label>
       <select name="animal" v-model='animalType'>
-        <option selected="selected" value="dog">Dog</option>
+        <option value="dog" selected>Dog</option>
         <option value="cat">Cat</option>
         <option value="bird">Bird</option>
         <option value="horse">Horse</option>
@@ -170,17 +170,19 @@
 
                      this.breed = pet.breeds.breed.$t;
 
-                     if(pet.breeds.breed.length > 0){
-                       console.log("this is mixed breed");
-                        for(var i = 0; pet.breeds.breed.length > 0; i++){
-                          this.breed[i];
-                        }
-                     }
-                     else {
-                       this.breed = pet.breeds.breed.$t;
-                       console.log("this is not a mixed breed");
-                     }
+                       if(pet.breeds.breed.length > 0){
+                        console.log("this is mixed breed");
+                        console.log(Object.values(pet.breeds.breed[0]));
+                        console.log(Object.values(pet.breeds.breed[1]));
+                        // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
+                        // console.log(this.breed);
 
+
+                       }
+                       else {
+                         this.breed = pet.breeds.breed.$t;
+                         console.log("this is not a mixed breed");
+                       }
                  }
                  else {
                      this.showError = true;
