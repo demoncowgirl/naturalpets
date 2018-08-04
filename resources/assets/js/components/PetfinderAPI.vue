@@ -50,61 +50,60 @@
     <div>
     <input class="btn btn-secondary" type="submit" id="submitZip" @click="getPet()">
     </div>
-  </div>
-</div>
-    <!-- output -->
-<div class="container d-flex justify-content-center p-1 m-0">
-  <!-- <div class="status-section center" v-if="showStatus">
-    <span v-html="status"></span>
-  </div> -->
-  <div class="row">
-    <button type="button" class="btn btn-md" id="prevpage" @click="previousPages()">
-    <a href="#" class="previous">
-      <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
-    </a>
-    </button>
-      <div class="col-md">
-        <div class="output-section w-85 border border-dark" v-if="showOutput">
-          <div><strong>Name:</strong> {{ name }}</div>
-          <div><strong>Location:</strong> {{ city }}</div>
-          <div><strong>Age:</strong> {{ animalAge }}</div>
-          <div><strong>Sex:</strong> {{ animalSex }}</div>
-          <div><strong>Size:</strong> {{ animalSize }}</div>
-          <div><strong>Breed:</strong> {{ breed }}</div>
-          <img class="petImage" src='assets/images/peaches.jpg'/>
-          <div class="m-2">{{ description }}</div>
-        </div>
-      </div>
-      <div class="col-md">
-        <div class="output-section border border-dark" v-if="showOutput">
-          <div><strong>Name:</strong> {{ name }}</div>
-          <div><strong>Location:</strong> {{ city }}</div>
-          <div><strong>Age:</strong> {{ animalAge }}</div>
-          <div><strong>Sex:</strong> {{ animalSex }}</div>
-          <div><strong>Size:</strong> {{ animalSize }}</div>
-          <div><strong>Breed:</strong> {{ breed }}</div>
-          <img class="petImage" src='assets/images/ellie.jpg'/>
-          <div class="m-2">{{ description }}</div>
-        </div>
-      </div>
-      <div class="col-md">
-        <div class="output-section w-85 border border-dark" v-if="showOutput">
-          <div><strong>Name:</strong> {{ name }}</div>
-          <div><strong>Location:</strong> {{ city }}</div>
-          <div><strong>Age:</strong> {{ animalAge }}</div>
-          <div><strong>Sex:</strong> {{ animalSex }}</div>
-          <div><strong>Size:</strong> {{ animalSize }}</div>
-          <div><strong>Breed:</strong> {{ breed }}</div>
-          <img class="petImage" src='assets/images/piccolo.jpg'/>
-          <div class="m-2">{{ description }}</div>
-        </div>
-      </div>
-      <button type="button" class="btn btn-md" id="nextPages" @click="nextPage()">
-        <a href="#" class="next">
-            <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
-          </a>
-      </button>
+  </div>      <!-- output -->
+  <div class="container d-flex justify-content-center p-1 m-0">
+    <div class="status-section center" v-if="showStatus">
+      <span v-html="status"></span>
     </div>
+    <div class="row">
+      <button type="button" class="btn btn-md" id="prevpage" @click="previousPages()">
+      <a href="#" class="previous">
+        <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
+      </a>
+      </button>
+        <div class="col-md">
+          <div class="output-section w-85 border border-dark" v-if="showOutput">
+            <div><strong>Name:</strong> {{ name }}</div>
+            <div><strong>Location:</strong> {{ city }}</div>
+            <div><strong>Age:</strong> {{ animalAge }}</div>
+            <div><strong>Sex:</strong> {{ animalSex }}</div>
+            <div><strong>Size:</strong> {{ animalSize }}</div>
+            <div><strong>Breed:</strong> {{ breed }}</div>
+            <img class="petImage" src='assets/images/peaches.jpg'/>
+            <div class="m-2">{{ description }}</div>
+          </div>
+        </div>
+        <!-- <div class="col-md">
+          <div class="output-section border border-dark" v-if="showOutput">
+            <div><strong>Name:</strong> {{ name }}</div>
+            <div><strong>Location:</strong> {{ city }}</div>
+            <div><strong>Age:</strong> {{ animalAge }}</div>
+            <div><strong>Sex:</strong> {{ animalSex }}</div>
+            <div><strong>Size:</strong> {{ animalSize }}</div>
+            <div><strong>Breed:</strong> {{ breed }}</div>
+            <img class="petImage" src='assets/images/ellie.jpg'/>
+            <div class="m-2">{{ description }}</div>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="output-section w-85 border border-dark" v-if="showOutput">
+            <div><strong>Name:</strong> {{ name }}</div>
+            <div><strong>Location:</strong> {{ city }}</div>
+            <div><strong>Age:</strong> {{ animalAge }}</div>
+            <div><strong>Sex:</strong> {{ animalSex }}</div>
+            <div><strong>Size:</strong> {{ animalSize }}</div>
+            <div><strong>Breed:</strong> {{ breed }}</div>
+            <img class="petImage" src='assets/images/piccolo.jpg'/>
+            <div class="m-2">{{ description }}</div>
+          </div>
+        </div> -->
+        <button type="button" class="btn btn-md" id="nextPages" @click="nextPage()">
+          <a href="#" class="next">
+              <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
+            </a>
+        </button>
+      </div>
+  </div>
 </div>
 
 </template>
