@@ -65,6 +65,11 @@ h1{
   font-family:gooddog;
 }
 
+input{
+  align-items: center;
+  width: auto;
+}
+
 label.form-control{
   border: none;
   background-color: #59C9A5;
@@ -96,7 +101,7 @@ form.text{
   border-width: 3px;
   border-color: #145A56;
   background-color: #F1F1ED;
-  background-color: lightblue;
+  background-color: #F1F1ED;
   overflow: scroll;
 }
 
@@ -111,7 +116,11 @@ form.text{
 
 i{
   color: #145A56;
+  // width: 30px;
+  // height: 30px;
+
 }
+
 
 #leftContainer{
   float: left;

@@ -32,13 +32,13 @@
     {{ Form::text('num_in_family', 'Family Size') }}
   </div>
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
-    {{ Form::label('apt_or_house', '',['class' => 'form-control', 'placeholder' => 'Do you rent an apartment or live in a house?'] ) }}
-      {{ Form::radio('apt_or_house', 'house' , true) }}
-      {{ Form::radio('apt_or_house', 'apartment' , false) }}
+    {{ Form::label('apt_or_house', '',['class' => 'form-control'] ) }}
+      {{ Form::checkbox('apt_or_house', 'house' , true) }}
+      {{ Form::checkbox('apt_or_house', 'apartment' , false) }}
   </div>
-    {{ Form::label('yard', '',['class' => 'form-control', 'placeholder' => 'Do you have a fenced yard?'] ) }}
-      {{ Form::checkbox('yard', 'yes', true) }}
-      {{ Form::checkbox('yard', 'no', false) }}
+    {{ Form::label('fenced_yard', '',['class' => 'form-control'] ) }}
+      {{ Form::checkbox('fenced_yard', 'yes', true) }}
+      {{ Form::checkbox('fenced_yard', 'no', false) }}
   <div>
     <!-- todo: add subform with the following:
           pets_in_family smallint

@@ -43428,6 +43428,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43465,15 +43469,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     getPet: function bindButtons() {
-      var url = "http://api.petfinder.com/pet.getRandom?key=d37c684a8dee07c9424f59462cfd9f15&animal=dog&location=<zipCode>&output=basic&format=json&callback=?";
+      var url = "http://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
       // var url ="http://api.petfinder.com/pet.getRandom?location=<zipCode>&animal=<animal>?format=json&key=<apiKey>&callback=?";
       // var url = "http://api.petfinder.com/pet.getRandom?format=json&key=<apiKey>&callback=?<&location=<zipCode>&animal=<animal>";
 
+      // &lastOffset=<lastOffset>/
+      // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
       url = url.replace("<apiKey>", this.apiKey);
       url = url.replace("<zipCode>", this.searchZip);
       url = url.replace("<animal>", this.animalType);
       url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
-      // &output=basic
+
 
       if (this.animalAge.length > 0) {
         url = url + '&age=' + this.animalAge;
@@ -43487,13 +43493,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         url = url + '&sex=' + this.animalSex;
       }
 
-      // Code that fetches data from the API URL and stores it in results.
-      // this.apiRequest = new XMLHttpRequest();
-      // this.apiRequest.onload = this.catchResponse;
-      // this.apiRequest.onerror = this.httpRequestOnError;
-      // this.apiRequest.open('get', url, true);
-      // this.apiRequest.send();
-
       $.getJSON(url).done(this.catchResponse).catch(function (err) {
         alert('Error retrieving data!');
       });
@@ -43501,57 +43500,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     catchResponse: function catchResponse(data) {
       console.log(data);
-      var pet = data.petfinder.pet;
-      if (pet.status.$t === "A") {
-        // used in search
-        this.showError = false;
-        this.showStatus = false;
-        this.animalType = pet.animal.$t;
-        this.animalAge = pet.age.$t;
-        this.animalSize = pet.size.$t;
-        this.animalSex = pet.sex.$t;
-        this.status = pet.status.$t; //default of 'A'
-        // for response, not displayed
-        this.id = pet.id.$t;
-        this.zipCode = pet.contact.zip.$t;
-        //for response, displayed
-        this.city = pet.contact.city.$t;
-        this.name = pet.name.$t;
-        this.description = pet.description.$t;
-        this.email = pet.contact.email.$t;
-        this.phone = pet.contact.phone.$t;
-        this.showOutput = true;
+      var pets = data.petfinder.pets; //returns array
 
-        this.breed = pet.breeds.breed.$t;
+      for (var i = 0; i < pets.pet.length; i++) {
+        if (pets.pet[i].status.$t === "A") {
+          // used in search
+          this.showError = false;
+          this.showStatus = false;
+          this.animalType = pets.pet[i].animal.$t;
+          this.animalAge = pets.pet[i].age.$t;
+          this.animalSize = pets.pet[i].size.$t;
+          this.animalSex = pets.pet[i].sex.$t;
+          this.status = pets.pet[i].status.$t; //default of 'A'
+          // for response, not displayed
+          this.id = pets.pet[i].id.$t;
+          this.zipCode = pets.pet[i].contact.zip.$t;
+          //for response, displayed
+          this.city = pets.pet[i].contact.city.$t;
+          this.name = pets.pet[i].name.$t;
+          this.description = pets.pet[i].description.$t;
+          this.email = pets.pet[i].contact.email.$t;
+          this.phone = pets.pet[i].contact.phone.$t;
+          this.showOutput = true;
+          this.breed = pets.pet[i].breeds.breed.$t;
 
-        if (pet.breeds.breed.length > 0) {
-          console.log("this is mixed breed");
-          console.log(Object.values(pet.breeds.breed[0]));
-          console.log(Object.values(pet.breeds.breed[1]));
-          // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
-          // console.log(this.breed);
+          this.array = pets.pet[i];
+          console.log(this.array);
 
+          if (pets.pet[i].breeds.breed.length > 0) {
+            console.log("this is mixed breed");
+            console.log(Object.values(pets.pet[i].breeds.breed[0]));
+            console.log(Object.values(pets.pet[i].breeds.breed[1]));
+            // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
+            // console.log(this.breed);
+          } else {
+            this.breed = pets.pet[i].breeds.breed.$t;
+            console.log("this is not a mixed breed");
+          }
         } else {
-          this.breed = pet.breeds.breed.$t;
-          console.log("this is not a mixed breed");
+          this.showError = true;
+          this.showStatus = false;
+          this.showOutput = false;
+          this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
         }
-      } else {
-        this.showError = true;
-        this.showStatus = false;
-        this.showOutput = false;
-        this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
       }
-    },
-    displayImage: function displayImage(data) {
-      var img = data.petfinder.pet.media.photos.photo[0].$t;
-      var newImg = document.createElement('img');
-      newImg.src = img;
 
-      var list = document.createElement("div");
-      list.setAttribute("id", "List");
-      document.body.appendChild(list);
-
-      list.appendChild(newImg);
+      // displayImage: function() {
+      //   var img = data.petfinder.pet.media.photos.photo[0].$t;
+      //   var newImg = document.createElement('img');
+      //   newImg.src = img;
+      //
+      //   var list = document.createElement("div");
+      //   list.setAttribute("id", "List");
+      //   document.body.appendChild(list);
+      //
+      //   list.appendChild(newImg);
     }
   }
 });
@@ -43568,7 +43571,7 @@ var render = function() {
     "div",
     { staticClass: "container", attrs: { id: "petSearchInput" } },
     [
-      _c("div", { staticClass: "form-group justify-content-center" }, [
+      _c("div", { staticClass: "form-group justify-content-center  p-3" }, [
         _c("label", { attrs: { for: "searchZip" } }, [_vm._v("ZipCode")]),
         _vm._v(" "),
         _c("input", {
@@ -43581,6 +43584,7 @@ var render = function() {
             }
           ],
           staticClass: "form-control",
+          staticStyle: { width: "auto" },
           attrs: { type: "text", name: "zipCode", value: "" },
           domProps: { value: _vm.searchZip },
           on: {
@@ -43771,14 +43775,18 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _c("input", {
-          attrs: { type: "submit", id: "submitZip" },
-          on: {
-            click: function($event) {
-              _vm.getPet()
+        _c("div", [
+          _c("input", {
+            staticClass: "btn btn-secondary",
+            attrs: { type: "submit", id: "submitZip" },
+            on: {
+              click: function($event) {
+                _vm.getPet()
+              }
             }
-          }
-        })
+          }),
+          _vm._v("\n  ``")
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
@@ -43875,9 +43883,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "previous", attrs: { href: "#" } }, [
-      _c("span", { staticClass: "arrow-icon" }, [
-        _c("i", { staticClass: "fas fa-arrow-circle-left" })
-      ])
+      _c("span", [_c("i", { staticClass: "fas fa-arrow-circle-left fa-2x" })])
     ])
   },
   function() {
@@ -43886,7 +43892,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "next", attrs: { href: "#" } }, [
       _c("span", { staticClass: "arrow-icon" }, [
-        _c("i", { staticClass: "fas fa-arrow-circle-right" })
+        _c("i", { staticClass: "fas fa-arrow-circle-right fa-2x" })
       ])
     ])
   }

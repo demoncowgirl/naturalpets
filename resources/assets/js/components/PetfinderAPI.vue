@@ -1,9 +1,10 @@
 <template>
   <!-- input form for pet search -->
   <div id="petSearchInput" class="container">
-    <div class="form-group justify-content-center">
+    <div class="form-group justify-content-center  p-3">
       <label for="searchZip">ZipCode</label>
-      <input type="text" name="zipCode" value="" class="form-control" v-model='searchZip'>
+      <input type="text" name="zipCode" value="" class="form-control" style="width: auto;" v-model='searchZip'>
+
       <label for="animal">Animal Type</label>
       <select name="animal" v-model='animalType'>
         <option value="dog" selected>Dog</option>
@@ -40,8 +41,11 @@
         <option value="M">Male</option>
         <option value="F">Female</option>
       </select>
-      <input type="submit" id="submitZip" @click="getPet()">
+      <div>
+      <input class="btn btn-secondary" type="submit" id="submitZip" @click="getPet()">
+    ``</div>
     </div>
+
     <div class="container">
       <div class="status-section center" v-if="showStatus">
         <span v-html="status"></span>
@@ -57,12 +61,12 @@
         </div>
         <button type="button" class="btn btn-lg" id="prevpage" @click="previousPage()">
           <a href="#" class="previous">
-            <span class="arrow-icon"><i class="fas fa-arrow-circle-left"></i></span>
+            <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
           </a>
         </button>
         <button type="button" class="btn btn-lg" id="nextPage" @click="nextPage()">
           <a href="#" class="next">
-            <span class ="arrow-icon"><i class="fas fa-arrow-circle-right"></i></span>
+            <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
           </a>
         </button>
       </div>
@@ -108,15 +112,17 @@
               },
 
             getPet: function bindButtons(){
-                var url = "http://api.petfinder.com/pet.getRandom?key=d37c684a8dee07c9424f59462cfd9f15&animal=dog&location=<zipCode>&output=basic&format=json&callback=?";
+                var url = "http://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
                 // var url ="http://api.petfinder.com/pet.getRandom?location=<zipCode>&animal=<animal>?format=json&key=<apiKey>&callback=?";
                 // var url = "http://api.petfinder.com/pet.getRandom?format=json&key=<apiKey>&callback=?<&location=<zipCode>&animal=<animal>";
 
+                // &lastOffset=<lastOffset>/
+                // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
                 url = url.replace("<apiKey>", this.apiKey);
                 url = url.replace("<zipCode>", this.searchZip);
                 url = url.replace("<animal>", this.animalType);
                 url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
-                // &output=basic
+
 
                 if(this.animalAge.length > 0){
                   (url = url + '&age=' + this.animalAge)
@@ -130,14 +136,6 @@
                   (url = url + '&sex=' + this.animalSex)
                 }
 
-
-                // Code that fetches data from the API URL and stores it in results.
-                // this.apiRequest = new XMLHttpRequest();
-                // this.apiRequest.onload = this.catchResponse;
-                // this.apiRequest.onerror = this.httpRequestOnError;
-                // this.apiRequest.open('get', url, true);
-                // this.apiRequest.send();
-
                 $.getJSON(url)
                   .done(this.catchResponse)
                   .catch(function(err) { alert('Error retrieving data!');
@@ -147,60 +145,63 @@
 
                 catchResponse: function(data) {
                   console.log(data);
-                  var pet = data.petfinder.pet;
-                 if (pet.status.$t === "A") {
-                     // used in search
-                     this.showError = false;
-                     this.showStatus = false;
-                     this.animalType = pet.animal.$t;
-                     this.animalAge = pet.age.$t;
-                     this.animalSize = pet.size.$t;
-                     this.animalSex = pet.sex.$t;
-                     this.status = pet.status.$t; //default of 'A'
-                     // for response, not displayed
-                     this.id = pet.id.$t;
-                     this.zipCode = pet.contact.zip.$t;
-                     //for response, displayed
-                     this.city = pet.contact.city.$t;
-                     this.name = pet.name.$t;
-                     this.description = pet.description.$t;
-                     this.email = pet.contact.email.$t;
-                     this.phone = pet.contact.phone.$t;
-                     this.showOutput = true;
+                  var pets = data.petfinder.pets; //returns array
 
-                     this.breed = pet.breeds.breed.$t;
+                  for(var i = 0; i < pets.pet.length; i++){
+                    if (pets.pet[i].status.$t === "A") {
+                       // used in search
+                       this.showError = false;
+                       this.showStatus = false;
+                       this.animalType = pets.pet[i].animal.$t;
+                       this.animalAge = pets.pet[i].age.$t;
+                       this.animalSize = pets.pet[i].size.$t;
+                       this.animalSex = pets.pet[i].sex.$t;
+                       this.status = pets.pet[i].status.$t; //default of 'A'
+                       // for response, not displayed
+                       this.id = pets.pet[i].id.$t;
+                       this.zipCode = pets.pet[i].contact.zip.$t;
+                       //for response, displayed
+                       this.city = pets.pet[i].contact.city.$t;
+                       this.name = pets.pet[i].name.$t;
+                       this.description = pets.pet[i].description.$t;
+                       this.email = pets.pet[i].contact.email.$t;
+                       this.phone = pets.pet[i].contact.phone.$t;
+                       this.showOutput = true;
+                       this.breed = pets.pet[i].breeds.breed.$t;
 
-                       if(pet.breeds.breed.length > 0){
-                        console.log("this is mixed breed");
-                        console.log(Object.values(pet.breeds.breed[0]));
-                        console.log(Object.values(pet.breeds.breed[1]));
-                        // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
-                        // console.log(this.breed);
+                       this.array = pets.pet[i];
+                        console.log(this.array);
 
+                         if(pets.pet[i].breeds.breed.length > 0){
+                          console.log("this is mixed breed");
+                          console.log(Object.values(pets.pet[i].breeds.breed[0]));
+                          console.log(Object.values(pets.pet[i].breeds.breed[1]));
+                          // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
+                          // console.log(this.breed);
+                         }
+                         else {
+                           this.breed = pets.pet[i].breeds.breed.$t;
+                           console.log("this is not a mixed breed");
+                         }
 
-                       }
-                       else {
-                         this.breed = pet.breeds.breed.$t;
-                         console.log("this is not a mixed breed");
-                       }
-                 }
-                 else {
+                    } else {
                      this.showError = true;
                      this.showStatus = false;
                      this.showOutput = false;
                      this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
-                 }
-               },
-             displayImage: function(data) {
-               var img = data.petfinder.pet.media.photos.photo[0].$t;
-               var newImg = document.createElement('img');
-               newImg.src = img;
+                      }
+                }
 
-               var list = document.createElement("div");
-               list.setAttribute("id", "List");
-               document.body.appendChild(list);
-
-               list.appendChild(newImg);
+             // displayImage: function() {
+             //   var img = data.petfinder.pet.media.photos.photo[0].$t;
+             //   var newImg = document.createElement('img');
+             //   newImg.src = img;
+             //
+             //   var list = document.createElement("div");
+             //   list.setAttribute("id", "List");
+             //   document.body.appendChild(list);
+             //
+             //   list.appendChild(newImg);
              }
           }
     }
