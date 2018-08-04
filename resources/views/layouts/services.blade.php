@@ -14,6 +14,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>{{ config('app.name', 'Pet Stop') }}</title>
 </head>
+
 <body>
 
 <div id="services" class="align-middle">

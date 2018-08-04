@@ -14,7 +14,6 @@
         <li><a class="{{ Request::is ('about') ? 'active': ''}}" href="/about">About</a></li>
         <li><a class="{{ Request::is ('contact') ? 'active': ''}}" href="/contact">Contact</a></li>
         <li><a class="{{ Request::is ('serviceSearch') ? 'active': ''}}" href="/serviceSearch">Pet Services</a></li>
-
         @auth
           @if (Auth::user()->is_admin)
             <li><a class="{{ Request::is ('messages') ? 'active': ''}}" href="/messages">Messages</a></li>

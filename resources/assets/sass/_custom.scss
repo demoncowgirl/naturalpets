@@ -75,6 +75,7 @@ form.text{
 }
 
 #showcase{
+  margin-top: 80px;
   height: 400px;
   Width: 85%;
   border-style: solid;
@@ -95,6 +96,13 @@ form.text{
   border-width: 3px;
   border-color: #145A56;
   background-color: #F1F1ED;
+  background-color: lightblue;
+  overflow: scroll;
+}
+
+#servicesList{
+  color: #145A56;
+  text-align: left;
 }
 
 .form-group{
@@ -126,6 +134,7 @@ i{
   border-color: #145A56;
   background-color: #F1F1ED;
 }
+
 
 #map{
   float: right;
