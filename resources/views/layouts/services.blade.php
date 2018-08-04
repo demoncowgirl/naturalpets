@@ -22,8 +22,11 @@
   <!-- provides navbar on every page -->
   @include('inc._navbar')
 
+  @if(Request::is('petSearch'))
+  @include('inc._searchContainer')
+  @else
   @include('inc._centerContainer')
-
+  @endif
   <!-- includes footer -->
   @include('inc._footer')
 

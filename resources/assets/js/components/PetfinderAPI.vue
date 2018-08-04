@@ -2,18 +2,20 @@
   <!-- input form for pet search -->
   <div id="petSearchInput" class="container">
     <div class="form-group justify-content-center  p-3">
-      <label for="searchZip">ZipCode</label>
-      <input type="text" name="zipCode" value="" class="form-control" style="width: auto;" v-model='searchZip'>
-
-      <label for="animal">Animal Type</label>
+      <label for="searchZip"><font color="#A93226">ZipCode</font></label>
+      <input type="text" name="zipCode" value="" class="form-control center" style="width: auto;" v-model='searchZip'>
+      <div class="required">
+         <font color="#A93226">Input shown in red is required.</font>
+      </div>
+      <label for="animal"><font color="#A93226">Animal Type</font></label>
       <select name="animal" v-model='animalType'>
         <option value="dog" selected>Dog</option>
-        <option value="cat">Cat</option>
-        <option value="bird">Bird</option>
-        <option value="horse">Horse</option>
-        <option value="barnyard">Barnyard</option>
-        <option value="reptile">Reptile</option>
-        <option value="smallfurry">Small Furry</option>
+        <option value="cat" >Cat</option>
+        <option value="bird" >Bird</option>
+        <option value="horse" >Horse</option>s
+        <option value="barnyard" >Barnyard</option>
+        <option value="reptile" >Reptile</option>
+        <option value="smallfurry" >Small Furry</option>
       </select>
 
       <label for="age">Age</label>
@@ -36,40 +38,73 @@
       </select>
 
       <label for="sex">Sex</label>
-      <select name="sex" v-model="animalSex">
+      <select name="sex" v-model="animalSex">s
         <option value = ''>Any</option>
         <option value="M">Male</option>
         <option value="F">Female</option>
       </select>
       <div>
       <input class="btn btn-secondary" type="submit" id="submitZip" @click="getPet()">
-    ``</div>
+      </div>
     </div>
 
-    <div class="container">
+    <!-- output -->
+    <div class="container d-flex justify-content-center p-1 m-0">
       <div class="status-section center" v-if="showStatus">
         <span v-html="status"></span>
-        <div class="output-section w-85 border border-dark" v-if="showOutput">
-          <h3 v-if="searchZip"><strong>Zipcode:</strong> {{ searchZip }}</h3>
-          <div><strong>Location:</strong> {{ city }}</div>
-          <div><strong>Name:</strong> {{ name }}</div>
-          <div><strong>Age:</strong> {{ age }}</div>
-          <div><strong>Sex:</strong> {{ sex }}</div>
-          <div><strong>Size:</strong> {{ size }}</div>
-          <div><strong>Breed:</strong> {{ breed }}</div>
-          <div><strong>Description:</strong> {{ description }}</div>
-        </div>
-        <button type="button" class="btn btn-lg" id="prevpage" @click="previousPage()">
+      </div>
+      <div class="row">
+        <button type="button" class="btn btn-md" id="prevpage" @click="previousPages()">
           <a href="#" class="previous">
             <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
           </a>
         </button>
-        <button type="button" class="btn btn-lg" id="nextPage" @click="nextPage()">
-          <a href="#" class="next">
-            <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
-          </a>
-        </button>
-      </div>
+          <div class="col-md">
+            <div class="output-section w-85 border border-dark" v-if="showOutput">
+              <div><strong>Name:</strong> {{ name }}</div>
+              <div><strong>Location:</strong> {{ city }}</div>
+              <div><strong>Age:</strong> {{ animalAge }}</div>
+              <div><strong>Sex:</strong> {{ animalSex }}</div>
+              <div><strong>Size:</strong> {{ animalSize }}</div>
+              <div><strong>Breed:</strong> {{ breed }}</div>
+              <img class="petImage" src='assets/images/peaches.jpg'/>
+              <div class="m-2">{{ description }}</div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="output-section border border-dark" v-if="showOutput">
+              <div><strong>Name:</strong> {{ name }}</div>
+              <div><strong>Location:</strong> {{ city }}</div>
+              <div><strong>Age:</strong> {{ animalAge }}</div>
+              <div><strong>Sex:</strong> {{ animalSex }}</div>
+              <div><strong>Size:</strong> {{ animalSize }}</div>
+              <div><strong>Breed:</strong> {{ breed }}</div>
+              <img class="petImage" src='assets/images/ellie.jpg'/>
+              <div class="m-2">{{ description }}</div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="output-section w-85 border border-dark" v-if="showOutput">
+              <div><strong>Name:</strong> {{ name }}</div>
+              <div><strong>Location:</strong> {{ city }}</div>
+              <div><strong>Age:</strong> {{ animalAge }}</div>
+              <div><strong>Sex:</strong> {{ animalSex }}</div>
+              <div><strong>Size:</strong> {{ animalSize }}</div>
+              <div><strong>Breed:</strong> {{ breed }}</div>
+              <img class="petImage" src='assets/images/piccolo.jpg'/>
+              <div class="m-2">{{ description }}</div>
+          </div>
+        </div>
+          <button type="button" class="btn btn-md" id="nextPages" @click="nextPage()">
+            <a href="#" class="next">
+              <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
+            </a>
+          </button>
+    </div>
+    <div>
+
+    </div>
+  </div>
     </div>
   </div>
 
@@ -87,18 +122,29 @@
                 searchZip: '',
                 city:'',
                 name: '',
-                animalType: '',
-                animalSize: '',
-                animalAge: '',
-                animalSex:'',
+                age: '',
+                sex: '',
                 breed: '',
                 description: '',
                 phone: '',
                 email: '',
+
+                // petImage: img,
+
+                animalType: '',
+                animalSize: '',
+                animalAge: '',
+                animalSex:'',
+
+                nextPage: '',
+                previousPage: '',
+
                 showError: false,
-                error: '',
+                errorCode: '',
+
                 showStatus: true,
                 status: '<h1>Fetching a list of potential new best friends...</h1>',
+
                 apiRequest: null,
                 apiKey: "d37c684a8dee07c9424f59462cfd9f15"
             }
@@ -113,16 +159,12 @@
 
             getPet: function bindButtons(){
                 var url = "http://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
-                // var url ="http://api.petfinder.com/pet.getRandom?location=<zipCode>&animal=<animal>?format=json&key=<apiKey>&callback=?";
-                // var url = "http://api.petfinder.com/pet.getRandom?format=json&key=<apiKey>&callback=?<&location=<zipCode>&animal=<animal>";
 
-                // &lastOffset=<lastOffset>/
                 // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
                 url = url.replace("<apiKey>", this.apiKey);
                 url = url.replace("<zipCode>", this.searchZip);
                 url = url.replace("<animal>", this.animalType);
                 url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
-
 
                 if(this.animalAge.length > 0){
                   (url = url + '&age=' + this.animalAge)
@@ -145,9 +187,15 @@
 
                 catchResponse: function(data) {
                   console.log(data);
-                  var pets = data.petfinder.pets; //returns array
-
-                  for(var i = 0; i < pets.pet.length; i++){
+                  var pets = data.petfinder.pets;
+                  var count = 3;
+                  var numOfItemsViewed = 0;
+                  // loop returns 3 objects from petfinder array
+                  for(var i = 0; i < count; i++){
+                    numOfItemsViewed = numOfItemsViewed + 1;
+                    console.log('index numbers of records' + i);
+                    console.log('number of items viewd' + numOfItemsViewed);
+                    // console.log('first object in array' + pets.pet[0]);
                     if (pets.pet[i].status.$t === "A") {
                        // used in search
                        this.showError = false;
@@ -168,11 +216,16 @@
                        this.phone = pets.pet[i].contact.phone.$t;
                        this.showOutput = true;
                        this.breed = pets.pet[i].breeds.breed.$t;
+                       // retrieves first image if there are multiple images
+                       // this.petImage = pets.pet[i].media.photos.photo[0];
+                     }else{
+                       console.log('no matches were found');
+                     }
 
-                       this.array = pets.pet[i];
-                        console.log(this.array);
+                       // this.array = pets.pet[i];
+                       //  console.log(this.array);
 
-                         if(pets.pet[i].breeds.breed.length > 0){
+                         if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
                           console.log("this is mixed breed");
                           console.log(Object.values(pets.pet[i].breeds.breed[0]));
                           console.log(Object.values(pets.pet[i].breeds.breed[1]));
@@ -183,16 +236,42 @@
                            this.breed = pets.pet[i].breeds.breed.$t;
                            console.log("this is not a mixed breed");
                          }
+                       }
 
-                    } else {
-                     this.showError = true;
-                     this.showStatus = false;
-                     this.showOutput = false;
-                     this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
-                      }
-                }
 
-             // displayImage: function() {
+                           this.errorCode = petfinder.status.code.$t;
+                           // error handling
+                           if (this.errorCode == "200"){
+                             console.log('error');
+
+                              this.showError = true;
+                              this.showStatus = false;
+                              this.showOutput = false;
+                              this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
+                             // this.displayImage = pets.pet.media.photos.photo[i].$t;
+                             // error codes
+
+                             console.log(errorCode);
+                               }
+                           }
+                //  // returns 3 new results on button click
+                //  nextPages: function(numOfItemsViewed, i){
+                //    if(numOfItemsViewed <= pets.pet.length-1){
+                //       i = i + 1; // increase i by one
+                //       i = i % arr.length; // if we've gone too high, start from `0` again
+                //     return (pets.pet[i]; // give us back the item of where we are now
+                //    }
+                //   }
+                //
+                // // returns previous 3 results on button click
+                //  previousPages: function(numOfItemsViewed, i){
+                //     if (numOfItemsViewed >= 3) {
+                //       i = i - 1; // decrease by one
+                //     return (pets.pet[i]; // give us back the item of where we are now
+                //     }
+                //   }
+
+             // displayImage: function(petImage) {
              //   var img = data.petfinder.pet.media.photos.photo[0].$t;
              //   var newImg = document.createElement('img');
              //   newImg.src = img;
@@ -202,8 +281,8 @@
              //   document.body.appendChild(list);
              //
              //   list.appendChild(newImg);
-             }
+             // }
           }
-    }
 
+}
 </script>
