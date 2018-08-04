@@ -43466,7 +43466,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43485,7 +43484,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       description: '',
       phone: '',
       email: '',
-
+      numberOfItemsViewed: '',
       // petImage: img,
 
       animalType: '',
@@ -43497,7 +43496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       previousPage: '',
 
       showError: false,
-      errorCode: '',
+      statusCode: '',
 
       showStatus: true,
       status: '<h1>Fetching a list of potential new best friends...</h1>',
@@ -43539,19 +43538,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         alert('Error retrieving data!');
       });
     },
-
     catchResponse: function catchResponse(data) {
-      console.log(data);
+      console.log('here is the data' + data);
       var pets = data.petfinder.pets;
       var count = 3;
       var numOfItemsViewed = 0;
+      this.status = data.petfinder.header.status.code.$t;
       // loop returns 3 objects from petfinder array
       for (var i = 0; i < count; i++) {
         numOfItemsViewed = numOfItemsViewed + 1;
         console.log('index numbers of records' + i);
         console.log('number of items viewd' + numOfItemsViewed);
-        // console.log('first object in array' + pets.pet[0]);
-        if (pets.pet[i].status.$t === "A") {
+        console.log('first object in array' + pets.pet[i]);
+
+        if (this.status === "100" && pets.pet[i].status.$t === "A") {
           // used in search
           this.showError = false;
           this.showStatus = false;
@@ -43571,40 +43571,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           this.phone = pets.pet[i].contact.phone.$t;
           this.showOutput = true;
           this.breed = pets.pet[i].breeds.breed.$t;
+
           // retrieves first image if there are multiple images
           // this.petImage = pets.pet[i].media.photos.photo[0];
+
+
+          if (pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0) {
+            console.log("this is mixed breed");
+            console.log(Object.values(pets.pet[i].breeds.breed[0]));
+            console.log(Object.values(pets.pet[i].breeds.breed[1]));
+            // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
+            // console.log(this.breed);
+          } else {
+            this.breed = pets.pet[i].breeds.breed.$t;
+            console.log("this is not a mixed breed");
+          }
         } else {
-          console.log('no matches were found');
+          console.log('there was an error' + this.statusCode);
+          this.showError = true;
+          this.showStatus = false;
+          this.showOutput = false;
         }
-
-        // this.array = pets.pet[i];
-        //  console.log(this.array);
-
-        if (pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0) {
-          console.log("this is mixed breed");
-          console.log(Object.values(pets.pet[i].breeds.breed[0]));
-          console.log(Object.values(pets.pet[i].breeds.breed[1]));
-          // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
-          // console.log(this.breed);
-        } else {
-          this.breed = pets.pet[i].breeds.breed.$t;
-          console.log("this is not a mixed breed");
-        }
-      }
-
-      this.errorCode = petfinder.status.code.$t;
-      // error handling
-      if (this.errorCode == "200") {
-        console.log('error');
-
-        this.showError = true;
-        this.showStatus = false;
-        this.showOutput = false;
-        this.error = '<h3 v-if="zipCode"><strong>ZipCode:</strong> ' + this.zipcode + '</h3>' + this.apiRequest.statusText;
-        // this.displayImage = pets.pet.media.photos.photo[i].$t;
-        // error codes
-
-        console.log(errorCode);
       }
     }
     //  // returns 3 new results on button click
@@ -43636,477 +43623,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     //   list.appendChild(newImg);
     // }
   }
-
 });
 
 /***/ }),
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container", attrs: { id: "petSearchInput" } },
-    [
-      _c("div", { staticClass: "form-group justify-content-center  p-3" }, [
-        _c(
-          "label",
-          { attrs: { for: "searchZip" } },
-          [_c("font", { attrs: { color: "#A93226" } }, [_vm._v("ZipCode")])],
-          1
-        ),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.searchZip,
-              expression: "searchZip"
-            }
-          ],
-          staticClass: "form-control center",
-          staticStyle: { width: "auto" },
-          attrs: { type: "text", name: "zipCode", value: "" },
-          domProps: { value: _vm.searchZip },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.searchZip = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "required" },
-          [
-            _c("font", { attrs: { color: "#A93226" } }, [
-              _vm._v("Input shown in red is required.")
-            ])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "label",
-          { attrs: { for: "animal" } },
-          [
-            _c("font", { attrs: { color: "#A93226" } }, [_vm._v("Animal Type")])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.animalType,
-                expression: "animalType"
-              }
-            ],
-            attrs: { name: "animal" },
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.animalType = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              }
-            }
-          },
-          [
-            _c("option", { attrs: { value: "dog", selected: "" } }, [
-              _vm._v("Dog")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "cat" } }, [_vm._v("Cat")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "bird" } }, [_vm._v("Bird")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "horse" } }, [_vm._v("Horse")]),
-            _vm._v("s\n      "),
-            _c("option", { attrs: { value: "barnyard" } }, [
-              _vm._v("Barnyard")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "reptile" } }, [_vm._v("Reptile")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "smallfurry" } }, [
-              _vm._v("Small Furry")
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "age" } }, [_vm._v("Age")]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.animalAge,
-                expression: "animalAge"
-              }
-            ],
-            attrs: { name: "age" },
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.animalAge = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              }
-            }
-          },
-          [
-            _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Baby" } }, [_vm._v("Baby")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Young" } }, [_vm._v("Young")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Adult" } }, [_vm._v("Adult")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Senior" } }, [_vm._v("Senior")])
-          ]
-        ),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "size" } }, [_vm._v("Size")]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.animalSize,
-                expression: "animalSize"
-              }
-            ],
-            attrs: { name: "size" },
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.animalSize = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              }
-            }
-          },
-          [
-            _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "S" } }, [_vm._v("Small")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "M" } }, [_vm._v("Medium")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "L" } }, [_vm._v("Large")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "XL" } }, [_vm._v("Extra Large")])
-          ]
-        ),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "sex" } }, [_vm._v("Sex")]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.animalSex,
-                expression: "animalSex"
-              }
-            ],
-            attrs: { name: "sex" },
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.animalSex = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              }
-            }
-          },
-          [
-            _vm._v("s\n      "),
-            _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "M" } }, [_vm._v("Male")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "F" } }, [_vm._v("Female")])
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", [
-          _c("input", {
-            staticClass: "btn btn-secondary",
-            attrs: { type: "submit", id: "submitZip" },
-            on: {
-              click: function($event) {
-                _vm.getPet()
-              }
-            }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "container d-flex justify-content-center p-1 m-0" },
-        [
-          _vm.showStatus
-            ? _c("div", { staticClass: "status-section center" }, [
-                _c("span", { domProps: { innerHTML: _vm._s(_vm.status) } })
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-md",
-                attrs: { type: "button", id: "prevpage" },
-                on: {
-                  click: function($event) {
-                    _vm.previousPages()
-                  }
-                }
-              },
-              [_vm._m(0)]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md" }, [
-              _vm.showOutput
-                ? _c(
-                    "div",
-                    { staticClass: "output-section w-85 border border-dark" },
-                    [
-                      _c("div", [
-                        _c("strong", [_vm._v("Name:")]),
-                        _vm._v(" " + _vm._s(_vm.name))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Location:")]),
-                        _vm._v(" " + _vm._s(_vm.city))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Age:")]),
-                        _vm._v(" " + _vm._s(_vm.animalAge))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Sex:")]),
-                        _vm._v(" " + _vm._s(_vm.animalSex))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Size:")]),
-                        _vm._v(" " + _vm._s(_vm.animalSize))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Breed:")]),
-                        _vm._v(" " + _vm._s(_vm.breed))
-                      ]),
-                      _vm._v(" "),
-                      _c("img", {
-                        staticClass: "petImage",
-                        attrs: { src: "assets/images/peaches.jpg" }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "m-2" }, [
-                        _vm._v(_vm._s(_vm.description))
-                      ])
-                    ]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md" }, [
-              _vm.showOutput
-                ? _c(
-                    "div",
-                    { staticClass: "output-section border border-dark" },
-                    [
-                      _c("div", [
-                        _c("strong", [_vm._v("Name:")]),
-                        _vm._v(" " + _vm._s(_vm.name))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Location:")]),
-                        _vm._v(" " + _vm._s(_vm.city))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Age:")]),
-                        _vm._v(" " + _vm._s(_vm.animalAge))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Sex:")]),
-                        _vm._v(" " + _vm._s(_vm.animalSex))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Size:")]),
-                        _vm._v(" " + _vm._s(_vm.animalSize))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Breed:")]),
-                        _vm._v(" " + _vm._s(_vm.breed))
-                      ]),
-                      _vm._v(" "),
-                      _c("img", {
-                        staticClass: "petImage",
-                        attrs: { src: "assets/images/ellie.jpg" }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "m-2" }, [
-                        _vm._v(_vm._s(_vm.description))
-                      ])
-                    ]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md" }, [
-              _vm.showOutput
-                ? _c(
-                    "div",
-                    { staticClass: "output-section w-85 border border-dark" },
-                    [
-                      _c("div", [
-                        _c("strong", [_vm._v("Name:")]),
-                        _vm._v(" " + _vm._s(_vm.name))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Location:")]),
-                        _vm._v(" " + _vm._s(_vm.city))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Age:")]),
-                        _vm._v(" " + _vm._s(_vm.animalAge))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Sex:")]),
-                        _vm._v(" " + _vm._s(_vm.animalSex))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Size:")]),
-                        _vm._v(" " + _vm._s(_vm.animalSize))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("strong", [_vm._v("Breed:")]),
-                        _vm._v(" " + _vm._s(_vm.breed))
-                      ]),
-                      _vm._v(" "),
-                      _c("img", {
-                        staticClass: "petImage",
-                        attrs: { src: "assets/images/piccolo.jpg" }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "m-2" }, [
-                        _vm._v(_vm._s(_vm.description))
-                      ])
-                    ]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-md",
-                attrs: { type: "button", id: "nextPages" },
-                on: {
-                  click: function($event) {
-                    _vm.nextPage()
-                  }
-                }
-              },
-              [_vm._m(1)]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div")
-        ]
-      )
-    ]
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "previous", attrs: { href: "#" } }, [
-      _c("span", [_c("i", { staticClass: "fas fa-arrow-circle-left fa-2x" })])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "next", attrs: { href: "#" } }, [
-      _c("span", { staticClass: "arrow-icon" }, [
-        _c("i", { staticClass: "fas fa-arrow-circle-right fa-2x" })
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
+module.exports={render:function(){},staticRenderFns:[]}
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
