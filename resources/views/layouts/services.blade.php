@@ -21,15 +21,18 @@
 
   <!-- provides navbar on every page -->
   @include('inc._navbar')
+    <!-- <div class="container d-flex justify-content-center text-center"> -->
+      <!-- <div id="centerContainer"> -->
+        <!-- @yield('content') -->
+          @if(Request::is('petSearch'))
+          @include('inc._searchContainer')
+          @else
+          @include('inc._centerContainer')
+          @endif
 
-  @if(Request::is('petSearch'))
-  @include('inc._searchContainer')
-  @else
-  @include('inc._centerContainer')
-  @endif
-  <!-- includes footer -->
   @include('inc._footer')
-
+      <!-- </div>
+    </div> -->
 </div>
 
     <!-- Scripts -->

@@ -23,10 +23,9 @@ Route::get('petSupplies', 'PagesController@getPetSupplies');
 Route::get('serviceSearch', 'PagesController@getPetServices');
 Route::get('elliesList', 'PagesController@getList');
 Route::get('loveOurPets', 'PagesController@getLove');
-
 Route::get('messages', 'PagesController@getMessages');
-
 Route::get('search', 'SearchController@getSearchResults');
+
 
 // this will add a csrf code to profile
 // Route::post('profile',
