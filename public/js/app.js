@@ -43462,9 +43462,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43494,8 +43491,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       nextPage: '',
       previousPage: '',
 
-      showError: false,
-      statusCode: '',
+      // showError: false,
+      // errorMsg: '<h1>There was an error. Please try again.</h1>',
 
       showStatus: true,
       status: '<h1>Fetching a list of potential new best friends...</h1>',
@@ -43538,22 +43535,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     catchResponse: function catchResponse(data) {
-      console.log('here is the data' + data);
       var pets = data.petfinder.pets;
       var count = 3;
       var numOfItemsViewed = 0;
-      this.status = data.petfinder.header.status.code.$t;
+      this.statusCode = data.petfinder.header.status.code.$t;
       // loop returns 3 objects from petfinder array
       for (var i = 0; i < count; i++) {
-        numOfItemsViewed = numOfItemsViewed + 1;
+        numOfItemsViewed += numOfItemsViewed;
         console.log('index numbers of records' + i);
-        console.log('number of items viewd' + numOfItemsViewed);
-        console.log('first object in array' + pets.pet[i]);
+        console.log('number of items viewed' + numOfItemsViewed);
 
-        if (this.status === "100" && pets.pet[i].status.$t === "A") {
+        if (pets.pet[i].status.$t === "A") {
           // used in search
           this.showError = false;
           this.showStatus = false;
+
           this.animalType = pets.pet[i].animal.$t;
           this.animalAge = pets.pet[i].age.$t;
           this.animalSize = pets.pet[i].size.$t;
@@ -43574,7 +43570,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           // retrieves first image if there are multiple images
           // this.petImage = pets.pet[i].media.photos.photo[0];
 
-
           if (pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0) {
             console.log("this is mixed breed");
             console.log(Object.values(pets.pet[i].breeds.breed[0]));
@@ -43585,30 +43580,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.breed = pets.pet[i].breeds.breed.$t;
             console.log("this is not a mixed breed");
           }
+
+          // }else if(this.status === '200'){
         } else {
-          console.log('there was an error' + this.statusCode);
+          console.log('there was an error' + this.status);
           this.showError = true;
           this.showStatus = false;
           this.showOutput = false;
         }
       }
     }
-    //  // returns 3 new results on button click
-    //  nextPages: function(numOfItemsViewed, i){
-    //    if(numOfItemsViewed <= pets.pet.length-1){
-    //       i = i + 1; // increase i by one
-    //       i = i % arr.length; // if we've gone too high, start from `0` again
-    //     return (pets.pet[i]; // give us back the item of where we are now
-    //    }
-    //   }
-    //
-    // // returns previous 3 results on button click
-    //  previousPages: function(numOfItemsViewed, i){
-    //     if (numOfItemsViewed >= 3) {
-    //       i = i - 1; // decrease by one
-    //     return (pets.pet[i]; // give us back the item of where we are now
-    //     }
-    //   }
 
     // displayImage: function(petImage) {
     //   var img = data.petfinder.pet.media.photos.photo[0].$t;
@@ -43636,13 +43617,8 @@ var render = function() {
     "div",
     { staticClass: "container", attrs: { id: "petSearchInput" } },
     [
-      _c("div", { staticClass: "form-group justify-content-center  p-3" }, [
-        _c(
-          "label",
-          { attrs: { for: "searchZip" } },
-          [_c("font", { attrs: { color: "#A93226" } }, [_vm._v("ZipCode")])],
-          1
-        ),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "searchZip" } }, [_vm._v("ZipCode")]),
         _vm._v(" "),
         _c("input", {
           directives: [
@@ -43653,9 +43629,14 @@ var render = function() {
               expression: "searchZip"
             }
           ],
-          staticClass: "form-control center",
+          staticClass: "form-control input-sm d-flex justify-content-center",
           staticStyle: { width: "auto" },
-          attrs: { type: "text", name: "zipCode", value: "" },
+          attrs: {
+            type: "text",
+            name: "zipCode",
+            value: "",
+            placeholder: "Zipcode Required"
+          },
           domProps: { value: _vm.searchZip },
           on: {
             input: function($event) {
@@ -43667,31 +43648,7 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "required" },
-          [
-            _c("font", { attrs: { color: "#A93226" } }, [
-              _vm._v("Input shown in red is required.")
-            ])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", [
-          _c("h3", [
-            _vm._v("Number of pets viewed: " + _vm._s(_vm.numberOfItemsViewed))
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "label",
-          { attrs: { for: "animal" } },
-          [
-            _c("font", { attrs: { color: "#A93226" } }, [_vm._v("Animal Type")])
-          ],
-          1
-        ),
+        _c("label", { attrs: { for: "animal" } }, [_vm._v("Animal Type")]),
         _vm._v(" "),
         _c(
           "select",
@@ -43731,7 +43688,7 @@ var render = function() {
             _c("option", { attrs: { value: "bird" } }, [_vm._v("Bird")]),
             _vm._v(" "),
             _c("option", { attrs: { value: "horse" } }, [_vm._v("Horse")]),
-            _vm._v("s\n      "),
+            _vm._v("s\n        "),
             _c("option", { attrs: { value: "barnyard" } }, [
               _vm._v("Barnyard")
             ]),
@@ -43861,7 +43818,7 @@ var render = function() {
             }
           },
           [
-            _vm._v("s\n      "),
+            _vm._v("s\n        "),
             _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
             _vm._v(" "),
             _c("option", { attrs: { value: "M" } }, [_vm._v("Male")]),
@@ -43880,6 +43837,18 @@ var render = function() {
               }
             }
           })
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("h4", [
+            _vm._v("Number of pets viewed: " + _vm._s(_vm.numberOfItemsViewed))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "text-center" }, [
+          _vm.showStatus
+            ? _c("div", { staticClass: "status-section center" })
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -43887,12 +43856,6 @@ var render = function() {
         "div",
         { staticClass: "container d-flex justify-content-center p-1 m-0" },
         [
-          _vm.showStatus
-            ? _c("div", { staticClass: "status-section center" }, [
-                _c("span", { domProps: { innerHTML: _vm._s(_vm.status) } })
-              ])
-            : _vm._e(),
-          _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c(
               "button",
@@ -43947,6 +43910,104 @@ var render = function() {
                       _c("img", {
                         staticClass: "petImage",
                         attrs: { src: "assets/images/peaches.jpg" }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "m-2" }, [
+                        _vm._v(_vm._s(_vm.description))
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md" }, [
+              _vm.showOutput
+                ? _c(
+                    "div",
+                    { staticClass: "output-section border border-dark" },
+                    [
+                      _c("div", [
+                        _c("strong", [_vm._v("Name:")]),
+                        _vm._v(" " + _vm._s(_vm.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Location:")]),
+                        _vm._v(" " + _vm._s(_vm.city))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Age:")]),
+                        _vm._v(" " + _vm._s(_vm.animalAge))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Sex:")]),
+                        _vm._v(" " + _vm._s(_vm.animalSex))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Size:")]),
+                        _vm._v(" " + _vm._s(_vm.animalSize))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Breed:")]),
+                        _vm._v(" " + _vm._s(_vm.breed))
+                      ]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "petImage",
+                        attrs: { src: "assets/images/ellie.jpg" }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "m-2" }, [
+                        _vm._v(_vm._s(_vm.description))
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md" }, [
+              _vm.showOutput
+                ? _c(
+                    "div",
+                    { staticClass: "output-section w-85 border border-dark" },
+                    [
+                      _c("div", [
+                        _c("strong", [_vm._v("Name:")]),
+                        _vm._v(" " + _vm._s(_vm.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Location:")]),
+                        _vm._v(" " + _vm._s(_vm.city))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Age:")]),
+                        _vm._v(" " + _vm._s(_vm.animalAge))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Sex:")]),
+                        _vm._v(" " + _vm._s(_vm.animalSex))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Size:")]),
+                        _vm._v(" " + _vm._s(_vm.animalSize))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Breed:")]),
+                        _vm._v(" " + _vm._s(_vm.breed))
+                      ]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "petImage",
+                        attrs: { src: "assets/images/piccolo.jpg" }
                       }),
                       _vm._v(" "),
                       _c("div", { staticClass: "m-2" }, [

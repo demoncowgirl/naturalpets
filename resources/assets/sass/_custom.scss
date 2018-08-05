@@ -70,6 +70,18 @@ input{
   width: auto;
 }
 
+.form-group{
+  max-width: 900px;
+}
+
+.btn{
+  margin: 4px;
+}
+
+.input{
+  margin: 0px;
+}
+
 label.form-control{
   border: none;
   background-color: #59C9A5;
@@ -145,9 +157,7 @@ form.text{
   text-align: left;
 }
 
-.form-group{
-  max-width: 700px;
-}
+
 
 i{
   color: #145A56;

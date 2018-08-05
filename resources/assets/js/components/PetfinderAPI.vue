@@ -1,60 +1,57 @@
 <template>
   <!-- input form for pet search -->
 <div id="petSearchInput" class="container">
-  <div class="form-group justify-content-center  p-3">
-    <label for="searchZip"><font color="#A93226">ZipCode</font></label>
-    <input type="text" name="zipCode" value="" class="form-control center" style="width: auto;" v-model='searchZip'>
-    <div class="required">
-       <font color="#A93226">Input shown in red is required.</font>
-    </div>
-    <div>
-      <h3>Number of pets viewed: {{numberOfItemsViewed}}</h3>
-    </div>
+  <div class="form-group">
+      <label for="searchZip">ZipCode</label>
+      <input type="text" name="zipCode" value="" class="form-control input-sm d-flex justify-content-center" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip'>
+      <label for="animal">Animal Type</label>
+      <select name="animal" v-model='animalType'>
+        <option value="dog" selected>Dog</option>
+        <option value="cat" >Cat</option>
+        <option value="bird" >Bird</option>
+        <option value="horse" >Horse</option>s
+        <option value="barnyard" >Barnyard</option>
+        <option value="reptile" >Reptile</option>
+        <option value="smallfurry" >Small Furry</option>
+      </select>
 
-    <label for="animal"><font color="#A93226">Animal Type</font></label>
-    <select name="animal" v-model='animalType'>
-      <option value="dog" selected>Dog</option>
-      <option value="cat" >Cat</option>
-      <option value="bird" >Bird</option>
-      <option value="horse" >Horse</option>s
-      <option value="barnyard" >Barnyard</option>
-      <option value="reptile" >Reptile</option>
-      <option value="smallfurry" >Small Furry</option>
-    </select>
-
-    <label for="age">Age</label>
-    <select name="age" v-model='animalAge'>
-      <option value = ''>Any</option>
-      <option value = "Baby">Baby</option>
-      <option value="Young">Young</option>
-      <option value="Adult">Adult</option>
-      <option value="Senior">Senior</option>
-    </select>
+      <label for="age">Age</label>
+      <select name="age" v-model='animalAge'>
+        <option value = ''>Any</option>
+        <option value = "Baby">Baby</option>
+        <option value="Young">Young</option>
+        <option value="Adult">Adult</option>
+        <option value="Senior">Senior</option>
+      </select>
 
         <!-- todo: add approximate weight to size labels -->
-    <label for="size">Size</label>
-    <select name="size" v-model='animalSize'>
-      <option value = ''>Any</option>
-      <option value="S">Small</option>
-      <option value="M">Medium</option>
-      <option value="L">Large</option>
-      <option value="XL">Extra Large</option>
-    </select>
+      <label for="size">Size</label>
+      <select name="size" v-model='animalSize'>
+        <option value = ''>Any</option>
+        <option value="S">Small</option>
+        <option value="M">Medium</option>
+        <option value="L">Large</option>
+        <option value="XL">Extra Large</option>
+      </select>
 
-    <label for="sex">Sex</label>
-    <select name="sex" v-model="animalSex">s
-      <option value = ''>Any</option>
-      <option value="M">Male</option>
-      <option value="F">Female</option>
-    </select>
-    <div>
-    <input class="btn btn-secondary" type="submit" id="submitZip" @click="getPet()">
+      <label for="sex">Sex</label>
+      <select name="sex" v-model="animalSex">s
+        <option value = ''>Any</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+      </select>
+      <div>
+      <input class="btn btn-secondary" type="submit" id="submitZip" @click="getPet()">
+      </div>
+      <div><h4>Number of pets viewed: {{numberOfItemsViewed}}</h4></div>
+      <div class= "text-center">
+        <div class="status-section center" v-if="showStatus">
+          <!-- <span v-html="status"></span> -->
+        </div>
+      </div>
     </div>
-  </div>      <!-- output -->
+  <!-- output -->
   <div class="container d-flex justify-content-center p-1 m-0">
-    <div class="status-section center" v-if="showStatus">
-      <span v-html="status"></span>
-    </div>
     <div class="row">
       <button type="button" class="btn btn-md" id="prevpage" @click="previousPages()">
       <a href="#" class="previous">
@@ -73,7 +70,7 @@
             <div class="m-2">{{ description }}</div>
           </div>
         </div>
-        <!-- <div class="col-md">
+        <div class="col-md">
           <div class="output-section border border-dark" v-if="showOutput">
             <div><strong>Name:</strong> {{ name }}</div>
             <div><strong>Location:</strong> {{ city }}</div>
@@ -96,7 +93,7 @@
             <img class="petImage" src='assets/images/piccolo.jpg'/>
             <div class="m-2">{{ description }}</div>
           </div>
-        </div> -->
+        </div>
         <button type="button" class="btn btn-md" id="nextPages" @click="nextPage()">
           <a href="#" class="next">
               <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
@@ -137,8 +134,8 @@
             nextPage: '',
             previousPage: '',
 
-            showError: false,
-            statusCode: '',
+            // showError: false,
+            // errorMsg: '<h1>There was an error. Please try again.</h1>',
 
             showStatus: true,
             status: '<h1>Fetching a list of potential new best friends...</h1>',
@@ -182,22 +179,21 @@
           });
         },
       catchResponse: function(data) {
-        console.log('here is the data' + data);
         var pets = data.petfinder.pets;
         var count = 3;
         var numOfItemsViewed = 0;
-        this.status = data.petfinder.header.status.code.$t;
+        this.statusCode = data.petfinder.header.status.code.$t;
         // loop returns 3 objects from petfinder array
         for(var i = 0; i < count; i++){
-          numOfItemsViewed = numOfItemsViewed + 1;
+          numOfItemsViewed += numOfItemsViewed;
           console.log('index numbers of records' + i);
-          console.log('number of items viewd' + numOfItemsViewed);
-          console.log('first object in array' + pets.pet[i]);
+          console.log('number of items viewed' + numOfItemsViewed);
 
-          if (this.status === "100" && pets.pet[i].status.$t === "A") {
+          if (pets.pet[i].status.$t === "A") {
              // used in search
              this.showError = false;
              this.showStatus = false;
+
              this.animalType = pets.pet[i].animal.$t;
              this.animalAge = pets.pet[i].age.$t;
              this.animalSize = pets.pet[i].size.$t;
@@ -215,10 +211,8 @@
              this.showOutput = true;
              this.breed = pets.pet[i].breeds.breed.$t;
 
-
              // retrieves first image if there are multiple images
              // this.petImage = pets.pet[i].media.photos.photo[0];
-
 
             if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
               console.log("this is mixed breed");
@@ -231,30 +225,17 @@
                    console.log("this is not a mixed breed");
                  }
 
+          // }else if(this.status === '200'){
+
           }else{
-             console.log('there was an error' + this.statusCode);
+              console.log('there was an error' + this.status);
                this.showError = true;
                this.showStatus = false;
                this.showOutput = false;
                 }
             }
           }
-            //  // returns 3 new results on button click
-            //  nextPages: function(numOfItemsViewed, i){
-            //    if(numOfItemsViewed <= pets.pet.length-1){
-            //       i = i + 1; // increase i by one
-            //       i = i % arr.length; // if we've gone too high, start from `0` again
-            //     return (pets.pet[i]; // give us back the item of where we are now
-            //    }
-            //   }
-            //
-            // // returns previous 3 results on button click
-            //  previousPages: function(numOfItemsViewed, i){
-            //     if (numOfItemsViewed >= 3) {
-            //       i = i - 1; // decrease by one
-            //     return (pets.pet[i]; // give us back the item of where we are now
-            //     }
-            //   }
+
 
          // displayImage: function(petImage) {
          //   var img = data.petfinder.pet.media.photos.photo[0].$t;

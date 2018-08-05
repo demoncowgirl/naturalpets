@@ -23,7 +23,7 @@ class UserController extends Controller
     protected function authenticated($request, $user)
     {
         if($user->is_admin('admin')){
-            return redirect('/messages');
+            return redirect('messages');
         }else{
             return redirect('/');
         }

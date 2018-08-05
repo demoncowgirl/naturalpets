@@ -7,7 +7,7 @@
         </div>
           <!-- {{ config('app.name', 'Pet Stop') }} -->
       </a>
-  </div>
+    </div>
 
     <ul class="nav navbar-nav float-right">
         <li><a class="{{ Request::is ('/') ? 'active': ''}}" href="/">Home</a></li>
