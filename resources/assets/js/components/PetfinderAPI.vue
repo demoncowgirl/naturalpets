@@ -43,77 +43,39 @@
       <div>
       <input class="btn btn-secondary" type="submit" id="submitZip" @click="getPet(); showBtn();">
       </div>
-      <!-- <div><h4>Number of pets viewed:</h4> {{numberOfItemsViewed}}</div> -->
-      <div class= "text-center">
-        <div class="status-section center" v-if="showStatus">
-          <span v-html="status"></span>
-        </div>
-      </div>
     </div>
   <!-- output -->
-  <div class="container d-flex justify-content-center p-1 m-0">
-    <!-- <div class="row"> -->
-
-
+  <div id="petDisplay" class="container d-flex justify-content-center p-1 m-0">
       <div class="row">
-        <div id="prevBtn" style="display:none;">
-          <button type="button" class="btn btn-sm" id="prevpage" @click="previousPages()">
+        <div id="prevBtn" class="m-1" style="display:none; width:30px;">
+          <button type="button" class="btn btn-sm" id="prevPage" @click="previousPages()">
           <a href="#" class="previous">
             <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
           </a>
           </button>
         </div>
-        <div class="col-sm">
-          <div class="output-section border border-dark" v-for="(pet, index) in catchResponse" v-if="showOutput">
-            <div><strong>Name:</strong> {{ name }}</div>
-            <div><strong>Location:</strong> {{ city }}</div>
-            <div><strong>Age:</strong> {{ animalAge }}</div>
-            <div><strong>Sex:</strong> {{ animalSex }}</div>
-            <div><strong>Size:</strong> {{ animalSize }}</div>
-            <div><strong>Breed:</strong> {{ breed }}</div>
-            <div><strong>Contact Email:</strong> {{ email }}</div>
-            <div><strong>Contact Phone:</strong> {{ phone }}</div>
+        <div style="width:980px;">
+          <div class=" col-md-3 output-section border border-dark m-2" style="width:400px;" v-for="pet in petsArray" v-if="showOutput">
+            <div><strong>Name:</strong> {{ pet.name }}</div>
+            <div><strong>Location:</strong> {{ pet.city }}</div>
+            <div><strong>Age:</strong> {{ pet.animalAge }}</div>
+            <div><strong>Sex:</strong> {{ pet.animalSex }}</div>
+            <div><strong>Size:</strong> {{ pet.animalSize }}</div>
+            <div><strong>Breed:</strong> {{ pet.breed }}</div>
+            <div><strong>Contact Email:</strong> {{ pet.email }}</div>
+            <div><strong>Contact Phone:</strong> {{ pet.phone }}</div>
             <img class="petImage" src='assets/images/peaches.jpg'/>
-            <div class="m-2">{{ description }}</div>
+            <div class="m-2">{{ pet.description }}</div>
           </div>
         </div>
-        <!-- <div class="col-sm">
-          <div class="output-section border border-dark" v-if="showOutput">
-            <div><strong>Name:</strong> {{ name }}</div>
-            <div><strong>Location:</strong> {{ city }}</div>
-            <div><strong>Age:</strong> {{ animalAge }}</div>
-            <div><strong>Sex:</strong> {{ animalSex }}</div>
-            <div><strong>Size:</strong> {{ animalSize }}</div>
-            <div><strong>Breed:</strong> {{ breed }}</div>
-            <div><strong>Contact Email:</strong> {{ email }}</div>
-            <div><strong>Contact Phone:</strong> {{ phone }}</div>
-            <img class="petImage" src='assets/images/ellie.jpg'/>
-            <div class="m-2">{{ description }}</div>
-          </div>
-        </div>
-        <div class="col-sm">
-          <div class="output-section border border-dark" v-if="showOutput">
-            <div><strong>Name:</strong> {{ name }}</div>
-            <div><strong>Location:</strong> {{ city }}</div>
-            <div><strong>Age:</strong> {{ animalAge }}</div>
-            <div><strong>Sex:</strong> {{ animalSex }}</div>
-            <div><strong>Size:</strong> {{ animalSize }}</div>
-            <div><strong>Breed:</strong> {{ breed }}</div>
-            <div><strong>Contact Email:</strong> {{ email }}</div>
-            <div><strong>Contact Phone:</strong> {{ phone }}</div>
-            <img class="petImage" src='assets/images/piccolo.jpg'/>
-            <div class="m-2">{{ description }}</div>
-          </div>
-        </div> -->
       </div>
-          <div id="nextBtn"style="display:none;">
-            <button type="button" class="btn btn-sm" id="nextPages" @click="nextPage()">
+          <div id="nextBtn" class="m-1" style="display:none; width:30px;">
+            <button type="button" class="btn btn-sm" id="nextPage" @click="nextPage()">
               <a href="#" class="next">
               <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
             </a>
             </button>
           </div>
-      <!-- </div> -->
   </div>
 </div>
 
@@ -129,18 +91,9 @@
             showOutput: false,
             output: 'basic',
             searchZip: '',
-            status: '',
-            city:'',
-            name: '',
-            age: '',
-            sex: '',
-            breed: '',
-            description: '',
-            phone: '',
-            email: '',
-            numberOfItemsViewed: '',
-            // petImage: img,
+            // options:'',
 
+            petsArray: [],
             animalType: '',
             animalSize: '',
             animalAge: '',
@@ -174,7 +127,7 @@
            document.getElementById('nextBtn').style.display = "block";
          },
 
-        getPet: function bindButtons(){
+        getPet: function (){
           var url = "http://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
 
           // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
@@ -203,46 +156,46 @@
 
         catchResponse: function(data) {
 
-          if(statusCode !== "100"){
-            console.log('there was an error' + statusCode);
-             this.showError = true;
-             this.showStatus = false;
-             this.showOutput = false;
-            }
-
           var pets = data.petfinder.pets;
           var count = 3;
           var statusCode = data.petfinder.header.status.code.$t;
-          var petsArray = [];
-          // var arrayLength = 25;
+
           // var numOfItemsViewed = 0;
 
+        if(statusCode !== "100"){
+          console.log('there was an error' + statusCode);
+           this.showError = true;
+           this.showStatus = false;
+           this.showOutput = false;
+          }
+
         // loop returns objects from petfinder array
-        for(var i = 0; i < 25; i++){
-          var petsArray = [];
-          console.log('index numbers of records' + i);
-          if (status = 'A') {
-            console.log(data);
+          for(var i = 0; i < 3; i++){
+            var currentPet = [];
+            console.log('index numbers of records ' + i);
+            // console.log(data);
+
+            if (pets.pet[i].status.$t === 'A') {
+              // console.log(data);
             // numberOfItemsViewed += numberOfItemsViewed;
              this.showError = false;
              this.showStatus = false;
               // used in search
-             this.animalType = pets.pet[i].animal.$t;
-             this.animalAge = pets.pet[i].age.$t;
-             this.animalSize = pets.pet[i].size.$t;
-             this.animalSex = pets.pet[i].sex.$t;
-             this.status = pets.pet[i].status.$t; //default of 'A'
+             currentPet.animalType = pets.pet[i].animal.$t;
+             currentPet.animalAge = pets.pet[i].age.$t;
+             currentPet.animalSize = pets.pet[i].size.$t;
+             currentPet.animalSex = pets.pet[i].sex.$t;
              // for response, not displayed
-             this.id = pets.pet[i].id.$t;
-             this.zipCode = pets.pet[i].contact.zip.$t;
+             currentPet.id = pets.pet[i].id.$t;
+             currentPet.zipCode = pets.pet[i].contact.zip.$t;
              //for response, displayed
-             this.city = pets.pet[i].contact.city.$t;
-             this.name = pets.pet[i].name.$t;
-             this.description = pets.pet[i].description.$t;
-             this.email = pets.pet[i].contact.email.$t;
-             this.phone = pets.pet[i].contact.phone.$t;
-             this.breed = pets.pet[i].breeds.breed.$t;
-             this.showOutput = true;
+             currentPet.city = pets.pet[i].contact.city.$t;
+             currentPet.name = pets.pet[i].name.$t;
+             currentPet.description = pets.pet[i].description.$t;
+             currentPet.email = pets.pet[i].contact.email.$t;
+             currentPet.phone = pets.pet[i].contact.phone.$t;
+             currentPet.breed = pets.pet[i].breeds.breed.$t;
+             currentPet.showOutput = true;
              // retrieves first image if there are multiple images
              // this.petImage = pets.pet[i].media.photos.photo[0];
 
@@ -253,15 +206,23 @@
                   // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
                   // console.log(this.breed);
                 }else{
-                       this.breed = pets.pet[i].breeds.breed.$t;
+                       currentPet.breed = pets.pet[i].breeds.breed.$t;
                        // console.log("this is not a mixed breed");
                      }
 
-               petsArray.push(this.city, this.name, this.animalAge, this.animalSex, this.animalSize, this.description,  this.breed, this.email, this.phone);
-               // console.log('this is the pet array' + petsArray);
+                // if(pets.pet[i].option,options > 1){
+                //   console.log(Object.values(pets.pet[i].option.options[0]));
+                //   console.log(Object.values(pets.pet[i].option.options[1]));
+                //   console.log(Object.values(pets.pet[i].option.options[2]));
+                //   console.log(Object.values(pets.pet[i].option.options[3]));
+                //   }
+               // petsArray.push({city:this.city, name:this.name, animalAge:this.animalAge, animalSex:this.animalSex, animalSize:this.animalSize, description:this.description,  breed:this.breed, email:this.email, phone:this.phone});
+
+               console.log(currentPet);
+               this.petsArray.push(Object.assign({}, currentPet));
+
           }
         }
-              return petsArray;
 
          // displayImage: function(petImage) {
          //   var img = data.petfinder.pet.media.photos.photo[0].$t;
@@ -273,9 +234,10 @@
          //   document.body.appendChild(list);
          //
          //   list.appendChild(newImg);
-         // }
+
+         this.showOutput=true;
+      }
     }
-  }
 }
 
 </script>

@@ -8421,6 +8421,14 @@ input {
   margin: 1px;
 }
 
+#nextPage,
+#prevPage {
+  height: 500px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #000;
+}
+
 .input {
   margin: 0px;
 }

@@ -43313,44 +43313,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43361,18 +43323,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       showOutput: false,
       output: 'basic',
       searchZip: '',
-      status: '',
-      city: '',
-      name: '',
-      age: '',
-      sex: '',
-      breed: '',
-      description: '',
-      phone: '',
-      email: '',
-      numberOfItemsViewed: '',
-      // petImage: img,
+      // options:'',
 
+      petsArray: [],
       animalType: '',
       animalSize: '',
       animalAge: '',
@@ -43406,7 +43359,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       document.getElementById('nextBtn').style.display = "block";
     },
 
-    getPet: function bindButtons() {
+    getPet: function getPet() {
       var url = "http://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
 
       // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
@@ -43434,6 +43387,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     catchResponse: function catchResponse(data) {
 
+      var pets = data.petfinder.pets;
+      var count = 3;
+      var statusCode = data.petfinder.header.status.code.$t;
+
+      // var numOfItemsViewed = 0;
+
       if (statusCode !== "100") {
         console.log('there was an error' + statusCode);
         this.showError = true;
@@ -43441,39 +43400,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.showOutput = false;
       }
 
-      var pets = data.petfinder.pets;
-      var count = 3;
-      var statusCode = data.petfinder.header.status.code.$t;
-      var petsArray = [];
-      // var arrayLength = 25;
-      // var numOfItemsViewed = 0;
-
       // loop returns objects from petfinder array
-      for (var i = 0; i < 25; i++) {
-        var petsArray = [];
-        console.log('index numbers of records' + i);
-        if (status = 'A') {
-          console.log(data);
+      for (var i = 0; i < 3; i++) {
+        var currentPet = [];
+        console.log('index numbers of records ' + i);
+        // console.log(data);
+
+        if (pets.pet[i].status.$t === 'A') {
+          // console.log(data);
           // numberOfItemsViewed += numberOfItemsViewed;
           this.showError = false;
           this.showStatus = false;
           // used in search
-          this.animalType = pets.pet[i].animal.$t;
-          this.animalAge = pets.pet[i].age.$t;
-          this.animalSize = pets.pet[i].size.$t;
-          this.animalSex = pets.pet[i].sex.$t;
-          this.status = pets.pet[i].status.$t; //default of 'A'
+          currentPet.animalType = pets.pet[i].animal.$t;
+          currentPet.animalAge = pets.pet[i].age.$t;
+          currentPet.animalSize = pets.pet[i].size.$t;
+          currentPet.animalSex = pets.pet[i].sex.$t;
           // for response, not displayed
-          this.id = pets.pet[i].id.$t;
-          this.zipCode = pets.pet[i].contact.zip.$t;
+          currentPet.id = pets.pet[i].id.$t;
+          currentPet.zipCode = pets.pet[i].contact.zip.$t;
           //for response, displayed
-          this.city = pets.pet[i].contact.city.$t;
-          this.name = pets.pet[i].name.$t;
-          this.description = pets.pet[i].description.$t;
-          this.email = pets.pet[i].contact.email.$t;
-          this.phone = pets.pet[i].contact.phone.$t;
-          this.breed = pets.pet[i].breeds.breed.$t;
-          this.showOutput = true;
+          currentPet.city = pets.pet[i].contact.city.$t;
+          currentPet.name = pets.pet[i].name.$t;
+          currentPet.description = pets.pet[i].description.$t;
+          currentPet.email = pets.pet[i].contact.email.$t;
+          currentPet.phone = pets.pet[i].contact.phone.$t;
+          currentPet.breed = pets.pet[i].breeds.breed.$t;
+          currentPet.showOutput = true;
           // retrieves first image if there are multiple images
           // this.petImage = pets.pet[i].media.photos.photo[0];
 
@@ -43484,15 +43437,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
             // console.log(this.breed);
           } else {
-            this.breed = pets.pet[i].breeds.breed.$t;
+            currentPet.breed = pets.pet[i].breeds.breed.$t;
             // console.log("this is not a mixed breed");
           }
 
-          petsArray.push(this.city, this.name, this.animalAge, this.animalSex, this.animalSize, this.description, this.breed, this.email, this.phone);
-          // console.log('this is the pet array' + petsArray);
+          // if(pets.pet[i].option,options > 1){
+          //   console.log(Object.values(pets.pet[i].option.options[0]));
+          //   console.log(Object.values(pets.pet[i].option.options[1]));
+          //   console.log(Object.values(pets.pet[i].option.options[2]));
+          //   console.log(Object.values(pets.pet[i].option.options[3]));
+          //   }
+          // petsArray.push({city:this.city, name:this.name, animalAge:this.animalAge, animalSex:this.animalSex, animalSize:this.animalSize, description:this.description,  breed:this.breed, email:this.email, phone:this.phone});
+
+          console.log(currentPet);
+          this.petsArray.push(Object.assign({}, currentPet));
         }
       }
-      return petsArray;
 
       // displayImage: function(petImage) {
       //   var img = data.petfinder.pet.media.photos.photo[0].$t;
@@ -43504,7 +43464,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       //   document.body.appendChild(list);
       //
       //   list.appendChild(newImg);
-      // }
+
+      this.showOutput = true;
     }
   }
 });
@@ -43742,31 +43703,30 @@ var render = function() {
               }
             }
           })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "text-center" }, [
-          _vm.showStatus
-            ? _c("div", { staticClass: "status-section center" }, [
-                _c("span", { domProps: { innerHTML: _vm._s(_vm.status) } })
-              ])
-            : _vm._e()
         ])
       ]),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "container d-flex justify-content-center p-1 m-0" },
+        {
+          staticClass: "container d-flex justify-content-center p-1 m-0",
+          attrs: { id: "petDisplay" }
+        },
         [
           _c("div", { staticClass: "row" }, [
             _c(
               "div",
-              { staticStyle: { display: "none" }, attrs: { id: "prevBtn" } },
+              {
+                staticClass: "m-1",
+                staticStyle: { display: "none", width: "30px" },
+                attrs: { id: "prevBtn" }
+              },
               [
                 _c(
                   "button",
                   {
                     staticClass: "btn btn-sm",
-                    attrs: { type: "button", id: "prevpage" },
+                    attrs: { type: "button", id: "prevPage" },
                     on: {
                       click: function($event) {
                         _vm.previousPages()
@@ -43780,51 +43740,55 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "col-sm" },
-              _vm._l(_vm.catchResponse, function(pet, index) {
+              { staticStyle: { width: "980px" } },
+              _vm._l(_vm.petsArray, function(pet) {
                 return _vm.showOutput
                   ? _c(
                       "div",
-                      { staticClass: "output-section border border-dark" },
+                      {
+                        staticClass:
+                          " col-md-3 output-section border border-dark m-2",
+                        staticStyle: { width: "400px" }
+                      },
                       [
                         _c("div", [
                           _c("strong", [_vm._v("Name:")]),
-                          _vm._v(" " + _vm._s(_vm.name))
+                          _vm._v(" " + _vm._s(pet.name))
                         ]),
                         _vm._v(" "),
                         _c("div", [
                           _c("strong", [_vm._v("Location:")]),
-                          _vm._v(" " + _vm._s(_vm.city))
+                          _vm._v(" " + _vm._s(pet.city))
                         ]),
                         _vm._v(" "),
                         _c("div", [
                           _c("strong", [_vm._v("Age:")]),
-                          _vm._v(" " + _vm._s(_vm.animalAge))
+                          _vm._v(" " + _vm._s(pet.animalAge))
                         ]),
                         _vm._v(" "),
                         _c("div", [
                           _c("strong", [_vm._v("Sex:")]),
-                          _vm._v(" " + _vm._s(_vm.animalSex))
+                          _vm._v(" " + _vm._s(pet.animalSex))
                         ]),
                         _vm._v(" "),
                         _c("div", [
                           _c("strong", [_vm._v("Size:")]),
-                          _vm._v(" " + _vm._s(_vm.animalSize))
+                          _vm._v(" " + _vm._s(pet.animalSize))
                         ]),
                         _vm._v(" "),
                         _c("div", [
                           _c("strong", [_vm._v("Breed:")]),
-                          _vm._v(" " + _vm._s(_vm.breed))
+                          _vm._v(" " + _vm._s(pet.breed))
                         ]),
                         _vm._v(" "),
                         _c("div", [
                           _c("strong", [_vm._v("Contact Email:")]),
-                          _vm._v(" " + _vm._s(_vm.email))
+                          _vm._v(" " + _vm._s(pet.email))
                         ]),
                         _vm._v(" "),
                         _c("div", [
                           _c("strong", [_vm._v("Contact Phone:")]),
-                          _vm._v(" " + _vm._s(_vm.phone))
+                          _vm._v(" " + _vm._s(pet.phone))
                         ]),
                         _vm._v(" "),
                         _c("img", {
@@ -43833,7 +43797,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("div", { staticClass: "m-2" }, [
-                          _vm._v(_vm._s(_vm.description))
+                          _vm._v(_vm._s(pet.description))
                         ])
                       ]
                     )
@@ -43844,13 +43808,17 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { display: "none" }, attrs: { id: "nextBtn" } },
+            {
+              staticClass: "m-1",
+              staticStyle: { display: "none", width: "30px" },
+              attrs: { id: "nextBtn" }
+            },
             [
               _c(
                 "button",
                 {
                   staticClass: "btn btn-sm",
-                  attrs: { type: "button", id: "nextPages" },
+                  attrs: { type: "button", id: "nextPage" },
                   on: {
                     click: function($event) {
                       _vm.nextPage()
