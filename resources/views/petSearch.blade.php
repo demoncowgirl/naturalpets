@@ -4,7 +4,7 @@
 
 @section('content')
 <h1>Pet Search</h1>
-<div id="results">
+<div id="results" style="width: 972px">
   <petfinderapi></petfinderapi>
 </div>
 

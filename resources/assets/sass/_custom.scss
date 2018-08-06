@@ -71,14 +71,14 @@ input{
 }
 
 .form-group{
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 .btn{
   margin: 1px;
 }
 
-#nextPage, #prevPage{
+#prevBtn, #nextBtn{
   height: 500px;
   border-style: solid;
   border-width: 1px;
@@ -98,8 +98,10 @@ form.text{
   width: 200px;
 }
 
+// section of 3 columns to display adoptable pets
 .output-secton{
-  width: 200px;
+  width: 300px;
+  align-content: space-between;
 }
 
 #showcase{

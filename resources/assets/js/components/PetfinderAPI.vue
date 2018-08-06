@@ -1,6 +1,6 @@
 <template>
   <!-- input form for pet search -->
-<div id="petSearchInput" class="container">
+<div id="petSearchInput" class="container" style="width: auto;">
   <div class="form-group">
       <label for="searchZip">ZipCode</label>
       <input type="text" name="zipCode" value="" class="form-control input-sm d-flex justify-content-center" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip'>
@@ -47,15 +47,15 @@
   <!-- output -->
   <div id="petDisplay" class="container d-flex justify-content-center p-1 m-0">
       <div class="row">
-        <div id="prevBtn" class="m-1" style="display:none; width:30px;">
-          <button type="button" class="btn btn-sm" id="prevPage" @click="previousPages()">
+        <div id="prev" class="m-0" style="display:none; width:40px;">
+          <button type="button" class="btn btn-sm" id="prevBtn" @click="previousPages(); getPet();">
           <a href="#" class="previous">
             <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
           </a>
           </button>
         </div>
         <div>
-          <div class=" col-md-3 output-section border border-dark m-2" style="width:400px;" v-for="pet in petsArray" v-if="showOutput">
+          <div class="col-md-3 output-section border border-dark m-2" v-for="pet in petsArray" v-if="showOutput">
             <div><strong>Name:</strong> {{ pet.name }}</div>
             <div><strong>Location:</strong> {{ pet.city }}</div>
             <div><strong>Age:</strong> {{ pet.animalAge }}</div>
@@ -69,8 +69,8 @@
           </div>
         </div>
       </div>
-          <div id="nextBtn" class="m-1" style="display:none; width:30px;">
-            <button type="button" class="btn btn-sm" id="nextPage" @click="nextPage()">
+          <div id="next" class="m-0" style="display:none; width:40px;">
+            <button type="button" class="btn btn-sm" id="nextBtn" @click="nextPages(); getPet();">
               <a href="#" class="next">
               <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
             </a>
@@ -91,17 +91,15 @@
             showOutput: false,
             output: 'basic',
             searchZip: '',
-            // options:'',
-
             petsArray: [],
             animalType: '',
             animalSize: '',
             animalAge: '',
             animalSex:'',
-
-            nextPage: '',
-            previousPage: '',
-
+            // options:'',
+            newArray: [],
+            prevBtn:'',
+            nextBtn:'',
             showError: false,
             errorMsg: '<h1>There was an error. Please try again.</h1>',
 
@@ -123,8 +121,8 @@
 
         // hides next and previous buttons until submit button is clicked
         showBtn: function() {
-           document.getElementById('prevBtn').style.display = "block";
-           document.getElementById('nextBtn').style.display = "block";
+           document.getElementById('prev').style.display = "block";
+           document.getElementById('next').style.display = "block";
          },
 
         getPet: function (){
@@ -169,11 +167,10 @@
            this.showOutput = false;
           }
 
-        // loop returns objects from petfinder array
           for(var i = 0; i < 3; i++){
             var currentPet = [];
-            console.log('index numbers of records ' + i);
-            // console.log(data);
+
+            console.log(data);
 
             if (pets.pet[i].status.$t === 'A') {
               // console.log(data);
@@ -218,26 +215,54 @@
                 //   }
                // petsArray.push({city:this.city, name:this.name, animalAge:this.animalAge, animalSex:this.animalSex, animalSize:this.animalSize, description:this.description,  breed:this.breed, email:this.email, phone:this.phone});
 
-               console.log(currentPet);
                this.petsArray.push(Object.assign({}, currentPet));
-
           }
         }
 
-         // displayImage: function(petImage) {
-         //   var img = data.petfinder.pet.media.photos.photo[0].$t;
-         //   var newImg = document.createElement('img');
-         //   newImg.src = img;
-         //
-         //   var list = document.createElement("div");
-         //   list.setAttribute("id", "List");
-         //   document.body.appendChild(list);
-         //
-         //   list.appendChild(newImg);
+          this.petsArray.forEach(function(element) {
+              console.log('this is the petsArray');
+              console.log(element);
+            });
 
+            currentPet.forEach(function(element) {
+                console.log('this is the petsArray');
+                console.log(element);
+              });
+
+          // console.log("this is the currentPet Array " + currentPet[i]);
+          // console.log("this is the petsArray " + this.petsArray[i]);
          this.showOutput=true;
-      }
+      },
+
+
+                nextPages: function(currentPet){
+                  // if(this.petsArray.length < 25){
+                    var newArray = this.petsArray.push(this.petsArray[3]);
+                    console.log("Button next clicked.");
+                    console.log('this is the display array ' + newArray);
+                  // }
+                },
+                //
+                // previousPages: function(whichArray){
+                //   if(whichArray){
+                //     array
+                //   }
+                // }
+                //     console.log("Button prev clicked.");
+                //
+                // },
     }
 }
 
 </script>
+
+       // displayImage: function(petImage) {
+       //   var img = data.petfinder.pet.media.photos.photo[0].$t;
+       //   var newImg = document.createElement('img');
+       //   newImg.src = img;
+       //
+       //   var list = document.createElement("div");
+       //   list.setAttribute("id", "List");
+       //   document.body.appendChild(list);
+       //
+       //   list.appendChild(newImg);
