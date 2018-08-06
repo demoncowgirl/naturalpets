@@ -54,7 +54,7 @@
           </a>
           </button>
         </div>
-        <div style="width:980px;">
+        <div>
           <div class=" col-md-3 output-section border border-dark m-2" style="width:400px;" v-for="pet in petsArray" v-if="showOutput">
             <div><strong>Name:</strong> {{ pet.name }}</div>
             <div><strong>Location:</strong> {{ pet.city }}</div>
