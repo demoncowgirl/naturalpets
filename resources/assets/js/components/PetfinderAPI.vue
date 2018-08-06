@@ -6,7 +6,7 @@
       <input type="text" name="zipCode" value="" class="form-control input-sm d-flex justify-content-center" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip'>
       <label for="animal">Animal Type</label>
       <select name="animal" v-model='animalType'>
-        <option value="dog" selected>Dog</option>
+        <option value="dog" selected="selected">Dog</option>
         <option value="cat" >Cat</option>
         <option value="bird" >Bird</option>
         <option value="horse" >Horse</option>s
@@ -41,7 +41,7 @@
         <option value="F">Female</option>
       </select>
       <div>
-      <input class="btn btn-secondary" type="submit" id="submitZip" @click="getPet()">
+      <input class="btn btn-secondary" type="submit" id="submitZip" @click="getPet(); showBtn();">
       </div>
       <!-- <div><h4>Number of pets viewed:</h4> {{numberOfItemsViewed}}</div> -->
       <div class= "text-center">
@@ -52,25 +52,29 @@
     </div>
   <!-- output -->
   <div class="container d-flex justify-content-center p-1 m-0">
-    <div class="row">
-      <button type="button" class="btn btn-sm" id="prevpage" @click="previousPages()">
-      <a href="#" class="previous">
-        <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
-      </a>
-      </button>
+    <!-- <div class="row"> -->
+
+
+      <div class="row">
+        <div id="prevBtn" style="display:none;">
+          <button type="button" class="btn btn-sm" id="prevpage" @click="previousPages()">
+          <a href="#" class="previous">
+            <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
+          </a>
+          </button>
+        </div>
         <div class="col-sm">
-          <!-- v-for="(pet, index) in pets" v-bind:index="index" -->
-          <div class="output-section border border-dark" v-for="adoptees in catchResponse">
-            <div><strong>Name:</strong> hello world </div>
-            <!-- <div><strong>Location:</strong> {{ adoptees.city }}</div>
-            <div><strong>Age:</strong> {{ adoptees.animalAge }}</div>
-            <div><strong>Sex:</strong> {{ adoptees.animalSex }}</div>
-            <div><strong>Size:</strong> {{ adoptees.animalSize }}</div>
-            <div><strong>Breed:</strong> {{ adoptees.breed }}</div>
-            <div><strong>Contact Email:</strong> {{ adoptees.email }}</div>
-            <div><strong>Contact Phone:</strong> {{ adoptees.phone }}</div>
+          <div class="output-section border border-dark" v-for="(pet, index) in catchResponse" v-if="showOutput">
+            <div><strong>Name:</strong> {{ name }}</div>
+            <div><strong>Location:</strong> {{ city }}</div>
+            <div><strong>Age:</strong> {{ animalAge }}</div>
+            <div><strong>Sex:</strong> {{ animalSex }}</div>
+            <div><strong>Size:</strong> {{ animalSize }}</div>
+            <div><strong>Breed:</strong> {{ breed }}</div>
+            <div><strong>Contact Email:</strong> {{ email }}</div>
+            <div><strong>Contact Phone:</strong> {{ phone }}</div>
             <img class="petImage" src='assets/images/peaches.jpg'/>
-            <div class="m-2">{{ adoptees.description }}</div> -->
+            <div class="m-2">{{ description }}</div>
           </div>
         </div>
         <!-- <div class="col-sm">
@@ -99,14 +103,17 @@
             <div><strong>Contact Phone:</strong> {{ phone }}</div>
             <img class="petImage" src='assets/images/piccolo.jpg'/>
             <div class="m-2">{{ description }}</div>
-          </div> -->
-        <!-- </div> -->
-        <button type="button" class="btn btn-sm" id="nextPages" @click="nextPage()">
-          <a href="#" class="next">
+          </div>
+        </div> -->
+      </div>
+          <div id="nextBtn"style="display:none;">
+            <button type="button" class="btn btn-sm" id="nextPages" @click="nextPage()">
+              <a href="#" class="next">
               <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
             </a>
-        </button>
-      </div>
+            </button>
+          </div>
+      <!-- </div> -->
   </div>
 </div>
 
@@ -161,6 +168,12 @@
           var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
         },
 
+        // hides next and previous buttons until submit button is clicked
+        showBtn: function() {
+           document.getElementById('prevBtn').style.display = "block";
+           document.getElementById('nextBtn').style.display = "block";
+         },
+
         getPet: function bindButtons(){
           var url = "http://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
 
@@ -187,21 +200,22 @@
             .catch(function(err) { alert('Error retrieving data!');
           });
         },
-      catchResponse: function(data) {
 
-        if(statusCode != "100"){
-          console.log('there was an error' + statusCode);
-           this.showError = true;
-           this.showStatus = false;
-           this.showOutput = false;
-          }
+        catchResponse: function(data) {
 
-        var pets = data.petfinder.pets;
-        var count = 3;
-        var statusCode = data.petfinder.header.status.code.$t;
-        var petsArray = [];
-        // var arrayLength = 25;
-        // var numOfItemsViewed = 0;
+          if(statusCode !== "100"){
+            console.log('there was an error' + statusCode);
+             this.showError = true;
+             this.showStatus = false;
+             this.showOutput = false;
+            }
+
+          var pets = data.petfinder.pets;
+          var count = 3;
+          var statusCode = data.petfinder.header.status.code.$t;
+          var petsArray = [];
+          // var arrayLength = 25;
+          // var numOfItemsViewed = 0;
 
         // loop returns objects from petfinder array
         for(var i = 0; i < 25; i++){
@@ -244,14 +258,11 @@
                      }
 
                petsArray.push(this.city, this.name, this.animalAge, this.animalSex, this.animalSize, this.description,  this.breed, this.email, this.phone);
-               console.log('this is the pet array' + petsArray);
-             }
-             // }else{
-             //    // no matches found error
-             // }
-            }
-              return petsArray;
+               // console.log('this is the pet array' + petsArray);
+          }
         }
+              return petsArray;
+
          // displayImage: function(petImage) {
          //   var img = data.petfinder.pet.media.photos.photo[0].$t;
          //   var newImg = document.createElement('img');
@@ -263,6 +274,8 @@
          //
          //   list.appendChild(newImg);
          // }
-       }
+    }
+  }
 }
+
 </script>

@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'PagesController@getHome');
+Route::get('loginSuccessful', 'PagesController@getLoginSuccessful');
 Route::get('about', 'PagesController@getAbout');
 Route::get('contact', 'PagesController@getContact');
 Route::get('profile', 'PagesController@getProfile');

@@ -9,6 +9,9 @@ class PagesController extends Controller
     public function getHome() {
         return view('home');
     }
+    public function getLoginSuccessful() {
+        return view('loginSuccessful');
+    }
     public function getAbout() {
         return view('about');
     }
@@ -46,10 +49,4 @@ class PagesController extends Controller
     public function getLove() {
         return view('loveOurPets');
     }
-
-    //remove after testing
-    public function getTest() {
-        return view('apiTest');
-    }
-
 }

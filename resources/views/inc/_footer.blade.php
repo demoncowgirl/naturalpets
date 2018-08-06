@@ -33,11 +33,13 @@
         <div class="row">
           <img id="cat-left-to-right" src="{{ asset('assets/images/cat_prints.gif') }}" alt="silhouette of cat walking across page from left to right, leaving pawprints" style="height:80px;">
         </div>
-        <div id="adoptLogo">
-          <div class="col-sm-3 mt-md-0 images align-right">
-            @include('inc._logo')
+          <div id="adoptLogo" class="col-sm-3 mt-md-0 images align-right">
+            <div  class="images align-middle">
+                  <div class = "row">
+                    <img src="{{ asset('assets/images/adopt.png') }}" alt="adopt, don't shop logo" style="height:140px;">
+                  </div>
+            </div>
         </div>
-      </div>
         @endif
       <div>
         <div class="footer-copyright text-center py-3">2018 Beth Salvatore</div>
