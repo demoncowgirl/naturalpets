@@ -34,6 +34,7 @@
         </div>
         @endif
       <div>
+        @include('inc._animation1')
         <!-- <div class="footer-copyright text-center py-3">2018 Beth Salvatore</div> -->
       </div>
     </div>

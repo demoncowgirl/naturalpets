@@ -2,8 +2,10 @@
   <!-- input form for pet search -->
 <div id="petSearchInput" class="container" style="width: auto;">
   <div class="form-group">
+
       <label for="searchZip">ZipCode</label>
-      <input type="text" name="zipCode" value="" class="form-control input-sm d-flex justify-content-center" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip'>
+      <input type="text" name="zipCode" value="" class="input-sm" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip'>
+
       <label for="animal">Animal Type</label>
       <select name="animal" v-model='animalType'>
         <option value="dog" selected="selected" >Dog</option>
@@ -17,8 +19,8 @@
 
       <label for="age">Age</label>
       <select name="age" v-model='animalAge'>
-        <option value = ''>Any</option>
-        <option value = "Baby">Baby</option>
+        <option value=''>Any</option>
+        <option value="Baby">Baby</option>
         <option value="Young">Young</option>
         <option value="Adult">Adult</option>
         <option value="Senior">Senior</option>
@@ -27,7 +29,7 @@
         <!-- todo: add approximate weight to size labels -->
       <label for="size">Size</label>
       <select name="size" v-model='animalSize'>
-        <option value = ''>Any</option>
+        <option value=''>Any</option>
         <option value="S">Small</option>
         <option value="M">Medium</option>
         <option value="L">Large</option>
@@ -36,12 +38,12 @@
 
       <label for="sex">Sex</label>
       <select name="sex" v-model="animalSex">
-        <option value = ''>Any</option>
+        <option value=''>Any</option>
         <option value="M">Male</option>
         <option value="F">Female</option>
       </select>
       <div>
-      <input class="btn btn-secondary" type="submit" id="submitZip" @click="getPet(); showBtn();">
+      <input class="btn btn-secondary" style="color: white;" type="submit" id="submitZip" @click="getPet(); showBtn();">
       </div>
   </div>
   <!-- output -->
@@ -56,7 +58,7 @@
       </div>
       <div class="row col-md-10">
         <div class="col-md-4" v-for="pet in petsArray" v-if="showOutput">
-          <div class="border border-dark">
+          <div class="border border-dark p-2">
             <div><strong>Name:</strong> {{ pet.name }}</div>
             <div><strong>Location:</strong> {{ pet.city }}</div>
             <div><strong>Age:</strong> {{ pet.animalAge }}</div>

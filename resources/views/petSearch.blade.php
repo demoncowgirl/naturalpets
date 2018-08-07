@@ -7,5 +7,4 @@
 <div id="results">
   <petfinderapi></petfinderapi>
 </div>
-
 @endsection

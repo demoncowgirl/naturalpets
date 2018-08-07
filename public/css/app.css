@@ -8387,8 +8387,8 @@ body {
 }
 
 #animation1.img {
-  margin-left: 150px;
-  margin-right: -10px;
+  float: right;
+  width: 100%;
 }
 
 #animation2 {
@@ -8396,7 +8396,10 @@ body {
 }
 
 .panel {
-  margin-top: 20px;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  margin-top: 0px;
 }
 
 .page-header {
@@ -8454,8 +8457,8 @@ form.text {
 }
 
 #showcase {
-  margin-top: 80px;
-  height: 560px;
+  margin-top: -20px;
+  height: 600px;
   Width: 75%;
   border-style: solid;
   border-width: 3px;
@@ -8467,7 +8470,7 @@ form.text {
   padding: 10px;
   -ms-flex-line-pack: center;
       align-content: center;
-  height: 1200px;
+  height: 750px;
   Width: 75%;
   margin-top: -60px;
   margin-left: 15px;
@@ -8504,7 +8507,7 @@ form.text {
 }
 
 .petImage {
-  width: 250px;
+  width: 220px;
   height: auto;
   border-width: 1px;
   border-color: #145A56;

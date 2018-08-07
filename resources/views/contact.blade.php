@@ -23,4 +23,8 @@
 
 {!! Form::close() !!}
 
+<div p-2>
+@include('inc._terriergif')
+<div>
+
 @endsection

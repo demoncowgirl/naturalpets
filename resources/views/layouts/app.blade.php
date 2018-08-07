@@ -22,8 +22,6 @@
       <!-- provides navbar on every page -->
       @include('inc._navbar')
 
-      @include('inc._animation1')
-
     	@if(Request::is('/'))
         <!-- include showcase only on home page -->
       	 @include('inc._showcase')

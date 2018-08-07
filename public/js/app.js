@@ -43440,6 +43440,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43626,7 +43628,7 @@ var render = function() {
               expression: "searchZip"
             }
           ],
-          staticClass: "form-control input-sm d-flex justify-content-center",
+          staticClass: "input-sm",
           staticStyle: { width: "auto" },
           attrs: {
             type: "text",
@@ -43826,6 +43828,7 @@ var render = function() {
         _c("div", [
           _c("input", {
             staticClass: "btn btn-secondary",
+            staticStyle: { color: "white" },
             attrs: { type: "submit", id: "submitZip" },
             on: {
               click: function($event) {
@@ -43876,7 +43879,7 @@ var render = function() {
               _vm._l(_vm.petsArray, function(pet) {
                 return _vm.showOutput
                   ? _c("div", { staticClass: "col-md-4" }, [
-                      _c("div", { staticClass: "border border-dark" }, [
+                      _c("div", { staticClass: "border border-dark p-2" }, [
                         _c("div", [
                           _c("strong", [_vm._v("Name:")]),
                           _vm._v(" " + _vm._s(pet.name))

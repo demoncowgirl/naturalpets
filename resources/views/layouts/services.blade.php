@@ -19,11 +19,8 @@
 
 <div id="services" class="align-middle">
 
-  <!-- provides navbar on every page -->
-  @include('inc._navbar')
-    <!-- <div class="container d-flex justify-content-center text-center">
-      <div id="centerContainer"> -->
 
+  @include('inc._navbar')
 
     @if(Request::is('petSearch'))
     @include('inc._searchContainer')
@@ -32,8 +29,6 @@
     @endif
 
   @include('inc._footer')
-      <!-- </div> -->
-    <!-- </div> -->
 
 </div>
 
