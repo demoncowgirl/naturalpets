@@ -43438,6 +43438,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43457,6 +43459,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       newArray: [],
       prevBtn: '',
       nextBtn: '',
+      nextPages: '',
+      previousPages: '',
       showError: false,
       errorMsg: '<h1>There was an error. Please try again.</h1>',
 
@@ -43514,8 +43518,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var count = 3;
       var statusCode = data.petfinder.header.status.code.$t;
 
-      // var numOfItemsViewed = 0;
-
       if (statusCode !== "100") {
         console.log('there was an error' + statusCode);
         this.showError = true;
@@ -43523,13 +43525,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.showOutput = false;
       }
 
-      for (var i = 0; i < 3; i++) {
+      var i = 0;
+      var nextIteration = 1;
+
+      for (i = nextIteration; i < nextIteration + 3; i++) {
         var currentPet = [];
 
-        console.log(data);
-
         if (pets.pet[i].status.$t === 'A') {
-          // console.log(data);
+          console.log(data);
           // numberOfItemsViewed += numberOfItemsViewed;
           this.showError = false;
           this.showStatus = false;
@@ -43572,40 +43575,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           // petsArray.push({city:this.city, name:this.name, animalAge:this.animalAge, animalSex:this.animalSex, animalSize:this.animalSize, description:this.description,  breed:this.breed, email:this.email, phone:this.phone});
 
           this.petsArray.push(Object.assign({}, currentPet));
+          // console.log('1st petsArray object' + pets.pet[i].name.$t);
+          // console.log('2nd petsArray object' + pets.pet[i+1].name.$t);
+          // console.log('3rd petsArray object' + pets.pet[i+2].name.$t);
         }
+        // nextPages.onclick = function('nextBtn'){nextIteration = i + 2};
       }
 
-      this.petsArray.forEach(function (element) {
-        console.log('this is the petsArray');
-        console.log(element);
-      });
-
-      currentPet.forEach(function (element) {
-        console.log('this is the petsArray');
-        console.log(element);
-      });
-
+      // nextPages: function(){
+      //   nextIteration = i + 2;
+      //   console.log('nextPages button clicked');
+      // },
+      //
+      // previousPages: function(){
+      //   console.log('previousPages button clicked');
+      // },
       // console.log("this is the currentPet Array " + currentPet[i]);
       // console.log("this is the petsArray " + this.petsArray[i]);
       this.showOutput = true;
-    },
-
-    nextPages: function nextPages(currentPet) {
-      // if(this.petsArray.length < 25){
-      var newArray = this.petsArray.push(this.petsArray[3]);
-      console.log("Button next clicked.");
-      console.log('this is the display array ' + newArray);
-      // }
     }
-    //
-    // previousPages: function(whichArray){
-    //   if(whichArray){
-    //     array
-    //   }
-    // }
-    //     console.log("Button prev clicked.");
-    //
-    // },
+
   }
 });
 
@@ -43826,7 +43815,6 @@ var render = function() {
             }
           },
           [
-            _vm._v("s\n        "),
             _c("option", { attrs: { value: "" } }, [_vm._v("Any")]),
             _vm._v(" "),
             _c("option", { attrs: { value: "M" } }, [_vm._v("Male")]),
@@ -43852,7 +43840,7 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "container d-flex justify-content-center p-1 m-0",
+          staticClass: "container-fluid d-flex p-1 m-0",
           attrs: { id: "petDisplay" }
         },
         [
@@ -43860,8 +43848,8 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass: "m-0",
-                staticStyle: { display: "none", width: "40px" },
+                staticClass: "col-md-1",
+                staticStyle: { display: "none" },
                 attrs: { id: "prev" }
               },
               [
@@ -43884,15 +43872,11 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
+              { staticClass: "row col-md-10" },
               _vm._l(_vm.petsArray, function(pet) {
                 return _vm.showOutput
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "col-md-3 output-section border border-dark m-2"
-                      },
-                      [
+                  ? _c("div", { staticClass: "col-md-4" }, [
+                      _c("div", { staticClass: "border border-dark" }, [
                         _c("div", [
                           _c("strong", [_vm._v("Name:")]),
                           _vm._v(" " + _vm._s(pet.name))
@@ -43941,37 +43925,37 @@ var render = function() {
                         _c("div", { staticClass: "m-2" }, [
                           _vm._v(_vm._s(pet.description))
                         ])
-                      ]
-                    )
+                      ])
+                    ])
                   : _vm._e()
               })
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "m-0",
-              staticStyle: { display: "none", width: "40px" },
-              attrs: { id: "next" }
-            },
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-sm",
-                  attrs: { type: "button", id: "nextBtn" },
-                  on: {
-                    click: function($event) {
-                      _vm.nextPages()
-                      _vm.getPet()
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-md-1",
+                staticStyle: { display: "none" },
+                attrs: { id: "next" }
+              },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-sm",
+                    attrs: { type: "button", id: "nextBtn" },
+                    on: {
+                      click: function($event) {
+                        _vm.nextPages()
+                        _vm.getPet()
+                      }
                     }
-                  }
-                },
-                [_vm._m(1)]
-              )
-            ]
-          )
+                  },
+                  [_vm._m(1)]
+                )
+              ]
+            )
+          ])
         ]
       )
     ]

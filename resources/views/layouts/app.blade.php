@@ -18,10 +18,11 @@
 </head>
 <body>
 
-  <div id="app" class="font-family:GOODDC_.TTC justify-content-center">
-
+  <div id="app">
       <!-- provides navbar on every page -->
       @include('inc._navbar')
+
+      @include('inc._animation1')
 
     	@if(Request::is('/'))
         <!-- include showcase only on home page -->

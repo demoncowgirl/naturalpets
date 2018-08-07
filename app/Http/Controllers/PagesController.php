@@ -7,7 +7,7 @@ class PagesController extends Controller
 {
 
     public function getHome() {
-        return view('home');
+        return view('/');
     }
     public function getLoginSuccessful() {
         return view('loginSuccessful');

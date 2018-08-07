@@ -37,13 +37,14 @@ body{
   background-color: #FCFFFD;
 }
 
-// #animation1{
-//   margin-right: -10px;
-// }
-//
-// #animation2{
-//   margin-bottom: 0px;
-// }
+#animation1.img{
+  margin-left: 150px;
+  margin-right: -10px;
+}
+
+#animation2{
+  margin-bottom: 0px;
+}
 
 .panel{
   margin-top: 20px;
@@ -71,11 +72,7 @@ input{
 }
 
 .form-group{
-  max-width: 1000px;
-}
-
-.btn{
-  margin: 1px;
+  max-width: 1400px;
 }
 
 #prevBtn, #nextBtn{
@@ -91,7 +88,7 @@ input{
 
 label.form-control{
   border: none;
-  background-color: #59C9A5;
+  background-color: #4EB68C;
 }
 
 form.text{
@@ -106,8 +103,8 @@ form.text{
 
 #showcase{
   margin-top: 80px;
-  height: 400px;
-  Width: 85%;
+  height: 560px;
+  Width: 75%;
   border-style: solid;
   border-width: 3px;
   border-color: #145A56;
@@ -117,7 +114,7 @@ form.text{
 #centerContainer{
   padding: 10px;
   align-content: center;
-  height: 800px;
+  height: 1200px;
   Width: 75%;
   margin-top: -60px;
   margin-left: 15px;
@@ -130,12 +127,13 @@ form.text{
   overflow: scroll;
 }
 
+
 #searchContainer{
   align-content: center;
   padding: 10px;
   align-content: center;
-  height: 800px;
-  Width: 100%;
+  height: 100%;
+  width: auto;
   margin-top: -60px;
   margin-left: 15px;
   margin-right: 15px;
@@ -144,11 +142,11 @@ form.text{
   border-color: #145A56;
   background-color: #F1F1ED;
   background-color: #F1F1ED;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .output-section{
-  width: 100%;
+  width: auto;
   height: auto;
 }
 
@@ -169,7 +167,6 @@ form.text{
   color: #145A56;
   text-align: left;
 }
-
 
 
 i{

@@ -21,19 +21,23 @@
 
   <!-- provides navbar on every page -->
   @include('inc._navbar')
-    <!-- <div class="container d-flex justify-content-center text-center"> -->
-      <!-- <div id="centerContainer"> -->
-        <!-- @yield('content') -->
-          @if(Request::is('petSearch'))
-          @include('inc._searchContainer')
-          @else
-          @include('inc._centerContainer')
-          @endif
+    <!-- <div class="container d-flex justify-content-center text-center">
+      <div id="centerContainer"> -->
+
+
+    @if(Request::is('petSearch'))
+    @include('inc._searchContainer')
+    @else
+    @include('inc._centerContainer')
+    @endif
 
   @include('inc._footer')
-      <!-- </div>
-    </div> -->
+      <!-- </div> -->
+    <!-- </div> -->
+
 </div>
+
+
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

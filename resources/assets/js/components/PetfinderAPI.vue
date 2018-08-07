@@ -6,7 +6,7 @@
       <input type="text" name="zipCode" value="" class="form-control input-sm d-flex justify-content-center" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip'>
       <label for="animal">Animal Type</label>
       <select name="animal" v-model='animalType'>
-        <option value="dog" selected="selected">Dog</option>
+        <option value="dog" selected="selected" >Dog</option>
         <option value="cat" >Cat</option>
         <option value="bird" >Bird</option>
         <option value="horse" >Horse</option>s
@@ -35,7 +35,7 @@
       </select>
 
       <label for="sex">Sex</label>
-      <select name="sex" v-model="animalSex">s
+      <select name="sex" v-model="animalSex">
         <option value = ''>Any</option>
         <option value="M">Male</option>
         <option value="F">Female</option>
@@ -43,19 +43,20 @@
       <div>
       <input class="btn btn-secondary" type="submit" id="submitZip" @click="getPet(); showBtn();">
       </div>
-    </div>
+  </div>
   <!-- output -->
-  <div id="petDisplay" class="container d-flex justify-content-center p-1 m-0">
-      <div class="row">
-        <div id="prev" class="m-0" style="display:none; width:40px;">
-          <button type="button" class="btn btn-sm" id="prevBtn" @click="previousPages(); getPet();">
-          <a href="#" class="previous">
-            <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
-          </a>
-          </button>
-        </div>
-        <div>
-          <div class="col-md-3 output-section border border-dark m-2" v-for="pet in petsArray" v-if="showOutput">
+  <div id="petDisplay" class="container-fluid d-flex p-1 m-0">
+    <div class="row">
+      <div id="prev" class="col-md-1" style="display:none;">
+        <button type="button" class="btn btn-sm" id="prevBtn" @click="previousPages(); getPet();">
+        <a href="#" class="previous">
+          <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
+        </a>
+        </button>
+      </div>
+      <div class="row col-md-10">
+        <div class="col-md-4" v-for="pet in petsArray" v-if="showOutput">
+          <div class="border border-dark">
             <div><strong>Name:</strong> {{ pet.name }}</div>
             <div><strong>Location:</strong> {{ pet.city }}</div>
             <div><strong>Age:</strong> {{ pet.animalAge }}</div>
@@ -69,13 +70,14 @@
           </div>
         </div>
       </div>
-          <div id="next" class="m-0" style="display:none; width:40px;">
-            <button type="button" class="btn btn-sm" id="nextBtn" @click="nextPages(); getPet();">
-              <a href="#" class="next">
-              <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
-            </a>
-            </button>
-          </div>
+        <div id="next" class="col-md-1" style="display:none;">
+          <button type="button" class="btn btn-sm" id="nextBtn" @click="nextPages(); getPet();">
+            <a href="#" class="next">
+            <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
+          </a>
+          </button>
+        </div>
+    </div>
   </div>
 </div>
 
@@ -100,6 +102,8 @@
             newArray: [],
             prevBtn:'',
             nextBtn:'',
+            nextPages: '',
+            previousPages: '',
             showError: false,
             errorMsg: '<h1>There was an error. Please try again.</h1>',
 
@@ -111,13 +115,13 @@
             apiKey: "d37c684a8dee07c9424f59462cfd9f15"
         }
       },
-    methods: {
+      methods: {
         getAPI: function(location) {
           // Set up url for fetching adoptable pet data.
           var url = 'http://api.petfinder.com/pet.getRandom';
           var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
           var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
-        },
+          },
 
         // hides next and previous buttons until submit button is clicked
         showBtn: function() {
@@ -149,52 +153,51 @@
           $.getJSON(url)
             .done(this.catchResponse)
             .catch(function(err) { alert('Error retrieving data!');
-          });
-        },
+            });
+          },
 
-        catchResponse: function(data) {
+          catchResponse: function(data) {
 
-          var pets = data.petfinder.pets;
-          var count = 3;
-          var statusCode = data.petfinder.header.status.code.$t;
+            var pets = data.petfinder.pets;
+            var count = 3;
+            var statusCode = data.petfinder.header.status.code.$t;
 
-          // var numOfItemsViewed = 0;
+            if(statusCode !== "100"){
+              console.log('there was an error' + statusCode);
+               this.showError = true;
+               this.showStatus = false;
+               this.showOutput = false;
+             }
 
-        if(statusCode !== "100"){
-          console.log('there was an error' + statusCode);
-           this.showError = true;
-           this.showStatus = false;
-           this.showOutput = false;
-          }
+             var i = 0;
+             var nextIteration = 1;
 
-          for(var i = 0; i < 3; i++){
-            var currentPet = [];
+            for(i = nextIteration; i < nextIteration + 3; i++){
+              var currentPet = [];
 
-            console.log(data);
-
-            if (pets.pet[i].status.$t === 'A') {
-              // console.log(data);
-            // numberOfItemsViewed += numberOfItemsViewed;
-             this.showError = false;
-             this.showStatus = false;
-              // used in search
-             currentPet.animalType = pets.pet[i].animal.$t;
-             currentPet.animalAge = pets.pet[i].age.$t;
-             currentPet.animalSize = pets.pet[i].size.$t;
-             currentPet.animalSex = pets.pet[i].sex.$t;
-             // for response, not displayed
-             currentPet.id = pets.pet[i].id.$t;
-             currentPet.zipCode = pets.pet[i].contact.zip.$t;
-             //for response, displayed
-             currentPet.city = pets.pet[i].contact.city.$t;
-             currentPet.name = pets.pet[i].name.$t;
-             currentPet.description = pets.pet[i].description.$t;
-             currentPet.email = pets.pet[i].contact.email.$t;
-             currentPet.phone = pets.pet[i].contact.phone.$t;
-             currentPet.breed = pets.pet[i].breeds.breed.$t;
-             currentPet.showOutput = true;
-             // retrieves first image if there are multiple images
-             // this.petImage = pets.pet[i].media.photos.photo[0];
+              if (pets.pet[i].status.$t === 'A') {
+                console.log(data);
+              // numberOfItemsViewed += numberOfItemsViewed;
+               this.showError = false;
+               this.showStatus = false;
+                // used in search
+               currentPet.animalType = pets.pet[i].animal.$t;
+               currentPet.animalAge = pets.pet[i].age.$t;
+               currentPet.animalSize = pets.pet[i].size.$t;
+               currentPet.animalSex = pets.pet[i].sex.$t;
+               // for response, not displayed
+               currentPet.id = pets.pet[i].id.$t;
+               currentPet.zipCode = pets.pet[i].contact.zip.$t;
+               //for response, displayed
+               currentPet.city = pets.pet[i].contact.city.$t;
+               currentPet.name = pets.pet[i].name.$t;
+               currentPet.description = pets.pet[i].description.$t;
+               currentPet.email = pets.pet[i].contact.email.$t;
+               currentPet.phone = pets.pet[i].contact.phone.$t;
+               currentPet.breed = pets.pet[i].breeds.breed.$t;
+               currentPet.showOutput = true;
+               // retrieves first image if there are multiple images
+               // this.petImage = pets.pet[i].media.photos.photo[0];
 
                 if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
                   // console.log("this is mixed breed");
@@ -207,6 +210,7 @@
                        // console.log("this is not a mixed breed");
                      }
 
+
                 // if(pets.pet[i].option,options > 1){
                 //   console.log(Object.values(pets.pet[i].option.options[0]));
                 //   console.log(Object.values(pets.pet[i].option.options[1]));
@@ -216,41 +220,29 @@
                // petsArray.push({city:this.city, name:this.name, animalAge:this.animalAge, animalSex:this.animalSex, animalSize:this.animalSize, description:this.description,  breed:this.breed, email:this.email, phone:this.phone});
 
                this.petsArray.push(Object.assign({}, currentPet));
-          }
-        }
+                 // console.log('1st petsArray object' + pets.pet[i].name.$t);
+                 // console.log('2nd petsArray object' + pets.pet[i+1].name.$t);
+                 // console.log('3rd petsArray object' + pets.pet[i+2].name.$t);
+               }
+                  // nextPages.onclick = function('nextBtn'){nextIteration = i + 2};
+             }
 
-          this.petsArray.forEach(function(element) {
-              console.log('this is the petsArray');
-              console.log(element);
-            });
-
-            currentPet.forEach(function(element) {
-                console.log('this is the petsArray');
-                console.log(element);
-              });
-
+              // nextPages: function(){
+              //   nextIteration = i + 2;
+              //   console.log('nextPages button clicked');
+              // },
+              //
+              // previousPages: function(){
+              //   console.log('previousPages button clicked');
+              // },
           // console.log("this is the currentPet Array " + currentPet[i]);
           // console.log("this is the petsArray " + this.petsArray[i]);
-         this.showOutput=true;
-      },
+              this.showOutput=true;
+            },
 
 
-                nextPages: function(currentPet){
-                  // if(this.petsArray.length < 25){
-                    var newArray = this.petsArray.push(this.petsArray[3]);
-                    console.log("Button next clicked.");
-                    console.log('this is the display array ' + newArray);
-                  // }
-                },
-                //
-                // previousPages: function(whichArray){
-                //   if(whichArray){
-                //     array
-                //   }
-                // }
-                //     console.log("Button prev clicked.");
-                //
-                // },
+
+
     }
 }
 
