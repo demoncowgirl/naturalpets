@@ -15,7 +15,7 @@
         <li><a class="{{ Request::is ('contact') ? 'active': ''}}" href="/contact">Contact</a></li>
         <li><a class="{{ Request::is ('serviceSearch') ? 'active': ''}}" href="/serviceSearch">Pet Services</a></li>
         @auth
-          @if (Auth::user()->is_admin)
+          @if (Auth::user()->admin)
             <li><a class="{{ Request::is ('messages') ? 'active': ''}}" href="/messages">Messages</a></li>
           @endif
             <li><a class="{{ Request::is ('profile') ? 'active': ''}}" href="/profile">Profile</a></li>
@@ -30,7 +30,7 @@
                            {{ csrf_field() }}
               </form>
             </li>
-        @else
+            @else
           <li class="nav-item">
             <a class ="nav-link" href="{{ route('login') }}">Login</a>
           </li>

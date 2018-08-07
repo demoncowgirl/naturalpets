@@ -74,9 +74,6 @@ input{
   width: auto;
 }
 
-.form-group{
-  max-width: 1400px;
-}
 
 #prevBtn, #nextBtn{
   height: 500px;
@@ -226,6 +223,7 @@ i{
     padding: justify;
     color: #FCFFFD;
     background-color: #2B7C62;
+    // border-bottom: 3px solid black;
 }
 
 // @font-face {

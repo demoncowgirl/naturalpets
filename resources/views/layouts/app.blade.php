@@ -22,7 +22,7 @@
       <!-- provides navbar on every page -->
       @include('inc._navbar')
 
-    	@if(Request::is('/'))
+    	@if(Request::is('/home'))
         <!-- include showcase only on home page -->
       	 @include('inc._showcase')
       @endif

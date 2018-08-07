@@ -8425,10 +8425,6 @@ input {
   width: auto;
 }
 
-.form-group {
-  max-width: 1400px;
-}
-
 #prevBtn,
 #nextBtn {
   height: 500px;

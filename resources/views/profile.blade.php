@@ -25,7 +25,7 @@
   </div>
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
     {{ Form::label('zipCode', '',['class' => 'form-control', 'placeholder' => 'zipCode'] ) }}
-    {{ Form::text('zipcode', 'Name') }}
+    {{ Form::text('zipcode', 'ZipCode') }}
   </div>
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
     {{ Form::label('Family Size', '',['class' => 'form-control', 'placeholder' => 'Family Size'] ) }}

@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'PagesController@getHome');
+Route::get('/home', 'PagesController@getHome');
 Route::get('loginSuccessful', 'PagesController@getLoginSuccessful');
 Route::get('about', 'PagesController@getAbout');
 Route::get('contact', 'PagesController@getContact');
@@ -27,21 +27,11 @@ Route::get('loveOurPets', 'PagesController@getLove');
 Route::get('messages', 'PagesController@getMessages');
 Route::get('search', 'SearchController@getSearchResults');
 
-
-// this will add a csrf code to profile
-// Route::post('profile',
-//     [
-//         'before' => 'csrf',
-//         function()
-//         {
-//             //
-//         }
-//     ]
-// );
-
-// Route::post('/contact', 'MessagesController@submit');
-// Route::get('/messages', 'MessagesController@getMessages');
-// Route::post('/profile', 'ProfileCRequest@submit');
+Route::post('/contact', 'MessagesController@submit');
+Route::get('/messages', 'MessagesController@getMessages');
+Route::post('/profile', 'ProfileRequest@submit');
 
 Auth::routes();
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', function(){
+  return view ('home');
+});
