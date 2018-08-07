@@ -5,8 +5,8 @@
 <h1>Pet Service Search</h1>
   <div id="servicesList">
     <ul>
-        <li><a href=#>Veterinary Clinics</a></li>
-        <li><a href=#>Groomers</a></li>
+        <li><a class="{{ Request::is ('/vetServices') ? 'active': ''}}" href='/vetServices'>Veterinary Clinics</a></li>
+        <li><a href='/vetServices'>Groomers</a></li>
         <li><a href=#>Pet Sitters & Kennels</a></li>
         <li><a href=#>Pet Supplies</a></li>
     </ul>
