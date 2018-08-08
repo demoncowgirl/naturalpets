@@ -2,6 +2,7 @@
 <!-- @section('title', 'Profile') -->
 @section('content')
 <h1>Profile</h1>
+<div id="profileForm" class="container">
 {!! Form::open(['url' => '/profile']) !!}
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
     {{ Form::label('name', '',['class' => 'form-control', 'placeholder' => 'Enter Name'] ) }}
@@ -47,7 +48,8 @@
           pet_photo upload
           pet_breed
           age_of_pet -->
-    {{ Form::submit ('Submit', ['class' => 'btn btn-dark']) }}
+    {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-2']) }}
   </div>
 {!! Form::close() !!}
+</div>
 @endsection

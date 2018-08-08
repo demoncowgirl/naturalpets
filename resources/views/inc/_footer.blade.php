@@ -30,13 +30,10 @@
       </div> -->
 
 
-        <div class="row">
-                <div class ="row">
-          @if(Request::is('/login'))
+          @if(Request::is('login') || Request::is('register') || Request::is('email') || Request::is('rest'))
             @include('inc._animation1')
           @endif
-        </div>
-        </div>
+
         <div class="footer-copyright text-left m-4 py-3">Beth Salvatore 2018</div>
       </div>
     </div>

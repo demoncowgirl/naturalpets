@@ -8392,14 +8392,14 @@ body {
   background-color: #FCFFFD;
 }
 
-#animation1.img {
+#animation1 img {
+  margin-top: 10px;
   overflow: hidden;
   float: right;
 }
 
-#animation2.img {
-  float: left;
-  margin-bottom: 0px;
+#animation2 img {
+  float: center;
 }
 
 .page-header {
@@ -8414,15 +8414,10 @@ body {
 
 h1 {
   font-family: "GoodDog";
-  font-size: 60px;
+  font-size: 72px;
   color: #145A56;
   text-align: center;
-}
-
-form {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  padding: 4px;
 }
 
 i {
@@ -8437,20 +8432,49 @@ i {
   border-color: #000;
 }
 
-.form-group {
-  -ms-flex-line-pack: center;
-      align-content: center;
+#contactForm {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  max-width: 600px;
+  height: 500px;
 }
 
-.form-input {
+#profileForm {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  max-width: 600px;
+  height: 500px;
+  overflow: scroll;
+}
+
+input:focus {
+  background-color: #DCDCDC;
+}
+
+.form-text {
   text-align: center;
   min-width: 320px;
 }
 
-label.form-control {
+.form-control {
   max-width: 600px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border: none;
   background-color: #4EB68C;
+  opacity: .7;
 }
 
 .output-secton {
@@ -8458,6 +8482,10 @@ label.form-control {
   height: auto;
   -ms-flex-line-pack: justify;
       align-content: space-between;
+}
+
+.btn {
+  margin: 1px;
 }
 
 #showcase {
@@ -8509,12 +8537,11 @@ label.form-control {
   border-style: solid;
 }
 
-.terrier {
-  margin: 4px;
+.terrier img {
+  margin: 10px;
 }
 
 #servicesList {
-  color: #145A56;
   text-align: left;
 }
 

@@ -41,14 +41,15 @@ body{
   background-color: #FCFFFD;
 }
 
-#animation1.img{
+#animation1 img{
+  margin-top: 10px;
   overflow: hidden;
   float: right;
 }
 
-#animation2.img{
-  float: left;
-  margin-bottom: 0px;
+#animation2 img{
+  float: center;
+
 }
 
 .page-header{
@@ -63,14 +64,12 @@ body{
 
 h1{
   font-family: "GoodDog";
-  font-size: 60px;
+  font-size: 72px;
   color: #145A56;
   text-align: center;
+  padding: 4px;
 }
 
-form{
-  align-items: center;
-}
 
 i{
   color: #145A56;
@@ -83,25 +82,51 @@ i{
   border-color: #000;
 }
 
-.form-group{
-  align-content: center;
+#contactForm{
+  align-items: center;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  max-width: 600px;
+  height: 500px;
 }
 
-.form-input{
+#profileForm{
+  align-items: center;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  max-width: 600px;
+  height: 500px;
+  overflow: scroll;
+}
+
+input:focus {
+    background-color: #DCDCDC;
+}
+
+.form-text{
   text-align: center;
   min-width: 320px;
 }
 
-label.form-control{
+.form-control{
   max-width: 600px;
+  display: flex;
+  align-items: center;
   border: none;
   background-color: #4EB68C;
+  opacity: .7;
 }
 
 .output-secton{
   width: auto;
   height: auto;
   align-content: space-between;
+}
+
+.btn {
+  margin: 1px;
 }
 
 #showcase{
@@ -149,12 +174,11 @@ label.form-control{
   border-color:  #145A56;
   border-style: solid;
 }
-.terrier{
-  margin: 4px;
+.terrier img{
+  margin: 10px;
 }
 
 #servicesList{
-  color: #145A56;
   text-align: left;
 }
 

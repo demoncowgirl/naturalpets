@@ -2,7 +2,7 @@
 
 @section('content')
 <h1>Contact</h1>
-
+<div id="contactForm" class="container">
 {!! Form::open(['url' => '/contact']) !!}
 
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
@@ -18,13 +18,10 @@
     {{ Form::textarea('message', 'Enter message here') }}
   </div>
   <div>
-    {{ Form::submit ('Submit', ['class' => 'btn btn-dark']) }}
+    {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0']) }}
   </div>
 
 {!! Form::close() !!}
 
-<div class="m-2">
-@include('inc._terriergif')
-</div>
 
 @endsection

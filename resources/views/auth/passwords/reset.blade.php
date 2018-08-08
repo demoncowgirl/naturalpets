@@ -59,6 +59,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     Reset Password
                                 </button>
+                              <div>
+
                             </div>
                         </div>
                     </form>

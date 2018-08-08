@@ -43448,8 +43448,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43609,7 +43607,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       // },
 
       this.showOutput = true;
-    }
+    },
+
+    nextPages: function nextPages() {}
 
   }
 });
@@ -43648,7 +43648,8 @@ var render = function() {
             type: "text",
             name: "zipCode",
             value: "",
-            placeholder: "Zipcode Required"
+            placeholder: "Zipcode Required",
+            required: ""
           },
           domProps: { value: _vm.searchZip },
           on: {
@@ -43988,7 +43989,6 @@ var render = function() {
                     on: {
                       click: function($event) {
                         _vm.nextPages()
-                        _vm.getPet()
                       }
                     }
                   },
@@ -44015,10 +44015,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "next", attrs: { href: "#" } }, [
-      _c("span", { staticClass: "arrow-icon" }, [
-        _c("i", { staticClass: "fas fa-arrow-circle-right fa-2x" })
-      ])
+    return _c("span", { staticClass: "arrow-icon" }, [
+      _c("i", { staticClass: "fas fa-arrow-circle-right fa-2x" })
     ])
   }
 ]

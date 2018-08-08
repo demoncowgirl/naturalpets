@@ -3,7 +3,7 @@
 <div id="petSearchInput" class="container" style="width: auto;">
   <div class="form-group">
       <label for="searchZip">ZipCode</label>
-      <input type="text" name="zipCode" value="" class="input-sm" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip'>
+      <input type="text" name="zipCode" value="" class="input-sm" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip' required>
 
       <label for="animal">Animal Type</label>
       <select name="animal" v-model='animalType'>
@@ -81,10 +81,8 @@
         </div>
       </div>
         <div id="next" class="col-md-1" style="display:none;">
-          <button type="button" class="btn btn-sm" id="nextBtn" @click="nextPages(); getPet();">
-            <a href="#" class="next">
+          <button type="button" class="btn btn-sm" id="nextBtn" @click="nextPages();">
             <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
-          </a>
           </button>
         </div>
     </div>
@@ -254,9 +252,13 @@
               // },
 
               this.showOutput=true;
-            }
+            },
 
-    }
+            nextPages: function(){
+
+            },
+
+          }
 }
 
 </script>
