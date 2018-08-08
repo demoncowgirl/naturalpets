@@ -43464,11 +43464,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       animalAge: '',
       animalSex: '',
       // options:'',
-      newArray: [],
+      // newArray: [],
+      pageNum: 0,
       prevBtn: '',
       nextBtn: '',
-      nextPages: '',
-      previousPages: '',
       showError: false,
       errorMsg: '<h1>There was an error. Please try again.</h1>',
 
@@ -43543,10 +43542,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.showOutput = false;
       }
 
-      var i = 0;
-      var nextIteration = 1;
-
-      for (i = nextIteration; i < nextIteration + 3; i++) {
+      for (var i = 0; i < pets.pet.length; i++) {
         var currentPet = [];
 
         if (pets.pet[i].status.$t === 'A') {
@@ -43609,7 +43605,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.showOutput = true;
     },
 
-    nextPages: function nextPages() {}
+    nextPage: function nextPage() {
+      if (this.pageNum * 3 < this.petsArray.length) {
+        this.pageNum += 1;
+      }
+    },
+
+    previousPage: function previousPage() {
+      if (this.pageNum > 0) {
+        this.pageNum -= 1;
+      }
+    }
+
+  },
+
+  computed: {
+    displayArray: function displayArray() {
+      return this.petsArray.slice(this.pageNum * 3, this.pageNum * 3 + 3);
+
+      // var mainArray = this.petsArray;
+      //   if(mainArray <=25){
+      //       var displayArray = mainArray.slice(this.pageNum + 3);
+      //       console.log(mainArray);
+      //       console.log(newStart);
+      //   }
+    }
 
   }
 });
@@ -43872,6 +43892,8 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
+      _c("div", [_vm._v(_vm._s(_vm.pageNum))]),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -43895,8 +43917,7 @@ var render = function() {
                     attrs: { type: "button", id: "prevBtn" },
                     on: {
                       click: function($event) {
-                        _vm.previousPages()
-                        _vm.getPet()
+                        _vm.previousPage()
                       }
                     }
                   },
@@ -43908,7 +43929,7 @@ var render = function() {
             _c(
               "div",
               { staticClass: "row col-md-10" },
-              _vm._l(_vm.petsArray, function(pet) {
+              _vm._l(_vm.displayArray, function(pet) {
                 return _vm.showOutput
                   ? _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "border border-dark p-2" }, [
@@ -43988,7 +44009,7 @@ var render = function() {
                     attrs: { type: "button", id: "nextBtn" },
                     on: {
                       click: function($event) {
-                        _vm.nextPages()
+                        _vm.nextPage()
                       }
                     }
                   },

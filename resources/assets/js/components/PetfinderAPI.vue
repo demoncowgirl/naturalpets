@@ -52,18 +52,18 @@
           <div class="card-body"><span v-html="error"></span></div>
       </div>
   </div>
-
+  <div>{{pageNum}}</div>
   <div id="petDisplay" class="container-fluid d-flex p-1 m-0">
     <div class="row">
       <div id="prev" class="col-md-1" style="display:none;">
-        <button type="button" class="btn btn-sm" id="prevBtn" @click="previousPages(); getPet();">
+        <button type="button" class="btn btn-sm" id="prevBtn" @click="previousPage();">
         <a href="#" class="previous">
           <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
         </a>
         </button>
       </div>
       <div class="row col-md-10">
-        <div class="col-md-4" v-for="pet in petsArray" v-if="showOutput">
+        <div class="col-md-4" v-for="pet in displayArray" v-if="showOutput">
           <div class="border border-dark p-2">
             <div><strong>Name:</strong> {{ pet.name }}</div>
             <div><strong>Location:</strong> {{ pet.city }}</div>
@@ -81,7 +81,7 @@
         </div>
       </div>
         <div id="next" class="col-md-1" style="display:none;">
-          <button type="button" class="btn btn-sm" id="nextBtn" @click="nextPages();">
+          <button type="button" class="btn btn-sm" id="nextBtn" @click="nextPage();">
             <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
           </button>
         </div>
@@ -107,11 +107,10 @@
             animalAge: '',
             animalSex:'',
             // options:'',
-            newArray: [],
+            // newArray: [],
+            pageNum: 0,
             prevBtn:'',
             nextBtn:'',
-            nextPages: '',
-            previousPages: '',
             showError: false,
             errorMsg: '<h1>There was an error. Please try again.</h1>',
 
@@ -187,10 +186,7 @@
                this.showOutput = false;
              }
 
-             var i = 0;
-             var nextIteration = 1;
-
-            for(i = nextIteration; i < nextIteration + 3; i++){
+            for(var i =0; i < pets.pet.length; i++){
               var currentPet = [];
 
               if (pets.pet[i].status.$t === 'A') {
@@ -254,11 +250,49 @@
               this.showOutput=true;
             },
 
-            nextPages: function(){
-
+            nextPage: function(){
+              if(this.pageNum * 3 < this.petsArray.length){
+                this.pageNum +=1;
+              }
             },
 
-          }
+            previousPage: function(){
+              if(this.pageNum > 0){
+                this.pageNum -=1;
+              }
+            },
+
+
+        },
+
+      computed: {
+        displayArray: function(){
+          return this.petsArray.slice(this.pageNum * 3, (this.pageNum * 3) + 3);
+
+          // var mainArray = this.petsArray;
+          //   if(mainArray <=25){
+          //       var displayArray = mainArray.slice(this.pageNum + 3);
+          //       console.log(mainArray);
+          //       console.log(newStart);
+              //   }
+              }
+
+            }
 }
 
 </script>
+
+ computed: {
+            filteredActivities: function() {
+                var activities_array = this.activitiesData;
+                var search_string = this.searchString.toLowerCase();
+                if (!search_string) {
+                    return activities_array;
+                }
+                activities_array = activities_array.filter(function(item) {
+                    if(item.name.toLowerCase().indexOf(search_string) !== -1) {
+                        return item;
+                    }
+                });
+                return activities_array;
+            }
