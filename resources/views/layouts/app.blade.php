@@ -15,6 +15,10 @@
 
     <title>{{ config('app.name', 'Pet Stop') }}</title>
 
+    <style type="text/css">
+
+    </style>
+
 </head>
 <body>
 

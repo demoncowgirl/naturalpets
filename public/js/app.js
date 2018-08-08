@@ -43442,6 +43442,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43554,32 +43556,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           currentPet.phone = pets.pet[i].contact.phone.$t;
           currentPet.breed = pets.pet[i].breeds.breed.$t;
           currentPet.showOutput = true;
-          // retrieves first image if there are multiple images
-          // this.petImage = pets.pet[i].media.photos.photo[0];
 
           if (pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0) {
-            // console.log("this is mixed breed");
             console.log(Object.values(pets.pet[i].breeds.breed[0]));
             console.log(Object.values(pets.pet[i].breeds.breed[1]));
-            // this.breed = ((Object.values(pet.breeds.breed[0]).concat((Object.values(pet.breeds.breed[1])));
-            // console.log(this.breed);
+            // const mixedBreed = Object.assign({}, pets.pet[i].breeds.breed[0], pets.pet[i].breeds.breed[1]);
+            // console.log('this is a mix ' + mixedBreed);
           } else {
             currentPet.breed = pets.pet[i].breeds.breed.$t;
-            // console.log("this is not a mixed breed");
           }
+          // retrieves first image if there are multiple images
+          var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
+          console.log(petImage);
+          // currentPet.petImage = pets.pet[i].media.photos.photo[0].$t;
+          // var newImage = document.createElement('img');
+          // newImage.src = currentPet.petImage;
 
+          //todo -- display options in petSearch
           // if(pets.pet[i].option,options > 1){
           //   console.log(Object.values(pets.pet[i].option.options[0]));
           //   console.log(Object.values(pets.pet[i].option.options[1]));
           //   console.log(Object.values(pets.pet[i].option.options[2]));
           //   console.log(Object.values(pets.pet[i].option.options[3]));
           //   }
-          // petsArray.push({city:this.city, name:this.name, animalAge:this.animalAge, animalSex:this.animalSex, animalSize:this.animalSize, description:this.description,  breed:this.breed, email:this.email, phone:this.phone});
+
 
           this.petsArray.push(Object.assign({}, currentPet));
-          // console.log('1st petsArray object' + pets.pet[i].name.$t);
-          // console.log('2nd petsArray object' + pets.pet[i+1].name.$t);
-          // console.log('3rd petsArray object' + pets.pet[i+2].name.$t);
         }
         // nextPages.onclick = function('nextBtn'){nextIteration = i + 2};
       }
@@ -43592,8 +43594,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       // previousPages: function(){
       //   console.log('previousPages button clicked');
       // },
-      // console.log("this is the currentPet Array " + currentPet[i]);
-      // console.log("this is the petsArray " + this.petsArray[i]);
+
       this.showOutput = true;
     }
 
@@ -43920,10 +43921,7 @@ var render = function() {
                           _vm._v(" " + _vm._s(pet.phone))
                         ]),
                         _vm._v(" "),
-                        _c("img", {
-                          staticClass: "petImage",
-                          attrs: { src: "assets/images/peaches.jpg" }
-                        }),
+                        _c("img", { attrs: { src: "petImage" } }),
                         _vm._v(" "),
                         _c("div", { staticClass: "m-2" }, [
                           _vm._v(_vm._s(pet.description))
