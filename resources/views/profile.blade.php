@@ -51,5 +51,9 @@
     {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-2']) }}
   </div>
 {!! Form::close() !!}
+<div>
+</div>
+<div id="terrier" class = "row">
+@include('inc._terriergif')
 </div>
 @endsection
