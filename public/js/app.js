@@ -43444,6 +43444,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43477,6 +43483,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
   methods: {
+
+    validateZip: function validateZip(zipCode) {
+      var zipCodeRegex = /^\d{5}$/;
+      if (zipCode != zipCodeRegex) {
+        this.showError = true;
+        // document.getElementById('prev').style.display:none;
+        // document.getElementById('next').style.display:none;
+      }
+    },
+
     getAPI: function getAPI(location) {
       // Set up url for fetching adoptable pet data.
       var url = 'http://api.petfinder.com/pet.getRandom';
@@ -43555,6 +43571,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           currentPet.email = pets.pet[i].contact.email.$t;
           currentPet.phone = pets.pet[i].contact.phone.$t;
           currentPet.breed = pets.pet[i].breeds.breed.$t;
+          currentPet.image = pets.pet[i].media.photos.photo[3].$t;
           currentPet.showOutput = true;
 
           if (pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0) {
@@ -43567,10 +43584,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           }
           // retrieves first image if there are multiple images
           var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
-          console.log(petImage);
-          // currentPet.petImage = pets.pet[i].media.photos.photo[0].$t;
-          // var newImage = document.createElement('img');
-          // newImage.src = currentPet.petImage;
+          petImage = petImage.replace("<currentPet.id>", currentPet.id);
 
           //todo -- display options in petSearch
           // if(pets.pet[i].option,options > 1){
@@ -43579,7 +43593,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           //   console.log(Object.values(pets.pet[i].option.options[2]));
           //   console.log(Object.values(pets.pet[i].option.options[3]));
           //   }
-
 
           this.petsArray.push(Object.assign({}, currentPet));
         }
@@ -43841,6 +43854,25 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _vm.showError
+        ? _c("div", { staticClass: "error-section" }, [
+            _c("div", { staticClass: "card mb-3 border-dark" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "card-header bg-danger text-center font-weight-bold border-dark"
+                },
+                [_vm._v("Error")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("span", { domProps: { innerHTML: _vm._s(_vm.error) } })
+              ])
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -43921,7 +43953,14 @@ var render = function() {
                           _vm._v(" " + _vm._s(pet.phone))
                         ]),
                         _vm._v(" "),
-                        _c("img", { attrs: { src: "petImage" } }),
+                        _c("img", {
+                          attrs: {
+                            id: "petImage",
+                            src: pet.image,
+                            width: "200",
+                            height: "auto"
+                          }
+                        }),
                         _vm._v(" "),
                         _c("div", { staticClass: "m-2" }, [
                           _vm._v(_vm._s(pet.description))

@@ -2,7 +2,6 @@
   <!-- input form for pet search -->
 <div id="petSearchInput" class="container" style="width: auto;">
   <div class="form-group">
-
       <label for="searchZip">ZipCode</label>
       <input type="text" name="zipCode" value="" class="input-sm" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip'>
 
@@ -47,6 +46,13 @@
       </div>
   </div>
   <!-- output -->
+ <div class="error-section" v-if="showError">
+      <div class="card mb-3 border-dark">
+          <div class="card-header bg-danger text-center font-weight-bold border-dark">Error</div>
+          <div class="card-body"><span v-html="error"></span></div>
+      </div>
+  </div>
+
   <div id="petDisplay" class="container-fluid d-flex p-1 m-0">
     <div class="row">
       <div id="prev" class="col-md-1" style="display:none;">
@@ -67,7 +73,7 @@
             <div><strong>Breed:</strong> {{ pet.breed }}</div>
             <div><strong>Contact Email:</strong> {{ pet.email }}</div>
             <div><strong>Contact Phone:</strong> {{ pet.phone }}</div>
-            <img src="petImage"/>
+            <img id="petImage" :src= "pet.image" width="200" height="auto"/>
             <!-- <iframe src="pets.html" width="200" height="400"> </iframe> -->
             <!-- <img class="petImage" src='assets/images/peaches.jpg'/> -->
             <div class="m-2">{{ pet.description }}</div>
@@ -120,6 +126,16 @@
         }
       },
       methods: {
+
+        validateZip: function(zipCode){
+          const zipCodeRegex = /^\d{5}$/;
+          if(zipCode != zipCodeRegex){
+            this.showError=true;
+            // document.getElementById('prev').style.display:none;
+            // document.getElementById('next').style.display:none;
+          }
+        },
+
         getAPI: function(location) {
           // Set up url for fetching adoptable pet data.
           var url = 'http://api.petfinder.com/pet.getRandom';
@@ -199,6 +215,7 @@
                currentPet.email = pets.pet[i].contact.email.$t;
                currentPet.phone = pets.pet[i].contact.phone.$t;
                currentPet.breed = pets.pet[i].breeds.breed.$t;
+               currentPet.image=pets.pet[i].media.photos.photo[3].$t;
                currentPet.showOutput = true;
 
                 if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
@@ -211,10 +228,7 @@
                      }
                  // retrieves first image if there are multiple images
                 var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
-                console.log(petImage);
-                // currentPet.petImage = pets.pet[i].media.photos.photo[0].$t;
-                // var newImage = document.createElement('img');
-                // newImage.src = currentPet.petImage;
+                petImage = petImage.replace("<currentPet.id>", currentPet.id);
 
                 //todo -- display options in petSearch
                 // if(pets.pet[i].option,options > 1){
@@ -223,7 +237,6 @@
                 //   console.log(Object.values(pets.pet[i].option.options[2]));
                 //   console.log(Object.values(pets.pet[i].option.options[3]));
                 //   }
-
 
                this.petsArray.push(Object.assign({}, currentPet));
 

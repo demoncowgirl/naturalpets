@@ -7,11 +7,11 @@
 
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
     {{ Form::label('name', '',['class' => 'form-control', 'placeholder' => 'Enter Name'] ) }}
-    {{ Form::text('name', 'Name') }}
+    {{ Form::text('name', 'Name', ['class' => 'form-input']) }}
   </div>
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
     {{ Form::label('email', '',['class' => 'form-control', 'placeholder' => 'Enter E-mail'] ) }}
-    {{ Form::text('email', 'E-Mail Address') }}
+    {{ Form::text('email', 'E-Mail Address', ['class' => 'form-input']) }}
   </div>
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
     {{ Form::label('message', '',['class' => 'form-control', 'placeholder' => 'Enter message']) }}
@@ -23,8 +23,8 @@
 
 {!! Form::close() !!}
 
-<div p-2>
+<div class="m-2">
 @include('inc._terriergif')
-<div>
+</div>
 
 @endsection
