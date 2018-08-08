@@ -7,7 +7,7 @@
 
       <label for="animal">Animal Type</label>
       <select name="animal" v-model='animalType'>
-        <option value="dog" selected="selected" >Dog</option>
+        <option value="dog" >Dog</option>
         <option value="cat" >Cat</option>
         <option value="bird" >Bird</option>
         <option value="horse" >Horse</option>s
@@ -71,9 +71,9 @@
             <div><strong>Sex:</strong> {{ pet.animalSex }}</div>
             <div><strong>Size:</strong> {{ pet.animalSize }}</div>
             <div><strong>Breed:</strong> {{ pet.breed }}</div>
-            <div><strong>Contact Email:</strong> {{ pet.email }}</div>
+            <div><strong>Contact Email:</strong> <a :href="'mailto:'+ pet.email">{{ pet.email }}</a></div>
             <div><strong>Contact Phone:</strong> {{ pet.phone }}</div>
-            <img id="petImage" :src= "pet.image" width="200" height="auto"/>
+            <img id="petImage" :src="pet.image" width="200" height="auto"/>
             <!-- <iframe src="pets.html" width="200" height="400"> </iframe> -->
             <!-- <img class="petImage" src='assets/images/peaches.jpg'/> -->
             <div class="m-2">{{ pet.description }}</div>
@@ -104,7 +104,7 @@
             output: 'basic',
             searchZip: '',
             petsArray: [],
-            animalType: '',
+            animalType: 'dog',
             animalSize: '',
             animalAge: '',
             animalSex:'',

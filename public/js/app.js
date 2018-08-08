@@ -43461,7 +43461,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      animalType: '',
+      animalType: 'dog',
       animalSize: '',
       animalAge: '',
       animalSex: '',
@@ -43692,9 +43692,7 @@ var render = function() {
             }
           },
           [
-            _c("option", { attrs: { value: "dog", selected: "selected" } }, [
-              _vm._v("Dog")
-            ]),
+            _c("option", { attrs: { value: "dog" } }, [_vm._v("Dog")]),
             _vm._v(" "),
             _c("option", { attrs: { value: "cat" } }, [_vm._v("Cat")]),
             _vm._v(" "),
@@ -43945,7 +43943,10 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", [
                           _c("strong", [_vm._v("Contact Email:")]),
-                          _vm._v(" " + _vm._s(pet.email))
+                          _vm._v(" "),
+                          _c("a", { attrs: { href: "mailto:" + pet.email } }, [
+                            _vm._v(_vm._s(pet.email))
+                          ])
                         ]),
                         _vm._v(" "),
                         _c("div", [

@@ -29,14 +29,15 @@
         </ul>
       </div> -->
 
+
         <div class="row">
-        @if(Request::is('/'))
-        </div>
-        @endif
-        <div class="row">
+                <div class ="row">
+          @if(Request::is('/login'))
             @include('inc._animation1')
+          @endif
         </div>
-        <div class="footer-copyright text-left m-2 py-3">2018 Beth Salvatore</div>
+        </div>
+        <div class="footer-copyright text-left m-4 py-3">Beth Salvatore 2018</div>
       </div>
     </div>
   </div>
