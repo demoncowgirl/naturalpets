@@ -18,7 +18,8 @@
     {{ Form::textarea('message', 'Enter message here') }}
   </div>
   <div>
-      {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0']) }}
+      <!-- {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0']) }} -->
+      {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0 btn disabled', 'disabled' => true]) }}
   </div>
 
 {!! Form::close() !!}

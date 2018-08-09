@@ -43442,12 +43442,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43464,31 +43458,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       animalAge: '',
       animalSex: '',
       // options:'',
-      // newArray: [],
       pageNum: 0,
       prevBtn: '',
       nextBtn: '',
       showError: false,
       errorMsg: '<h1>There was an error. Please try again.</h1>',
-
+      noMatchesFound: '<h1>Sorry, but we did not find any matches.<h1>',
       showStatus: true,
       fetchingStatus: '<h1>Fetching a list of potential new best friends...</h1>',
-      noMatchesFound: '<h1>Sorry, but we did not find any matches.<h1>',
 
       apiRequest: null,
       apiKey: "d37c684a8dee07c9424f59462cfd9f15"
     };
   },
   methods: {
-
-    validateZip: function validateZip(zipCode) {
-      var zipCodeRegex = /^\d{5}$/;
-      if (zipCode != zipCodeRegex) {
-        this.showError = true;
-        // document.getElementById('prev').style.display:none;
-        // document.getElementById('next').style.display:none;
-      }
-    },
 
     getAPI: function getAPI(location) {
       // Set up url for fetching adoptable pet data.
@@ -43569,16 +43552,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           currentPet.showOutput = true;
 
           if (pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0) {
+            currentPet.breed = pets.pet[i].breeds.breed[0] + pets.pet[i].breeds.breed[1];
             console.log(Object.values(pets.pet[i].breeds.breed[0]));
             console.log(Object.values(pets.pet[i].breeds.breed[1]));
-            // const mixedBreed = Object.assign({}, pets.pet[i].breeds.breed[0], pets.pet[i].breeds.breed[1]);
-            // console.log('this is a mix ' + mixedBreed);
           } else {
             currentPet.breed = pets.pet[i].breeds.breed.$t;
           }
           // retrieves first image if there are multiple images
           var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
           petImage = petImage.replace("<currentPet.id>", currentPet.id);
+
+          // if(pets.pet[i].media.photos.photo[3] == 'undefined'{
+          //   console.log('no photo available');
+          //    this.showError = true;
+          //    this.showStatus = false;
+          //    this.showOutput = false;
+          //  }
 
           //todo -- display options in petSearch
           // if(pets.pet[i].option,options > 1){
@@ -43872,27 +43861,6 @@ var render = function() {
           })
         ])
       ]),
-      _vm._v(" "),
-      _vm.showError
-        ? _c("div", { staticClass: "error-section" }, [
-            _c("div", { staticClass: "card mb-3 border-dark" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "card-header bg-danger text-center font-weight-bold border-dark"
-                },
-                [_vm._v("Error")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("span", { domProps: { innerHTML: _vm._s(_vm.error) } })
-              ])
-            ])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("div", [_vm._v(_vm._s(_vm.pageNum))]),
       _vm._v(" "),
       _c(
         "div",

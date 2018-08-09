@@ -48,7 +48,8 @@
           pet_photo upload
           pet_breed
           age_of_pet -->
-    {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-2']) }}
+    <!-- {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-2']) }} -->
+    {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0 btn disabled', 'disabled' => true]) }}
   </div>
 {!! Form::close() !!}
 <div>
