@@ -1,5 +1,5 @@
 <?php
-/**to fix mixed content error*/
+
 if (App::environment('production')){
   URL::forceSchema('https');
 }
