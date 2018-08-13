@@ -13,7 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /**fixes issues with mixed content error when deploying*/
+        if(env('APP_ENV') !== 'local')
+        {
+          $url->forceSchema('https');
+        }
     }
 
     /**
