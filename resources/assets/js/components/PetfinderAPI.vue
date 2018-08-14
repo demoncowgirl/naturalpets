@@ -1,6 +1,6 @@
 <template>
   <!-- input form for pet search -->
-<div id="petSearchInput" class="container" style="width: auto;">
+<div id="petSearchInput" class="container-fluid" style="width: auto;">
   <div class="form-group">
       <label for="searchZip">ZipCode</label>
       <input type="text" name="zipCode" value="" class="input-sm" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip' required>
