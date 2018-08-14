@@ -43475,7 +43475,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     getAPI: function getAPI(location) {
       // Set up url for fetching adoptable pet data.
-      var url = 'http://api.petfinder.com/pet.getRandom';
+      var url = 'https://api.petfinder.com/pet.getRandom';
       var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
       var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
     },
@@ -43487,7 +43487,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     getPet: function getPet() {
-      var url = "http://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
+      var url = "https://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
 
       // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
       url = url.replace("<apiKey>", this.apiKey);
@@ -43559,7 +43559,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             currentPet.breed = pets.pet[i].breeds.breed.$t;
           }
           // retrieves first image if there are multiple images
-          var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
+          var petImage = "https://photos.petfinder.com/photos/pets/<currentPet.id>";
           petImage = petImage.replace("<currentPet.id>", currentPet.id);
 
           // if(pets.pet[i].media.photos.photo[3] == 'undefined'{
@@ -43634,7 +43634,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "container",
+      staticClass: "container-fluid",
       staticStyle: { width: "auto" },
       attrs: { id: "petSearchInput" }
     },
