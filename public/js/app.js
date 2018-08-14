@@ -43559,8 +43559,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             currentPet.breed = pets.pet[i].breeds.breed.$t;
           }
           // retrieves first image if there are multiple images
-          var petImage = "https://photos.petfinder.com/photos/pets/<currentPet.id>";
+          var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
           petImage = petImage.replace("<currentPet.id>", currentPet.id);
+          petImage = petImage.replace("http", "https");
 
           // if(pets.pet[i].media.photos.photo[3] == 'undefined'{
           //   console.log('no photo available');
