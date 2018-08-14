@@ -37,5 +37,8 @@
   "bugs": {
     "url": "https://github.com/demoncowgirl/finalproject-petstop/issues"
   },
-  "homepage": "https://github.com/demoncowgirl/finalproject-petstop#readme"
+  "homepage": "https://github.com/demoncowgirl/finalproject-petstop#readme",
+  "dependencies": {
+    "artisan": "^0.1.2"
+  }
 }

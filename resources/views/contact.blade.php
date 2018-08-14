@@ -2,7 +2,7 @@
 
 @section('content')
 <h1>Contact</h1>
-<div id="contactForm" class="container">
+<div id="contactForm" class="container-fluid">
 {!! Form::open(['url' => '/contact']) !!}
 
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
