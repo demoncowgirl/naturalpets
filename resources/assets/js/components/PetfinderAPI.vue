@@ -232,7 +232,7 @@
         }
       },
       previousPage: function(){
-        if(this.pageNum > 0){
+        if(this.pageNum > 0){s
           this.pageNum -=1;
         }
       },
