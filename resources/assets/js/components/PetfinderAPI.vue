@@ -43,6 +43,7 @@
       </select>
       <div>
       <input class="btn btn-secondary" style="color: white;" type="submit" id="submitZip" @click="getPet(); showBtn();">
+      <input class="btn btn-secondary"  value="Clear" style="color:white;" type="button" id="reloadForm" @click="reloadForm();">
       </div>
   </div>
 
@@ -68,8 +69,6 @@
             <div><strong>Contact Email:</strong> <a :href="'mailto:'+ pet.email">{{ pet.email }}</a></div>
             <div><strong>Contact Phone:</strong> {{ pet.phone }}</div>
             <img id="petImage" :src="pet.image" width="200" height="auto"/>
-            <!-- <iframe src="pets.html" width="200" height="400"> </iframe> -->
-            <!-- <img class="petImage" src='assets/images/peaches.jpg'/> -->
             <div class="m-2">{{ pet.description }}</div>
           </div>
         </div>
@@ -88,186 +87,170 @@
 <script>
 
  export default {
-   mounted(){
+  mounted(){
    },
-    data: function() {
-        return {
-            showOutput: false,
-            output: 'basic',
-            searchZip: '',
-            petsArray: [],
-            animalType: 'dog',
-            animalSize: '',
-            animalAge: '',
-            animalSex:'',
-            // options:'',
-            pageNum: 0,
-            prevBtn:'',
-            nextBtn:'',
-            showError: false,
-            errorMsg: '<h1>There was an error. Please try again.</h1>',
-            noMatchesFound: '<h1>Sorry, but we did not find any matches.<h1>',
-            showStatus: true,
-            fetchingStatus: '<h1>Fetching a list of potential new best friends...</h1>',
+  data: function() {
+    return {
+      showOutput: false,
+      output: 'basic',
+      searchZip: '',
+      petsArray: [],
+      animalType: 'dog',
+      animalSize: '',
+      animalAge: '',
+      animalSex:'',
+      // options:'',
+      pageNum: 0,
+      prevBtn:'',
+      nextBtn:'',
+      showError: false,
+      errorMsg: '<h1>There was an error. Please try again.</h1>',
+      noMatchesFound: '<h1>Sorry, but we did not find any matches.<h1>',
+      showStatus: true,
+      fetchingStatus: '<h1>Fetching a list of potential new best friends...</h1>',
 
-            apiRequest: null,
-            apiKey: "d37c684a8dee07c9424f59462cfd9f15"
+      apiRequest: null,
+      apiKey: "d37c684a8dee07c9424f59462cfd9f15"
+    }
+  },
+    methods: {
+      getAPI: function(location) {
+        // Set up url for fetching adoptable pet data.
+        var url = 'https://api.petfinder.com/pet.getRandom';
+        var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
+        var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
+      },
+
+      // hides next and previous buttons until submit button is clicked
+      showBtn: function() {
+         document.getElementById('prev').style.display="block";
+         document.getElementById('next').style.display="block";
+      },
+
+      getPet: function (){
+        var url = "https://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
+
+        // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
+        url = url.replace("<apiKey>", this.apiKey);
+        url = url.replace("<zipCode>", this.searchZip);
+        url = url.replace("<animal>", this.animalType);
+        url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
+
+        if(this.animalAge.length > 0){
+          (url = url + '&age=' + this.animalAge)
+        }
+
+        if(this.animalSize.length > 0){
+          (url = url + '&size=' + this.animalSize)
+        }
+
+        if(this.animalSex.length > 0){
+          (url = url + '&sex=' + this.animalSex)
+        }
+
+        $.getJSON(url)
+          .done(this.catchResponse)
+          .catch(function(err) { alert('Error retrieving data!');
+          });
+      },
+
+      catchResponse: function(data) {
+
+        var pets = data.petfinder.pets;
+        var count = 3;
+        var statusCode = data.petfinder.header.status.code.$t;
+
+        if(statusCode !== "100"){
+          console.log('there was an error' + statusCode);
+           this.showError = true;
+           this.showStatus = false;
+           this.showOutput = false;
+        }
+
+        for(var i =0; i < pets.pet.length; i++){
+          var currentPet = [];
+
+          if (pets.pet[i].status.$t === 'A') {
+            console.log(data);
+          // numberOfItemsViewed += numberOfItemsViewed;
+           this.showError = false;
+           this.showStatus = false;
+            // used in search
+           currentPet.animalType = pets.pet[i].animal.$t;
+           currentPet.animalAge = pets.pet[i].age.$t;
+           currentPet.animalSize = pets.pet[i].size.$t;
+           currentPet.animalSex = pets.pet[i].sex.$t;
+           // for response, not displayed
+           currentPet.id = pets.pet[i].id.$t;
+           currentPet.zipCode = pets.pet[i].contact.zip.$t;
+           //for response, displayed
+           currentPet.city = pets.pet[i].contact.city.$t;
+           currentPet.name = pets.pet[i].name.$t;
+           currentPet.description = pets.pet[i].description.$t;
+           currentPet.email = pets.pet[i].contact.email.$t;
+           currentPet.phone = pets.pet[i].contact.phone.$t;
+           currentPet.breed = pets.pet[i].breeds.breed.$t;
+           currentPet.image = pets.pet[i].media.photos.photo[3].$t;
+           currentPet.showOutput = true;
+
+            if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
+              currentPet.breed = (pets.pet[i].breeds.breed[0]) + (pets.pet[i].breeds.breed[1])
+              console.log(Object.values(pets.pet[i].breeds.breed[0]));
+              console.log(Object.values(pets.pet[i].breeds.breed[1]));
+            }else{
+                   currentPet.breed = pets.pet[i].breeds.breed.$t;
+            }
+             // retrieves first image if there are multiple images
+            var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
+            petImage = petImage.replace("<currentPet.id>", currentPet.id);
+            petImage = petImage.replace("http", "https");
+
+             // if(pets.pet[i].media.photos.photo[3] == 'undefined'{
+             //   console.log('no photo available');
+             //    this.showError = true;
+             //    this.showStatus = false;
+             //    this.showOutput = false;
+             //  }
+
+            //todo -- display options in petSearch
+            // if(pets.pet[i].option,options > 1){
+            //   console.log(Object.values(pets.pet[i].option.options[0]));
+            //   console.log(Object.values(pets.pet[i].option.options[1]));
+            //   console.log(Object.values(pets.pet[i].option.options[2]));
+            //   console.log(Object.values(pets.pet[i].option.options[3]));
+            //   }
+
+           this.petsArray.push(Object.assign({}, currentPet));
+          }
+        }
+           this.showOutput=true;
+      },
+
+      nextPage: function(){
+        if(this.pageNum * 3 < this.petsArray.length){
+          this.pageNum +=1;
         }
       },
-      methods: {
+      previousPage: function(){
+        if(this.pageNum > 0){
+          this.pageNum -=1;
+        }
+      },
+      reloadForm: function(){
+        window.location.reload(true);
+      },
+    },
+    computed: {
+      displayArray: function(){
+        return this.petsArray.slice(this.pageNum * 3, (this.pageNum * 3) + 3);
 
-        getAPI: function(location) {
-          // Set up url for fetching adoptable pet data.
-          var url = 'https://api.petfinder.com/pet.getRandom';
-          var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
-          var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
-          },
-
-        // hides next and previous buttons until submit button is clicked
-        showBtn: function() {
-           document.getElementById('prev').style.display="block";
-           document.getElementById('next').style.display="block";
-         },
-
-        getPet: function (){
-          var url = "https://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
-
-          // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
-          url = url.replace("<apiKey>", this.apiKey);
-          url = url.replace("<zipCode>", this.searchZip);
-          url = url.replace("<animal>", this.animalType);
-          url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
-
-          if(this.animalAge.length > 0){
-            (url = url + '&age=' + this.animalAge)
-          }
-
-          if(this.animalSize.length > 0){
-            (url = url + '&size=' + this.animalSize)
-          }
-
-          if(this.animalSex.length > 0){
-            (url = url + '&sex=' + this.animalSex)
-          }
-
-          $.getJSON(url)
-            .done(this.catchResponse)
-            .catch(function(err) { alert('Error retrieving data!');
-            });
-          },
-
-          catchResponse: function(data) {
-
-            var pets = data.petfinder.pets;
-            var count = 3;
-            var statusCode = data.petfinder.header.status.code.$t;
-
-            if(statusCode !== "100"){
-              console.log('there was an error' + statusCode);
-               this.showError = true;
-               this.showStatus = false;
-               this.showOutput = false;
-             }
-
-            for(var i =0; i < pets.pet.length; i++){
-              var currentPet = [];
-
-              if (pets.pet[i].status.$t === 'A') {
-                console.log(data);
-              // numberOfItemsViewed += numberOfItemsViewed;
-               this.showError = false;
-               this.showStatus = false;
-                // used in search
-               currentPet.animalType = pets.pet[i].animal.$t;
-               currentPet.animalAge = pets.pet[i].age.$t;
-               currentPet.animalSize = pets.pet[i].size.$t;
-               currentPet.animalSex = pets.pet[i].sex.$t;
-               // for response, not displayed
-               currentPet.id = pets.pet[i].id.$t;
-               currentPet.zipCode = pets.pet[i].contact.zip.$t;
-               //for response, displayed
-               currentPet.city = pets.pet[i].contact.city.$t;
-               currentPet.name = pets.pet[i].name.$t;
-               currentPet.description = pets.pet[i].description.$t;
-               currentPet.email = pets.pet[i].contact.email.$t;
-               currentPet.phone = pets.pet[i].contact.phone.$t;
-               currentPet.breed = pets.pet[i].breeds.breed.$t;
-               currentPet.image = pets.pet[i].media.photos.photo[3].$t;
-               currentPet.showOutput = true;
-
-                if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
-                  currentPet.breed = (pets.pet[i].breeds.breed[0]) + (pets.pet[i].breeds.breed[1])
-                  console.log(Object.values(pets.pet[i].breeds.breed[0]));
-                  console.log(Object.values(pets.pet[i].breeds.breed[1]));
-                }else{
-                       currentPet.breed = pets.pet[i].breeds.breed.$t;
-                }
-                 // retrieves first image if there are multiple images
-                var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
-                petImage = petImage.replace("<currentPet.id>", currentPet.id);
-                petImage = petImage.replace("http", "https");
-
-                 // if(pets.pet[i].media.photos.photo[3] == 'undefined'{
-                 //   console.log('no photo available');
-                 //    this.showError = true;
-                 //    this.showStatus = false;
-                 //    this.showOutput = false;
-                 //  }
-
-                //todo -- display options in petSearch
-                // if(pets.pet[i].option,options > 1){
-                //   console.log(Object.values(pets.pet[i].option.options[0]));
-                //   console.log(Object.values(pets.pet[i].option.options[1]));
-                //   console.log(Object.values(pets.pet[i].option.options[2]));
-                //   console.log(Object.values(pets.pet[i].option.options[3]));
-                //   }
-
-               this.petsArray.push(Object.assign({}, currentPet));
-
-               }
-                  // nextPages.onclick = function('nextBtn'){nextIteration = i + 2};
-             }
-
-              // nextPages: function(){
-              //   nextIteration = i + 2;
-              //   console.log('nextPages button clicked');
-              // },
-              //
-              // previousPages: function(){
-              //   console.log('previousPages button clicked');
-              // },
-
-              this.showOutput=true;
-            },
-
-            nextPage: function(){
-              if(this.pageNum * 3 < this.petsArray.length){
-                this.pageNum +=1;
-              }
-            },
-
-            previousPage: function(){
-              if(this.pageNum > 0){
-                this.pageNum -=1;
-              }
-            },
-
-
-        },
-
-      computed: {
-        displayArray: function(){
-          return this.petsArray.slice(this.pageNum * 3, (this.pageNum * 3) + 3);
-
-          // var mainArray = this.petsArray;
-          //   if(mainArray <=25){
-          //       var displayArray = mainArray.slice(this.pageNum + 3);
-          //       console.log(mainArray);
-          //       console.log(newStart);
-              //   }
-              }
-
-            }
-}
-
+        // var mainArray = this.petsArray;
+        //   if(mainArray <=25){
+        //       var displayArray = mainArray.slice(this.pageNum + 3);
+        //       console.log(mainArray);
+        //       console.log(newStart);
+            //   }
+      }
+    }
+  }
 </script>

@@ -8455,10 +8455,6 @@ i {
   overflow: scroll;
 }
 
-input:focus {
-  background-color: #DCDCDC;
-}
-
 .form-text {
   text-align: center;
   min-width: 320px;
@@ -8486,6 +8482,7 @@ input:focus {
 
 .btn {
   margin: 1px;
+  width: auto;
 }
 
 #showcase {

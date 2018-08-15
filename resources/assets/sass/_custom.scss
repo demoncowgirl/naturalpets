@@ -101,9 +101,9 @@ i{
   overflow: scroll;
 }
 
-input:focus {
-    background-color: #DCDCDC;
-}
+// input:focus {
+//     background-color: #DCDCDC;
+// }
 
 .form-text{
   text-align: center;
@@ -125,8 +125,9 @@ input:focus {
   align-content: space-between;
 }
 
-.btn {
+.btn{
   margin: 1px;
+  width: auto;
 }
 
 #showcase{

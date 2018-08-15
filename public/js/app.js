@@ -43441,7 +43441,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43472,7 +43471,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
   methods: {
-
     getAPI: function getAPI(location) {
       // Set up url for fetching adoptable pet data.
       var url = 'https://api.petfinder.com/pet.getRandom';
@@ -43580,18 +43578,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           this.petsArray.push(Object.assign({}, currentPet));
         }
-        // nextPages.onclick = function('nextBtn'){nextIteration = i + 2};
       }
-
-      // nextPages: function(){
-      //   nextIteration = i + 2;
-      //   console.log('nextPages button clicked');
-      // },
-      //
-      // previousPages: function(){
-      //   console.log('previousPages button clicked');
-      // },
-
       this.showOutput = true;
     },
 
@@ -43600,15 +43587,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.pageNum += 1;
       }
     },
-
     previousPage: function previousPage() {
       if (this.pageNum > 0) {
         this.pageNum -= 1;
       }
+    },
+    reloadForm: function reloadForm() {
+      window.location.reload(true);
     }
-
   },
-
   computed: {
     displayArray: function displayArray() {
       return this.petsArray.slice(this.pageNum * 3, this.pageNum * 3 + 3);
@@ -43620,7 +43607,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       //       console.log(newStart);
       //   }
     }
-
   }
 });
 
@@ -43857,6 +43843,17 @@ var render = function() {
               click: function($event) {
                 _vm.getPet()
                 _vm.showBtn()
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "btn btn-secondary",
+            staticStyle: { color: "white" },
+            attrs: { value: "Clear", type: "button", id: "reloadForm" },
+            on: {
+              click: function($event) {
+                _vm.reloadForm()
               }
             }
           })
