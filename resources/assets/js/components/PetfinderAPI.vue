@@ -69,6 +69,7 @@
             <div><strong>Contact Email:</strong> <a :href="'mailto:'+ pet.email">{{ pet.email }}</a></div>
             <div><strong>Contact Phone:</strong> {{ pet.phone }}</div>
             <img id="petImage" :src="pet.image" width="200" height="auto"/>
+            <div><ul>{{ pet.options }}</ul></div>
             <div class="m-2">{{ pet.description }}</div>
           </div>
         </div>
@@ -95,6 +96,7 @@
       output: 'basic',
       searchZip: '',
       petsArray: [],
+      options:[],
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
@@ -138,7 +140,7 @@
 
         if(this.animalAge.length > 0){
           (url = url + '&age=' + this.animalAge)
-        }
+          }
 
         if(this.animalSize.length > 0){
           (url = url + '&size=' + this.animalSize)
@@ -170,7 +172,7 @@
         for(var i =0; i < pets.pet.length; i++){
           var currentPet = [];
 
-          if (pets.pet[i].status.$t === 'A') {
+          if (pets.pet[i].status.$t === 'A' && pets.pet[i].options.option[i].$t !== undefined) {
             console.log(data);
           // numberOfItemsViewed += numberOfItemsViewed;
            this.showError = false;
@@ -191,12 +193,11 @@
            currentPet.phone = pets.pet[i].contact.phone.$t;
            currentPet.breed = pets.pet[i].breeds.breed.$t;
            currentPet.image = pets.pet[i].media.photos.photo[3].$t;
+           currentPet.options = pets.pet[i].options.option[i].$t;
            currentPet.showOutput = true;
 
             if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
-              currentPet.breed = (pets.pet[i].breeds.breed[0]) + (pets.pet[i].breeds.breed[1])
-              console.log(Object.values(pets.pet[i].breeds.breed[0]));
-              console.log(Object.values(pets.pet[i].breeds.breed[1]));
+              currentPet.breed = (pets.pet[i].breeds.breed[0].$t) + ' / ' + (pets.pet[i].breeds.breed[1].$t)
             }else{
                    currentPet.breed = pets.pet[i].breeds.breed.$t;
             }
@@ -209,25 +210,31 @@
               currentPet.email = "N/A";
             }
 
+            // if(currentPet.options.length > 0 && typeof(pets.pet[i].options.option[i].$t) != undefined){
+            //   var options = currentPet.options;
+              console.log(currentPet.options);
+            // }
+
+            // if(pets.pet[i].media.photos.photo[i] == undefined){
+            //   console.log('no photo available');
+            //    this.showError = true;
+            //    this.showStatus = false;
+            //    this.showOutput = false;
+            //  }
+
              // retrieves first image if there are multiple images
             var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
             petImage = petImage.replace("<currentPet.id>", currentPet.id);
             petImage = petImage.replace("http", "https");
 
-             // if(pets.pet[i].media.photos.photo[3] == 'undefined'{
-             //   console.log('no photo available');
-             //    this.showError = true;
-             //    this.showStatus = false;
-             //    this.showOutput = false;
-             //  }
 
             //todo -- display options in petSearch
-            // if(pets.pet[i].option,options > 1){
-            //   console.log(Object.values(pets.pet[i].option.options[0]));
-            //   console.log(Object.values(pets.pet[i].option.options[1]));
-            //   console.log(Object.values(pets.pet[i].option.options[2]));
-            //   console.log(Object.values(pets.pet[i].option.options[3]));
+            //   for(var i = 0; i < currentPet.options.length; i++){
+            //     if(currentPet.options != undefined){
+            //   console.log(currentPet.options.length);
+            //   console.log(currentPet.options[i]);
             //   }
+            // }
 
            this.petsArray.push(Object.assign({}, currentPet));
           }
@@ -235,15 +242,13 @@
            this.showOutput=true;
       },
 
-
-
       nextPage: function(){
         if(this.pageNum * 3 < this.petsArray.length){
           this.pageNum +=1;
         }
       },
       previousPage: function(){
-        if(this.pageNum > 0){s
+        if(this.pageNum > 0){
           this.pageNum -=1;
         }
       },
