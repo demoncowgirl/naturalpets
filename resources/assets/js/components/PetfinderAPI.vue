@@ -200,6 +200,15 @@
             }else{
                    currentPet.breed = pets.pet[i].breeds.breed.$t;
             }
+
+            if(currentPet.phone == undefined){
+              currentPet.phone = "N/A";
+            }
+
+            if(currentPet.email == undefined){
+              currentPet.email = "N/A";
+            }
+
              // retrieves first image if there are multiple images
             var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
             petImage = petImage.replace("<currentPet.id>", currentPet.id);
@@ -225,6 +234,8 @@
         }
            this.showOutput=true;
       },
+
+
 
       nextPage: function(){
         if(this.pageNum * 3 < this.petsArray.length){
