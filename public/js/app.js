@@ -43528,7 +43528,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       for (var i = 0; i < pets.pet.length; i++) {
         var currentPet = [];
 
-        if (pets.pet[i].status.$t === 'A' && pets.pet[i].options.option[i].$t !== undefined) {
+        if (pets.pet[i].status.$t === 'A') {
           console.log(data);
           // numberOfItemsViewed += numberOfItemsViewed;
           this.showError = false;
@@ -43566,33 +43566,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             currentPet.email = "N/A";
           }
 
-          // if(currentPet.options.length > 0 && typeof(pets.pet[i].options.option[i].$t) != undefined){
-          //   var options = currentPet.options;
-          console.log(currentPet.options);
+          // if(pets.pet[i].options.option[i] == undefined){
+          //   console.log("value is undefined");
           // }
 
-          // if(pets.pet[i].media.photos.photo[i] == undefined){
-          //   console.log('no photo available');
-          //    this.showError = true;
-          //    this.showStatus = false;
-          //    this.showOutput = false;
-          //  }
+          var obj = currentPet.options;
 
-          // retrieves first image if there are multiple images
-          var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
-          petImage = petImage.replace("<currentPet.id>", currentPet.id);
-          petImage = petImage.replace("http", "https");
-
-          //todo -- display options in petSearch
-          //   for(var i = 0; i < currentPet.options.length; i++){
-          //     if(currentPet.options != undefined){
-          //   console.log(currentPet.options.length);
-          //   console.log(currentPet.options[i]);
-          //   }
-          // }
-
-          this.petsArray.push(Object.assign({}, currentPet));
+          for (var key in obj) {
+            if (obj.hasOwnProperty(key))
+              // continue through array
+              console.log('not empty');
+          }
+          // move to next object
+          console.log('empty');
         }
+        // if(pets.pet[i].media.photos.photo[i] == undefined){
+        //   console.log('no photo available');
+        //    this.showError = true;
+        //    this.showStatus = false;
+        //    this.showOutput = false;
+        //  }
+
+        // retrieves first image if there are multiple images
+        var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
+        petImage = petImage.replace("<currentPet.id>", currentPet.id);
+        petImage = petImage.replace("http", "https");
+
+        if (currentPet.image === null) {
+          petImage = "images/imgnotfound.jpg";
+          console.log("there is no image");
+        }
+
+        //todo -- display options in petSearch
+        //   for(var i = 0; i < currentPet.options.length; i++){
+        //     if(currentPet.options != undefined){
+        //   console.log(currentPet.options.length);
+        //   console.log(currentPet.options[i]);
+        //   }
+        // }
+
+        this.petsArray.push(Object.assign({}, currentPet));
       }
       this.showOutput = true;
     },
@@ -43614,13 +43627,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     displayArray: function displayArray() {
       return this.petsArray.slice(this.pageNum * 3, this.pageNum * 3 + 3);
-
-      // var mainArray = this.petsArray;
-      //   if(mainArray <=25){
-      //       var displayArray = mainArray.slice(this.pageNum + 3);
-      //       console.log(mainArray);
-      //       console.log(newStart);
-      //   }
     }
   }
 });

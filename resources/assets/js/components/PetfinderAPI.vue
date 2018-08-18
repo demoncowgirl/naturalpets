@@ -172,7 +172,7 @@
         for(var i =0; i < pets.pet.length; i++){
           var currentPet = [];
 
-          if (pets.pet[i].status.$t === 'A' && pets.pet[i].options.option[i].$t !== undefined) {
+          if (pets.pet[i].status.$t === 'A') {
             console.log(data);
           // numberOfItemsViewed += numberOfItemsViewed;
            this.showError = false;
@@ -210,11 +210,20 @@
               currentPet.email = "N/A";
             }
 
-            // if(currentPet.options.length > 0 && typeof(pets.pet[i].options.option[i].$t) != undefined){
-            //   var options = currentPet.options;
-              console.log(currentPet.options);
+            // if(pets.pet[i].options.option[i] == undefined){
+            //   console.log("value is undefined");
             // }
 
+            var obj = currentPet.options;
+
+            for(var key in obj) {
+              if(obj.hasOwnProperty(key))
+                // continue through array
+                  console.log('not empty');
+                }
+                  // move to next object
+                  console.log('empty');
+              }
             // if(pets.pet[i].media.photos.photo[i] == undefined){
             //   console.log('no photo available');
             //    this.showError = true;
@@ -227,6 +236,10 @@
             petImage = petImage.replace("<currentPet.id>", currentPet.id);
             petImage = petImage.replace("http", "https");
 
+            if(currentPet.image === null){
+              petImage = "images/imgnotfound.jpg";
+              console.log("there is no image");
+            }
 
             //todo -- display options in petSearch
             //   for(var i = 0; i < currentPet.options.length; i++){
@@ -237,7 +250,7 @@
             // }
 
            this.petsArray.push(Object.assign({}, currentPet));
-          }
+
         }
            this.showOutput=true;
       },
@@ -260,12 +273,6 @@
       displayArray: function(){
         return this.petsArray.slice(this.pageNum * 3, (this.pageNum * 3) + 3);
 
-        // var mainArray = this.petsArray;
-        //   if(mainArray <=25){
-        //       var displayArray = mainArray.slice(this.pageNum + 3);
-        //       console.log(mainArray);
-        //       console.log(newStart);
-            //   }
       }
     }
   }
