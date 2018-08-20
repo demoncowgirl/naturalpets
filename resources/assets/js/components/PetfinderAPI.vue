@@ -71,10 +71,10 @@
             <img id="petImage" :src="pet.image" width="200" height="auto"/>
             <div class="m-2">{{ pet.description }}</div>
             <div>
-              <!-- <i class="fas fa-paw fa-1x pr-1"></i>
+              <i class="fas fa-paw fa-1x pr-1"></i>
               <ul>
                 <li style="list-style-type: none;" v-for="option in displayArray">{{ pet.options }}</li>
-              </ul> -->
+              </ul>
               <i class="fas fa-paw fa-1x pr-1"></i>
             </div>
           </div>
@@ -89,7 +89,7 @@
   </div>
 </div>
 
-</template>
+</template>s
 
 <script>
 
@@ -102,7 +102,6 @@
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      // optionsArray: [],
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
@@ -121,106 +120,117 @@
       apiKey: "d37c684a8dee07c9424f59462cfd9f15"
     }
   },
-    methods: {
-      getAPI: function(location) {
-        // Set up url for fetching adoptable pet data.
-        var url = 'https://api.petfinder.com/pet.getRandom';
-        var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
-        var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
-      },
+  methods: {
+    getAPI: function(location) {
+      // Set up url for fetching adoptable pet data.
+      var url = 'https://api.petfinder.com/pet.getRandom';
+      var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
+      var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
+    },
 
-      // hides next and previous buttons until submit button is clicked
-      showBtn: function() {
-         document.getElementById('prev').style.display="block";
-         document.getElementById('next').style.display="block";
-      },
+    // hides next and previous buttons until submit button is clicked
+    showBtn: function() {
+       document.getElementById('prev').style.display="block";
+       document.getElementById('next').style.display="block";
+    },
 
-      getPet: function (){
-        var url = "https://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
+    getPet: function (){
+      var url = "https://api.petfinder.com/pet.find?key=d37c684a8dee07c9424f59462cfd9f15&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
 
-        // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
-        url = url.replace("<apiKey>", this.apiKey);
-        url = url.replace("<zipCode>", this.searchZip);
-        url = url.replace("<animal>", this.animalType);
-        url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
+      // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
+      url = url.replace("<apiKey>", this.apiKey);
+      url = url.replace("<zipCode>", this.searchZip);
+      url = url.replace("<animal>", this.animalType);
+      url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
 
-        if(this.animalAge.length > 0){
-          (url = url + '&age=' + this.animalAge)
+      if(this.animalAge.length > 0){
+        (url = url + '&age=' + this.animalAge)
+        }
+
+      if(this.animalSize.length > 0){
+        (url = url + '&size=' + this.animalSize)
+      }
+
+      if(this.animalSex.length > 0){
+        (url = url + '&sex=' + this.animalSex)
+      }
+
+      $.getJSON(url)
+        .done(this.catchResponse)
+        .catch(function(err) { alert('Error retrieving data!');
+        });
+    },
+
+    catchResponse: function(data) {
+
+      var pets = data.petfinder.pets;
+      var count = 3;
+      var statusCode = data.petfinder.header.status.code.$t;
+
+      if(statusCode !== "100"){
+        console.log('there was an error' + statusCode);
+         this.showError = true;
+         this.showStatus = false;
+         this.showOutput = false;
+      }
+
+      for(var i =0; i < pets.pet.length; i++){
+        var currentPet = [];
+
+        if (pets.pet[i].status.$t === 'A') {
+          console.log(data);
+        // numberOfItemsViewed += numberOfItemsViewed;
+         this.showError = false;
+         this.showStatus = false;
+          // used in search
+         currentPet.animalType = pets.pet[i].animal.$t;
+         currentPet.animalAge = pets.pet[i].age.$t;
+         currentPet.animalSize = pets.pet[i].size.$t;
+         currentPet.animalSex = pets.pet[i].sex.$t;
+         // for response, not displayed
+         currentPet.id = pets.pet[i].id.$t;
+         currentPet.zipCode = pets.pet[i].contact.zip.$t;
+         //for response, displayed
+         currentPet.city = pets.pet[i].contact.city.$t;
+         currentPet.name = pets.pet[i].name.$t;
+         currentPet.description = pets.pet[i].description.$t;
+         currentPet.email = pets.pet[i].contact.email.$t;
+         currentPet.phone = pets.pet[i].contact.phone.$t;
+         currentPet.breed = pets.pet[i].breeds.breed.$t;
+         currentPet.image = pets.pet[i].media.photos.photo[3].$t;
+         currentPet.showOutput = true;
+       }
+
+        if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
+          currentPet.breed = (pets.pet[i].breeds.breed[0].$t) + ' / ' + (pets.pet[i].breeds.breed[1].$t)
+        }else{
+               currentPet.breed = pets.pet[i].breeds.breed.$t;
+        }
+
+        if(currentPet.phone == undefined){
+          currentPet.phone = "N/A";
+        }
+
+        if(currentPet.email == undefined){
+          currentPet.email = "N/A";
+        }
+
+        if(currentPet.description == undefined){
+          currentPet.description = "N/A";
+          console.log("N/A");
+        }
+
+
+        var obj = pets.pet[i].options.option;
+
+        if(obj !== undefined && obj.length !== undefined && Array.isArray(obj) && obj !== 0){
+          for(var j = 0; j < obj.length; j++){
+             currentPet.options = pets.pet[i].options.option[j];
+             console.log(currentPet.options);
+           }
+        }else {
+            currentPet.options = "n/a";
           }
-
-        if(this.animalSize.length > 0){
-          (url = url + '&size=' + this.animalSize)
-        }
-
-        if(this.animalSex.length > 0){
-          (url = url + '&sex=' + this.animalSex)
-        }
-
-        $.getJSON(url)
-          .done(this.catchResponse)
-          .catch(function(err) { alert('Error retrieving data!');
-          });
-      },
-
-      catchResponse: function(data) {
-
-        var pets = data.petfinder.pets;
-        var count = 3;
-        var statusCode = data.petfinder.header.status.code.$t;
-
-        if(statusCode !== "100"){
-          console.log('there was an error' + statusCode);
-           this.showError = true;
-           this.showStatus = false;
-           this.showOutput = false;
-        }
-
-        for(var i =0; i < pets.pet.length; i++){
-          var currentPet = [];
-
-          if (pets.pet[i].status.$t === 'A') {
-            console.log(data);
-          // numberOfItemsViewed += numberOfItemsViewed;
-           this.showError = false;
-           this.showStatus = false;
-            // used in search
-           currentPet.animalType = pets.pet[i].animal.$t;
-           currentPet.animalAge = pets.pet[i].age.$t;
-           currentPet.animalSize = pets.pet[i].size.$t;
-           currentPet.animalSex = pets.pet[i].sex.$t;
-           // for response, not displayed
-           currentPet.id = pets.pet[i].id.$t;
-           currentPet.zipCode = pets.pet[i].contact.zip.$t;
-           //for response, displayed
-           currentPet.city = pets.pet[i].contact.city.$t;
-           currentPet.name = pets.pet[i].name.$t;
-           currentPet.description = pets.pet[i].description.$t;
-           currentPet.email = pets.pet[i].contact.email.$t;
-           currentPet.phone = pets.pet[i].contact.phone.$t;
-           currentPet.breed = pets.pet[i].breeds.breed.$t;
-           currentPet.image = pets.pet[i].media.photos.photo[3].$t;
-           // currentPet.options = pets.pet[i].options.option[i].$t;
-           currentPet.showOutput = true;
-         }
-            if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
-              currentPet.breed = (pets.pet[i].breeds.breed[0].$t) + ' / ' + (pets.pet[i].breeds.breed[1].$t)
-            }else{
-                   currentPet.breed = pets.pet[i].breeds.breed.$t;
-            }
-
-            if(currentPet.phone == undefined){
-              currentPet.phone = "N/A";
-            }
-
-            if(currentPet.email == undefined){
-              currentPet.email = "N/A";
-            }
-
-            // var optionsArray = [];
-            // for(var j = 0; j < pets.pet[i].options.option.length; j++){
-            //   console.log(pets.pet[i].options.option[j]);
-            // }
-
             // if(pets.pet[i].media.photos.photo[i] == undefined){
             //   console.log('no photo available');
             //    this.showError = true;
@@ -237,40 +247,29 @@
               petImage = "images/imgnotfound.jpg";
               console.log("there is no image");
             }
-
+          }
            this.petsArray.push(Object.assign({}, currentPet));
 
            this.showOutput=true;
-        }
-      },
+        },
 
-      // tests for empty options object in api
-      // isEmpty: function() {
-      //   for(var key in obj) {
-      //       if(obj.hasOwnProperty(key))
-      //           return false;
-      //   }
-      //   return true;
-      // },
-
-      nextPage: function(){
-        if(this.pageNum * 3 < this.petsArray.length){
-          this.pageNum +=1;
-        }
-      },
-      previousPage: function(){
-        if(this.pageNum > 0){
-          this.pageNum -=1;
-        }
-      },
-      reloadForm: function(){
-        window.location.reload(true);
-      },
+    nextPage: function(){
+      if(this.pageNum * 3 < this.petsArray.length){
+        this.pageNum +=1;
+      }
     },
+    previousPage: function(){
+      if(this.pageNum > 0){
+        this.pageNum -=1;
+      }
+    },
+    reloadForm: function(){
+      window.location.reload(true);
+    },
+  },
     computed: {
       displayArray: function(){
         return this.petsArray.slice(this.pageNum * 3, (this.pageNum * 3) + 3);
-
       }
     }
   }

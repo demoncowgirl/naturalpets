@@ -43459,7 +43459,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      // optionsArray: [],
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
@@ -43555,9 +43554,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           currentPet.phone = pets.pet[i].contact.phone.$t;
           currentPet.breed = pets.pet[i].breeds.breed.$t;
           currentPet.image = pets.pet[i].media.photos.photo[3].$t;
-          // currentPet.options = pets.pet[i].options.option[i].$t;
           currentPet.showOutput = true;
         }
+
         if (pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0) {
           currentPet.breed = pets.pet[i].breeds.breed[0].$t + ' / ' + pets.pet[i].breeds.breed[1].$t;
         } else {
@@ -43572,11 +43571,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           currentPet.email = "N/A";
         }
 
-        // var optionsArray = [];
-        // for(var j = 0; j < pets.pet[i].options.option.length; j++){
-        //   console.log(pets.pet[i].options.option[j]);
-        // }
+        if (currentPet.description == undefined) {
+          currentPet.description = "N/A";
+          console.log("N/A");
+        }
 
+        var obj = pets.pet[i].options.option;
+
+        if (obj !== undefined && obj.length !== undefined && Array.isArray(obj) && obj !== 0) {
+          for (var j = 0; j < obj.length; j++) {
+            currentPet.options = pets.pet[i].options.option[j];
+            console.log(currentPet.options);
+          }
+        } else {
+          currentPet.options = "n/a";
+        }
         // if(pets.pet[i].media.photos.photo[i] == undefined){
         //   console.log('no photo available');
         //    this.showError = true;
@@ -43593,21 +43602,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           petImage = "images/imgnotfound.jpg";
           console.log("there is no image");
         }
-
-        this.petsArray.push(Object.assign({}, currentPet));
-
-        this.showOutput = true;
       }
-    },
+      this.petsArray.push(Object.assign({}, currentPet));
 
-    // tests for empty options object in api
-    // isEmpty: function() {
-    //   for(var key in obj) {
-    //       if(obj.hasOwnProperty(key))
-    //           return false;
-    //   }
-    //   return true;
-    // },
+      this.showOutput = true;
+    },
 
     nextPage: function nextPage() {
       if (this.pageNum * 3 < this.petsArray.length) {
@@ -43975,7 +43974,22 @@ var render = function() {
                           _vm._v(_vm._s(pet.description))
                         ]),
                         _vm._v(" "),
-                        _vm._m(1, true)
+                        _c("div", [
+                          _c("i", { staticClass: "fas fa-paw fa-1x pr-1" }),
+                          _vm._v(" "),
+                          _c(
+                            "ul",
+                            _vm._l(_vm.displayArray, function(option) {
+                              return _c(
+                                "li",
+                                { staticStyle: { "list-style-type": "none" } },
+                                [_vm._v(_vm._s(pet.options))]
+                              )
+                            })
+                          ),
+                          _vm._v(" "),
+                          _c("i", { staticClass: "fas fa-paw fa-1x pr-1" })
+                        ])
                       ])
                     ])
                   : _vm._e()
@@ -44001,7 +44015,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._m(2)]
+                  [_vm._m(1)]
                 )
               ]
             )
@@ -44019,12 +44033,6 @@ var staticRenderFns = [
     return _c("a", { staticClass: "previous", attrs: { href: "#" } }, [
       _c("span", [_c("i", { staticClass: "fas fa-arrow-circle-left fa-2x" })])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("i", { staticClass: "fas fa-paw fa-1x pr-1" })])
   },
   function() {
     var _vm = this
