@@ -69,8 +69,14 @@
             <div><strong>Contact Email:</strong> <a :href="'mailto:'+ pet.email">{{ pet.email }}</a></div>
             <div><strong>Contact Phone:</strong> {{ pet.phone }}</div>
             <img id="petImage" :src="pet.image" width="200" height="auto"/>
-            <div><ul>{{ pet.options }}</ul></div>
             <div class="m-2">{{ pet.description }}</div>
+            <div>
+              <!-- <i class="fas fa-paw fa-1x pr-1"></i>
+              <ul>
+                <li style="list-style-type: none;" v-for="option in displayArray">{{ pet.options }}</li>
+              </ul> -->
+              <i class="fas fa-paw fa-1x pr-1"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -96,12 +102,12 @@
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      options:[],
+      optionsArray: [],
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
       animalSex:'',
-      // options:'',
+      options:'',
       pageNum: 0,
       prevBtn:'',
       nextBtn:'',
@@ -195,7 +201,7 @@
            currentPet.image = pets.pet[i].media.photos.photo[3].$t;
            currentPet.options = pets.pet[i].options.option[i].$t;
            currentPet.showOutput = true;
-
+         }
             if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
               currentPet.breed = (pets.pet[i].breeds.breed[0].$t) + ' / ' + (pets.pet[i].breeds.breed[1].$t)
             }else{
@@ -210,20 +216,11 @@
               currentPet.email = "N/A";
             }
 
-            // if(pets.pet[i].options.option[i] == undefined){
-            //   console.log("value is undefined");
-            // }
+            var optionsArray = [];
+            for(var j = 0; j < pets.pet[i].options.option.length; j++){
+              console.log(pets.pet[i].options.option[j]);
+            }
 
-            var obj = currentPet.options;
-
-            for(var key in obj) {
-              if(obj.hasOwnProperty(key))
-                // continue through array
-                  console.log('not empty');
-                }
-                  // move to next object
-                  console.log('empty');
-              }
             // if(pets.pet[i].media.photos.photo[i] == undefined){
             //   console.log('no photo available');
             //    this.showError = true;
@@ -241,18 +238,19 @@
               console.log("there is no image");
             }
 
-            //todo -- display options in petSearch
-            //   for(var i = 0; i < currentPet.options.length; i++){
-            //     if(currentPet.options != undefined){
-            //   console.log(currentPet.options.length);
-            //   console.log(currentPet.options[i]);
-            //   }
-            // }
-
            this.petsArray.push(Object.assign({}, currentPet));
 
-        }
            this.showOutput=true;
+        }
+      },
+
+      // tests for empty options object in api
+      isEmpty: function() {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
       },
 
       nextPage: function(){

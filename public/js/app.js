@@ -43442,6 +43442,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43453,12 +43459,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      options: [],
+      optionsArray: [],
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
       animalSex: '',
-      // options:'',
+      options: '',
       pageNum: 0,
       prevBtn: '',
       nextBtn: '',
@@ -43551,35 +43557,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           currentPet.image = pets.pet[i].media.photos.photo[3].$t;
           currentPet.options = pets.pet[i].options.option[i].$t;
           currentPet.showOutput = true;
-
-          if (pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0) {
-            currentPet.breed = pets.pet[i].breeds.breed[0].$t + ' / ' + pets.pet[i].breeds.breed[1].$t;
-          } else {
-            currentPet.breed = pets.pet[i].breeds.breed.$t;
-          }
-
-          if (currentPet.phone == undefined) {
-            currentPet.phone = "N/A";
-          }
-
-          if (currentPet.email == undefined) {
-            currentPet.email = "N/A";
-          }
-
-          // if(pets.pet[i].options.option[i] == undefined){
-          //   console.log("value is undefined");
-          // }
-
-          var obj = currentPet.options;
-
-          for (var key in obj) {
-            if (obj.hasOwnProperty(key))
-              // continue through array
-              console.log('not empty');
-          }
-          // move to next object
-          console.log('empty');
         }
+        if (pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0) {
+          currentPet.breed = pets.pet[i].breeds.breed[0].$t + ' / ' + pets.pet[i].breeds.breed[1].$t;
+        } else {
+          currentPet.breed = pets.pet[i].breeds.breed.$t;
+        }
+
+        if (currentPet.phone == undefined) {
+          currentPet.phone = "N/A";
+        }
+
+        if (currentPet.email == undefined) {
+          currentPet.email = "N/A";
+        }
+
+        var optionsArray = [];
+        for (var j = 0; j < pets.pet[i].options.option.length; j++) {
+          console.log(pets.pet[i].options.option[j]);
+        }
+
         // if(pets.pet[i].media.photos.photo[i] == undefined){
         //   console.log('no photo available');
         //    this.showError = true;
@@ -43597,17 +43594,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           console.log("there is no image");
         }
 
-        //todo -- display options in petSearch
-        //   for(var i = 0; i < currentPet.options.length; i++){
-        //     if(currentPet.options != undefined){
-        //   console.log(currentPet.options.length);
-        //   console.log(currentPet.options[i]);
-        //   }
-        // }
-
         this.petsArray.push(Object.assign({}, currentPet));
+
+        this.showOutput = true;
       }
-      this.showOutput = true;
+    },
+
+    // tests for empty options object in api
+    isEmpty: function isEmpty() {
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) return false;
+      }
+      return true;
     },
 
     nextPage: function nextPage() {
@@ -43972,11 +43970,11 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
-                        _c("div", [_c("ul", [_vm._v(_vm._s(pet.options))])]),
-                        _vm._v(" "),
                         _c("div", { staticClass: "m-2" }, [
                           _vm._v(_vm._s(pet.description))
-                        ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(1, true)
                       ])
                     ])
                   : _vm._e()
@@ -44002,7 +44000,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._m(1)]
+                  [_vm._m(2)]
                 )
               ]
             )
@@ -44020,6 +44018,12 @@ var staticRenderFns = [
     return _c("a", { staticClass: "previous", attrs: { href: "#" } }, [
       _c("span", [_c("i", { staticClass: "fas fa-arrow-circle-left fa-2x" })])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("i", { staticClass: "fas fa-paw fa-1x pr-1" })])
   },
   function() {
     var _vm = this

@@ -8,7 +8,7 @@
           <!-- {{ config('app.name', 'Pet Stop') }} -->
       </a>
     </div>
-
+  <div class="collapse navbar-collapse ">
     <ul class="nav navbar-nav float-right">
         <li><a class="{{ Request::is ('/') ? 'active': ''}}" href="/">Home</a></li>
         <li><a class="{{ Request::is ('about') ? 'active': ''}}" href="/about">About</a></li>
@@ -40,4 +40,5 @@
         @endauth
       </ul>
     </div>
-  </nav>
+  </div>
+</nav>

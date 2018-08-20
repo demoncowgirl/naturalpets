@@ -28,7 +28,7 @@ Route::get('messages', 'PagesController@getMessages');
 Route::get('search', 'SearchController@getSearchResults');
 
 Route::post('/contact', 'MessagesController@submit');
-// Route::get('/messages', 'MessagesController@getMessages');
+Route::get('/messages', 'MessagesController@getMessages');
 Route::post('/profile', 'ProfileRequest@submit');
 
 Auth::routes();
