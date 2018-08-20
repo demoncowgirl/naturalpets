@@ -102,7 +102,7 @@
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      optionsArray: [],
+      // optionsArray: [],
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
@@ -245,13 +245,13 @@
       },
 
       // tests for empty options object in api
-      isEmpty: function() {
-        for(var key in obj) {
-            if(obj.hasOwnProperty(key))
-                return false;
-        }
-        return true;
-      },
+      // isEmpty: function() {
+      //   for(var key in obj) {
+      //       if(obj.hasOwnProperty(key))
+      //           return false;
+      //   }
+      //   return true;
+      // },
 
       nextPage: function(){
         if(this.pageNum * 3 < this.petsArray.length){

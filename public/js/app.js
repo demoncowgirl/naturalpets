@@ -43459,7 +43459,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      optionsArray: [],
+      // optionsArray: [],
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
@@ -43601,12 +43601,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     // tests for empty options object in api
-    isEmpty: function isEmpty() {
-      for (var key in obj) {
-        if (obj.hasOwnProperty(key)) return false;
-      }
-      return true;
-    },
+    // isEmpty: function() {
+    //   for(var key in obj) {
+    //       if(obj.hasOwnProperty(key))
+    //           return false;
+    //   }
+    //   return true;
+    // },
 
     nextPage: function nextPage() {
       if (this.pageNum * 3 < this.petsArray.length) {
