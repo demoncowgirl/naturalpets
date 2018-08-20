@@ -199,7 +199,7 @@
            currentPet.phone = pets.pet[i].contact.phone.$t;
            currentPet.breed = pets.pet[i].breeds.breed.$t;
            currentPet.image = pets.pet[i].media.photos.photo[3].$t;
-           currentPet.options = pets.pet[i].options.option[i].$t;
+           // currentPet.options = pets.pet[i].options.option[i].$t;
            currentPet.showOutput = true;
          }
             if(pets.pet.mix === 'Yes' || pets.pet[i].breeds.breed.length > 0){
@@ -216,10 +216,10 @@
               currentPet.email = "N/A";
             }
 
-            var optionsArray = [];
-            for(var j = 0; j < pets.pet[i].options.option.length; j++){
-              console.log(pets.pet[i].options.option[j]);
-            }
+            // var optionsArray = [];
+            // for(var j = 0; j < pets.pet[i].options.option.length; j++){
+            //   console.log(pets.pet[i].options.option[j]);
+            // }
 
             // if(pets.pet[i].media.photos.photo[i] == undefined){
             //   console.log('no photo available');
