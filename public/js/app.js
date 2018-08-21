@@ -43355,6 +43355,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -43454,29 +43456,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {},
 
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
+      newOptionsArray: [{ option: '' }],
       showOutput: false,
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      optionsArray: [],
+      options: '',
+      petOptions: '',
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
-      animalSex: '',
-      options: '',
-      pageNum: 0,
-      prevBtn: '',
-      nextBtn: '',
-      showError: false,
-      errorMsg: '<h1>There was an error. Please try again.</h1>',
-      noMatchesFound: '<h1>Sorry, but we did not find any matches.<h1>',
-      showStatus: true,
-      fetchingStatus: '<h1>Fetching a list of potential new best friends...</h1>',
-
-      apiRequest: null,
-      apiKey: "d37c684a8dee07c9424f59462cfd9f15"
-    };
+      animalSex: ''
+    }, _defineProperty(_ref, 'options', ''), _defineProperty(_ref, 'pageNum', 0), _defineProperty(_ref, 'prevBtn', ''), _defineProperty(_ref, 'nextBtn', ''), _defineProperty(_ref, 'showError', false), _defineProperty(_ref, 'errorMsg', '<h1>There was an error. Please try again.</h1>'), _defineProperty(_ref, 'noMatchesFound', '<h1>Sorry, but we did not find any matches.<h1>'), _defineProperty(_ref, 'showStatus', true), _defineProperty(_ref, 'fetchingStatus', '<h1>Fetching a list of potential new best friends...</h1>'), _defineProperty(_ref, 'apiRequest', null), _defineProperty(_ref, 'apiKey', "d37c684a8dee07c9424f59462cfd9f15"), _ref;
   },
   methods: {
     getAPI: function getAPI(location) {
@@ -43582,6 +43576,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var options = "";
         var optionsUpper = "";
         var petOptions = "";
+        var newOptionsArray = [];
 
         if (obj !== undefined && obj.length !== undefined && Array.isArray(obj) && obj !== 0) {
           optionsArray = Object.values(obj);
@@ -43589,8 +43584,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             options = optionsArray[key].$t;
             optionsUpper = options.charAt(0).toUpperCase() + options.substr(1);
             petOptions = optionsUpper.replace(/([A-Z])/g, ' $1').trim();
-            console.log(petOptions);
+
+            newOptionsArray.push(petOptions);
           }
+
+          console.log(currentPet.name + ": " + "\n" + newOptionsArray);
         } else {
           currentPet.options = "N/A";
         }
@@ -43612,7 +43610,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           console.log("there is no image");
         }
       }
-
       this.petsArray.push(Object.assign({}, currentPet));
       this.showOutput = true;
     },
@@ -43988,11 +43985,11 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "ul",
-                            _vm._l(_vm.optionsArray, function(option) {
+                            _vm._l(_vm.options, function(option) {
                               return _c(
                                 "li",
                                 { staticStyle: { "list-style-type": "none" } },
-                                [_vm._v(_vm._s(_vm.arrayElements))]
+                                [_vm._v(_vm._s(_vm.newOptionsArray))]
                               )
                             })
                           ),

@@ -73,7 +73,7 @@
             <div>
               <i class="fas fa-paw fa-1x pr-1"></i>
               <ul>
-                <li style="list-style-type: none;" v-for="option in optionsArray">{{ arrayElements }}</li>
+                <li style="list-style-type: none;" v-for='option in options'>{{ newOptionsArray }}</li>
               </ul>
               <i class="fas fa-paw fa-1x pr-1"></i>
             </div>
@@ -98,11 +98,15 @@
    },
   data: function() {
     return {
+          newOptionsArray: [
+            { option: '' },
+          ],
       showOutput: false,
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      optionsArray: [],
+      options:'',
+      petOptions: '',
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
@@ -226,6 +230,7 @@
         var options = "";
         var optionsUpper = "";
         var petOptions = "";
+        var newOptionsArray=[];
 
         if(obj !== undefined && obj.length !== undefined && Array.isArray(obj) && obj !== 0){
              optionsArray = Object.values(obj);
@@ -233,8 +238,11 @@
                   options = (optionsArray[key].$t );
                   optionsUpper = options.charAt(0).toUpperCase() + options.substr(1);
                   petOptions = optionsUpper.replace(/([A-Z])/g, ' $1').trim();
-                  console.log(petOptions);
+
+                  newOptionsArray.push(petOptions);
                 }
+
+                console.log(currentPet.name + ": " + "\n" + newOptionsArray);
         }else{
             currentPet.options = "N/A";
           }
@@ -256,7 +264,6 @@
               console.log("there is no image");
             }
           }
-
            this.petsArray.push(Object.assign({}, currentPet));
            this.showOutput=true;
          },
