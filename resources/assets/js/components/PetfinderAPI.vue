@@ -225,24 +225,19 @@
         var optionsArray = [];
         var options = "";
         var optionsUpper = "";
+        var petOptions = "";
 
         if(obj !== undefined && obj.length !== undefined && Array.isArray(obj) && obj !== 0){
              optionsArray = Object.values(obj);
                for (var key in optionsArray) {
                   options = (optionsArray[key].$t );
                   optionsUpper = options.charAt(0).toUpperCase() + options.substr(1);
-                  console.log(optionsUpper);
+                  petOptions = optionsUpper.replace(/([A-Z])/g, ' $1').trim();
+                  console.log(petOptions);
                 }
-        }else {
+        }else{
             currentPet.options = "N/A";
           }
-
-        // var str = options.split('');
-        // for (var a = 0; a < str.length; a++) {
-        //         str[a] = str[a][0].toUpperCase() + str[a].substr(1);
-        //     }
-        //     console.log(str);
-            // console.log(str.join(" "));
 
             // if(pets.pet[i].media.photos.photo[i] == undefined){
             //   console.log('no photo available');
@@ -264,15 +259,7 @@
 
            this.petsArray.push(Object.assign({}, currentPet));
            this.showOutput=true;
-        },
-        //
-        // upperFirst: function (){
-        //         str = str.split(" ");
-        //         for (var i = 0, x = str.length; i < x; i++) {
-        //             str[i] = str[i][0].toUpperCase() + str[i].substr(1);
-        //         }
-        //         return str.join(" ");
-        //     },
+         },
 
     nextPage: function(){
       if(this.pageNum * 3 < this.petsArray.length){
