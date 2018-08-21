@@ -43459,6 +43459,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       output: 'basic',
       searchZip: '',
       petsArray: [],
+      optionsArray: [],
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
@@ -43577,15 +43578,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         var obj = pets.pet[i].options.option;
+        var optionsArray = [];
 
         if (obj !== undefined && obj.length !== undefined && Array.isArray(obj) && obj !== 0) {
           for (var j = 0; j < obj.length; j++) {
-            currentPet.options = pets.pet[i].options.option[j];
-            console.log(currentPet.options);
+            currentPet.options = pets.pet[i].options.option[j].$t;
+            console.log(currentPet.name + " " + currentPet.options);
           }
         } else {
           currentPet.options = "n/a";
         }
+
         // if(pets.pet[i].media.photos.photo[i] == undefined){
         //   console.log('no photo available');
         //    this.showError = true;
@@ -43604,7 +43607,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       }
       this.petsArray.push(Object.assign({}, currentPet));
-
       this.showOutput = true;
     },
 
@@ -43979,11 +43981,11 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "ul",
-                            _vm._l(_vm.displayArray, function(option) {
+                            _vm._l(_vm.optionsArray, function(option) {
                               return _c(
                                 "li",
                                 { staticStyle: { "list-style-type": "none" } },
-                                [_vm._v(_vm._s(pet.options))]
+                                [_vm._v(_vm._s(_vm.arrayElements))]
                               )
                             })
                           ),

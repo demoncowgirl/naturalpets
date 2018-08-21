@@ -73,7 +73,7 @@
             <div>
               <i class="fas fa-paw fa-1x pr-1"></i>
               <ul>
-                <li style="list-style-type: none;" v-for="option in displayArray">{{ pet.options }}</li>
+                <li style="list-style-type: none;" v-for="option in optionsArray">{{ arrayElements }}</li>
               </ul>
               <i class="fas fa-paw fa-1x pr-1"></i>
             </div>
@@ -102,6 +102,7 @@
       output: 'basic',
       searchZip: '',
       petsArray: [],
+      optionsArray: [],
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
@@ -220,17 +221,18 @@
           console.log("N/A");
         }
 
-
         var obj = pets.pet[i].options.option;
+        var optionsArray = [];
 
         if(obj !== undefined && obj.length !== undefined && Array.isArray(obj) && obj !== 0){
           for(var j = 0; j < obj.length; j++){
-             currentPet.options = pets.pet[i].options.option[j];
-             console.log(currentPet.options);
+             currentPet.options = pets.pet[i].options.option[j].$t;
+             console.log(currentPet.name + " " + currentPet.options);
            }
         }else {
             currentPet.options = "n/a";
           }
+
             // if(pets.pet[i].media.photos.photo[i] == undefined){
             //   console.log('no photo available');
             //    this.showError = true;
@@ -249,9 +251,9 @@
             }
           }
            this.petsArray.push(Object.assign({}, currentPet));
-
            this.showOutput=true;
         },
+
 
     nextPage: function(){
       if(this.pageNum * 3 < this.petsArray.length){
