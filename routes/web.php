@@ -27,9 +27,15 @@ Route::get('loveOurPets', 'PagesController@getLove');
 Route::get('messages', 'PagesController@getMessages');
 Route::get('search', 'SearchController@getSearchResults');
 
+// Route::get('/{id}', function ($id){
+//   return view('id',{'id'=> $id});
+// });
+Route::get('messages/{id}', 'MessagesController@index');
 Route::post('/contact', 'MessagesController@submit');
-Route::get('/messages', 'MessagesController@getMessages');
-Route::post('/profile', 'ProfileRequest@submit');
+Route::post('messages/{messages}', 'RetrieveMsMsgsController@update');
+
+// Route::post('/profile', 'ProfileRequest@submit');
+
 
 Auth::routes();
 Route::get('/', function(){
