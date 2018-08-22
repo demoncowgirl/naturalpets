@@ -8496,6 +8496,11 @@ i {
   width: auto;
 }
 
+ul {
+  padding: 2px;
+  list-style: none;
+}
+
 #showcase {
   height: 700px;
   Width: 75%;

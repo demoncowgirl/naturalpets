@@ -1,5 +1,5 @@
 <template>
-  <!-- input form for pet search -->
+  <!-- input form for pet search HEROKU TEST-->
 <div id="petSearchInput" class="container-fluid" style="width: auto;">
   <div class="form-group">
       <label for="searchZip">ZipCode</label>
@@ -46,7 +46,7 @@
       <input class="btn btn-secondary"  value="Clear" style="color:white;" type="button" id="reloadForm" @click="reloadForm();">
       </div>
   </div>
-    <div><strong><h4>Page Number {{pageNum}}</h4></strong></div>
+    <!-- <div><strong><h4>Page Number {{pageNum}}</h4></strong></div> -->
   <div id="petDisplay" class="container-fluid d-flex p-1 m-0">
     <div class="row">
         <div id="prev" class="col-md-1" style="display:none;">
@@ -55,7 +55,7 @@
           </button>
         </div>
       <div class="row col-md-10">
-        <div class="col-md-4" v-for="pet in displayArray" v-if="showOutput">
+        <div id="frame" style="min-width: 210px;" class="col col-md-4" v-for="pet in displayArray" v-if="showOutput">
           <div class="border border-dark p-2">
             <div><strong>Name:</strong> {{ pet.name }}</div>
             <div><strong>Location:</strong> {{ pet.city }}</div>
@@ -63,11 +63,11 @@
             <div><strong>Sex:</strong> {{ pet.animalSex }}</div>
             <div><strong>Size:</strong> {{ pet.animalSize }}</div>
             <div><strong>Breed:</strong> {{ pet.breed }}</div>
-            <div><strong>Contact Email:</strong> <a :href="'mailto:'+ pet.email">{{ pet.email }}</a></div>
+            <div><strong>Contact Email:</strong> <a  style="font-size: 13px" :href="'mailto:'+ pet.email">{{ pet.email }}</a></div>
             <div><strong>Contact Phone:</strong> {{ pet.phone }}</div>
             <img id="petImage" :src="pet.image" width="200" height="auto"/>
             <div class="m-2">{{ pet.description }}</div>
-            <div>
+            <div id="petOptions">
               <i class="fas fa-paw fa-1x pr-1"></i>
               <ul>
                 <li v-for="petOptions in newOptionsArray">{{ petOptions }}</li>
@@ -105,7 +105,7 @@
       animalSize: '',
       animalAge: '',
       animalSex:'',
-      pageNum: 1,
+      pageNum: 0,
       prevBtn:'',
       nextBtn:'',
       showError: false,
@@ -252,11 +252,21 @@
               petImage = "images/imgnotfound.jpg";
               console.log("there is no image");
             }
+
            this.newOptionsArray = newOptionsArray;
            this.petsArray.push(Object.assign({}, currentPet));
            this.showOutput=true;
             }
          },
+
+      displayOptions: function() {
+        var x = document.getElementById("petOptions");
+        if (this.animalType == 'bird' || this.animalType == 'reptile' || this.animalType == 'smallfurry'){
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    },
 
     nextPage: function(){
       if(this.pageNum * 3 < this.petsArray.length){
@@ -278,5 +288,4 @@
     }
   },
 }
-
 </script>

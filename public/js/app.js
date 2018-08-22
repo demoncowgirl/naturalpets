@@ -43462,7 +43462,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       animalSize: '',
       animalAge: '',
       animalSex: '',
-      pageNum: 1,
+      pageNum: 0,
       prevBtn: '',
       nextBtn: '',
       showError: false,
@@ -43608,9 +43608,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           petImage = "images/imgnotfound.jpg";
           console.log("there is no image");
         }
+
         this.newOptionsArray = newOptionsArray;
         this.petsArray.push(Object.assign({}, currentPet));
         this.showOutput = true;
+      }
+    },
+
+    displayOptions: function displayOptions() {
+      var x = document.getElementById("petOptions");
+      if (this.animalType == 'bird' || this.animalType == 'reptile' || this.animalType == 'smallfurry') {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
       }
     },
 
@@ -43885,10 +43895,6 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", [
-        _c("strong", [_c("h4", [_vm._v("Page Number " + _vm._s(_vm.pageNum))])])
-      ]),
-      _vm._v(" "),
       _c(
         "div",
         {
@@ -43926,78 +43932,91 @@ var render = function() {
               { staticClass: "row col-md-10" },
               _vm._l(_vm.displayArray, function(pet) {
                 return _vm.showOutput
-                  ? _c("div", { staticClass: "col-md-4" }, [
-                      _c("div", { staticClass: "border border-dark p-2" }, [
-                        _c("div", [
-                          _c("strong", [_vm._v("Name:")]),
-                          _vm._v(" " + _vm._s(pet.name))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Location:")]),
-                          _vm._v(" " + _vm._s(pet.city))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Age:")]),
-                          _vm._v(" " + _vm._s(pet.animalAge))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Sex:")]),
-                          _vm._v(" " + _vm._s(pet.animalSex))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Size:")]),
-                          _vm._v(" " + _vm._s(pet.animalSize))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Breed:")]),
-                          _vm._v(" " + _vm._s(pet.breed))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Contact Email:")]),
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "col col-md-4",
+                        staticStyle: { "min-width": "210px" },
+                        attrs: { id: "frame" }
+                      },
+                      [
+                        _c("div", { staticClass: "border border-dark p-2" }, [
+                          _c("div", [
+                            _c("strong", [_vm._v("Name:")]),
+                            _vm._v(" " + _vm._s(pet.name))
+                          ]),
                           _vm._v(" "),
-                          _c("a", { attrs: { href: "mailto:" + pet.email } }, [
-                            _vm._v(_vm._s(pet.email))
+                          _c("div", [
+                            _c("strong", [_vm._v("Location:")]),
+                            _vm._v(" " + _vm._s(pet.city))
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c("strong", [_vm._v("Age:")]),
+                            _vm._v(" " + _vm._s(pet.animalAge))
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c("strong", [_vm._v("Sex:")]),
+                            _vm._v(" " + _vm._s(pet.animalSex))
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c("strong", [_vm._v("Size:")]),
+                            _vm._v(" " + _vm._s(pet.animalSize))
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c("strong", [_vm._v("Breed:")]),
+                            _vm._v(" " + _vm._s(pet.breed))
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c("strong", [_vm._v("Contact Email:")]),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticStyle: { "font-size": "13px" },
+                                attrs: { href: "mailto:" + pet.email }
+                              },
+                              [_vm._v(_vm._s(pet.email))]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c("strong", [_vm._v("Contact Phone:")]),
+                            _vm._v(" " + _vm._s(pet.phone))
+                          ]),
+                          _vm._v(" "),
+                          _c("img", {
+                            attrs: {
+                              id: "petImage",
+                              src: pet.image,
+                              width: "200",
+                              height: "auto"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "m-2" }, [
+                            _vm._v(_vm._s(pet.description))
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { attrs: { id: "petOptions" } }, [
+                            _c("i", { staticClass: "fas fa-paw fa-1x pr-1" }),
+                            _vm._v(" "),
+                            _c(
+                              "ul",
+                              _vm._l(_vm.newOptionsArray, function(petOptions) {
+                                return _c("li", [_vm._v(_vm._s(petOptions))])
+                              })
+                            ),
+                            _vm._v(" "),
+                            _c("i", { staticClass: "fas fa-paw fa-1x pr-1" })
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("strong", [_vm._v("Contact Phone:")]),
-                          _vm._v(" " + _vm._s(pet.phone))
-                        ]),
-                        _vm._v(" "),
-                        _c("img", {
-                          attrs: {
-                            id: "petImage",
-                            src: pet.image,
-                            width: "200",
-                            height: "auto"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "m-2" }, [
-                          _vm._v(_vm._s(pet.description))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("i", { staticClass: "fas fa-paw fa-1x pr-1" }),
-                          _vm._v(" "),
-                          _c(
-                            "ul",
-                            _vm._l(_vm.newOptionsArray, function(petOptions) {
-                              return _c("li", [_vm._v(_vm._s(petOptions))])
-                            })
-                          ),
-                          _vm._v(" "),
-                          _c("i", { staticClass: "fas fa-paw fa-1x pr-1" })
                         ])
-                      ])
-                    ])
+                      ]
+                    )
                   : _vm._e()
               })
             ),
