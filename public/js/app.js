@@ -43445,17 +43445,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
 
-  // props: {
-  //   options: String,
-  // },
   data: function data() {
     return {
       showOutput: false,
@@ -43468,7 +43462,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       animalSize: '',
       animalAge: '',
       animalSex: '',
-      pageNum: 0,
+      pageNum: 1,
       prevBtn: '',
       nextBtn: '',
       showError: false,
@@ -43538,7 +43532,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var currentPet = [];
 
         if (pets.pet[i].status.$t === 'A') {
-          console.log(data);
           // numberOfItemsViewed += numberOfItemsViewed;
           this.showError = false;
           this.showStatus = false;
@@ -43595,8 +43588,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             petOptions = optionsUpper.replace(/([A-Z])/g, ' $1').trim();
             newOptionsArray.push(petOptions);
           }
-
-          console.log(currentPet.name + ": " + "\n" + newOptionsArray);
         } else {
           currentPet.options = "N/A";
         }
@@ -43617,10 +43608,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           petImage = "images/imgnotfound.jpg";
           console.log("there is no image");
         }
+        this.newOptionsArray = newOptionsArray;
+        this.petsArray.push(Object.assign({}, currentPet));
+        this.showOutput = true;
       }
-      this.newOptionsArray = newOptionsArray;
-      this.petsArray.push(Object.assign({}, currentPet));
-      this.showOutput = true;
     },
 
     nextPage: function nextPage() {
@@ -43894,6 +43885,10 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _c("div", [
+        _c("strong", [_c("h4", [_vm._v("Page Number " + _vm._s(_vm.pageNum))])])
+      ]),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -44041,8 +44036,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "previous", attrs: { href: "#" } }, [
-      _c("span", [_c("i", { staticClass: "fas fa-arrow-circle-left fa-2x" })])
+    return _c("span", { staticClass: "arrow-icon" }, [
+      _c("i", { staticClass: "fas fa-arrow-circle-left fa-2x" })
     ])
   },
   function() {

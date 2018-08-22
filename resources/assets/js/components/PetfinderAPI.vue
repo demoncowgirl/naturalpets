@@ -46,17 +46,14 @@
       <input class="btn btn-secondary"  value="Clear" style="color:white;" type="button" id="reloadForm" @click="reloadForm();">
       </div>
   </div>
-
-  <!-- <div><strong><h4>Page Number {{pageNum}}</h4></strong></div> -->
+    <div><strong><h4>Page Number {{pageNum}}</h4></strong></div>
   <div id="petDisplay" class="container-fluid d-flex p-1 m-0">
     <div class="row">
-      <div id="prev" class="col-md-1" style="display:none;">
-        <button type="button" class="btn btn-sm" id="prevBtn" @click="previousPage();">
-        <a href="#" class="previous">
-          <span><i class="fas fa-arrow-circle-left fa-2x"></i></span>
-        </a>
-        </button>
-      </div>
+        <div id="prev" class="col-md-1" style="display:none;">
+          <button type="button" class="btn btn-sm" id="prevBtn" @click="previousPage();">
+            <span class ="arrow-icon"><i class="fas fa-arrow-circle-left fa-2x"></i></span>
+          </button>
+        </div>
       <div class="row col-md-10">
         <div class="col-md-4" v-for="pet in displayArray" v-if="showOutput">
           <div class="border border-dark p-2">
@@ -96,9 +93,6 @@
  export default {
   mounted(){
    },
-     // props: {
-     //   options: String,
-     // },
   data: function() {
     return {
       showOutput: false,
@@ -111,7 +105,7 @@
       animalSize: '',
       animalAge: '',
       animalSex:'',
-      pageNum: 0,
+      pageNum: 1,
       prevBtn:'',
       nextBtn:'',
       showError: false,
@@ -182,7 +176,6 @@
         var currentPet = [];
 
         if (pets.pet[i].status.$t === 'A') {
-          console.log(data);
         // numberOfItemsViewed += numberOfItemsViewed;
          this.showError = false;
          this.showStatus = false;
@@ -239,8 +232,6 @@
                   petOptions = optionsUpper.replace(/([A-Z])/g, ' $1').trim();
                   newOptionsArray.push(petOptions);
                 }
-
-                console.log(currentPet.name + ": " + "\n" + newOptionsArray);
               }else{
                 currentPet.options = "N/A";
               }
@@ -261,10 +252,10 @@
               petImage = "images/imgnotfound.jpg";
               console.log("there is no image");
             }
-          }
            this.newOptionsArray = newOptionsArray;
            this.petsArray.push(Object.assign({}, currentPet));
            this.showOutput=true;
+            }
          },
 
     nextPage: function(){
@@ -273,18 +264,19 @@
       }
     },
     previousPage: function(){
-      if(this.pageNum > 0){
-        this.pageNum -=1;
-      }
-    },
+        if(this.pageNum > 0){
+          this.pageNum -=1;
+        }
+      },
     reloadForm: function(){
       window.location.reload(true);
-    },
-  },
-    computed: {
-      displayArray: function(){
-        return this.petsArray.slice(this.pageNum * 3, (this.pageNum * 3) + 3);
-      }
     }
-  }
+  },
+  computed: {
+    displayArray: function(){
+      return this.petsArray.slice(this.pageNum * 3, (this.pageNum * 3) + 3);
+    }
+  },
+}
+
 </script>
