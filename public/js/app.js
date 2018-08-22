@@ -43355,8 +43355,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -43455,22 +43453,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
 
+  // props: {
+  //   options: String,
+  // },
   data: function data() {
-    var _ref;
-
-    return _ref = {
-      newOptionsArray: [{ option: '' }],
+    return {
       showOutput: false,
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      options: '',
-      petOptions: '',
+      option: '',
+      newOptionsArray: [], // array of manipulated options from api
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
-      animalSex: ''
-    }, _defineProperty(_ref, 'options', ''), _defineProperty(_ref, 'pageNum', 0), _defineProperty(_ref, 'prevBtn', ''), _defineProperty(_ref, 'nextBtn', ''), _defineProperty(_ref, 'showError', false), _defineProperty(_ref, 'errorMsg', '<h1>There was an error. Please try again.</h1>'), _defineProperty(_ref, 'noMatchesFound', '<h1>Sorry, but we did not find any matches.<h1>'), _defineProperty(_ref, 'showStatus', true), _defineProperty(_ref, 'fetchingStatus', '<h1>Fetching a list of potential new best friends...</h1>'), _defineProperty(_ref, 'apiRequest', null), _defineProperty(_ref, 'apiKey', "d37c684a8dee07c9424f59462cfd9f15"), _ref;
+      animalSex: '',
+      pageNum: 0,
+      prevBtn: '',
+      nextBtn: '',
+      showError: false,
+      errorMsg: '<h1>There was an error. Please try again.</h1>',
+      noMatchesFound: '<h1>Sorry, but we did not find any matches.<h1>',
+      showStatus: true,
+      fetchingStatus: '<h1>Fetching a list of potential new best friends...</h1>',
+
+      apiRequest: null,
+      apiKey: "d37c684a8dee07c9424f59462cfd9f15"
+    };
   },
   methods: {
     getAPI: function getAPI(location) {
@@ -43584,7 +43593,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             options = optionsArray[key].$t;
             optionsUpper = options.charAt(0).toUpperCase() + options.substr(1);
             petOptions = optionsUpper.replace(/([A-Z])/g, ' $1').trim();
-
             newOptionsArray.push(petOptions);
           }
 
@@ -43597,7 +43605,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         //   console.log('no photo available');
         //    this.showError = true;
         //    this.showStatus = false;
-        //    this.showOutput = false;
+        //    this.showOutput = false;S
         //  }
 
         // retrieves first image if there are multiple images
@@ -43610,6 +43618,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           console.log("there is no image");
         }
       }
+      this.newOptionsArray = newOptionsArray;
       this.petsArray.push(Object.assign({}, currentPet));
       this.showOutput = true;
     },
@@ -43985,12 +43994,8 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "ul",
-                            _vm._l(_vm.options, function(option) {
-                              return _c(
-                                "li",
-                                { staticStyle: { "list-style-type": "none" } },
-                                [_vm._v(_vm._s(_vm.newOptionsArray))]
-                              )
+                            _vm._l(_vm.newOptionsArray, function(petOptions) {
+                              return _c("li", [_vm._v(_vm._s(petOptions))])
                             })
                           ),
                           _vm._v(" "),

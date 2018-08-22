@@ -73,7 +73,7 @@
             <div>
               <i class="fas fa-paw fa-1x pr-1"></i>
               <ul>
-                <li style="list-style-type: none;" v-for='option in options'>{{ newOptionsArray }}</li>
+                <li v-for="petOptions in newOptionsArray">{{ petOptions }}</li>
               </ul>
               <i class="fas fa-paw fa-1x pr-1"></i>
             </div>
@@ -96,22 +96,21 @@
  export default {
   mounted(){
    },
+     // props: {
+     //   options: String,
+     // },
   data: function() {
     return {
-          newOptionsArray: [
-            { option: '' },
-          ],
       showOutput: false,
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      options:'',
-      petOptions: '',
+      option:'',
+      newOptionsArray: [], // array of manipulated options from api
       animalType: 'dog',
       animalSize: '',
       animalAge: '',
       animalSex:'',
-      options:'',
       pageNum: 0,
       prevBtn:'',
       nextBtn:'',
@@ -238,20 +237,19 @@
                   options = (optionsArray[key].$t );
                   optionsUpper = options.charAt(0).toUpperCase() + options.substr(1);
                   petOptions = optionsUpper.replace(/([A-Z])/g, ' $1').trim();
-
                   newOptionsArray.push(petOptions);
                 }
 
                 console.log(currentPet.name + ": " + "\n" + newOptionsArray);
-        }else{
-            currentPet.options = "N/A";
-          }
+              }else{
+                currentPet.options = "N/A";
+              }
 
             // if(pets.pet[i].media.photos.photo[i] == undefined){
             //   console.log('no photo available');
             //    this.showError = true;
             //    this.showStatus = false;
-            //    this.showOutput = false;
+            //    this.showOutput = false;S
             //  }
 
              // retrieves first image if there are multiple images
@@ -264,6 +262,7 @@
               console.log("there is no image");
             }
           }
+           this.newOptionsArray = newOptionsArray;
            this.petsArray.push(Object.assign({}, currentPet));
            this.showOutput=true;
          },
