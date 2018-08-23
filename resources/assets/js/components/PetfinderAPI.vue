@@ -46,7 +46,9 @@
       <input class="btn btn-secondary"  value="Clear" style="color:white;" type="button" id="reloadForm" @click="reloadForm();">
       </div>
   </div>
-    <!-- <div><strong><h4>Page Number {{pageNum}}</h4></strong></div> -->
+    <div><strong><h4>Page Number {{pageNum}}</h4></strong></div>
+    <div><strong><h4>Number of items {{ itemCount }} </h4></strong></div>
+    <div><strong><h4>Remainder {{ modulus }} </h4></strong></div>
   <div id="petDisplay" class="container-fluid d-flex p-1 m-0">
     <div class="row">
         <div id="prev" class="col-md-1" style="display:none;">
@@ -105,7 +107,9 @@
       animalSize: '',
       animalAge: '',
       animalSex:'',
+      itemCount: 3,
       pageNum: 0,
+      modulus: 0,
       prevBtn:'',
       nextBtn:'',
       showError: false,
@@ -245,8 +249,9 @@
 
              // retrieves first image if there are multiple images
             var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
-            petImage = petImage.replace("<currentPet.id>", currentPet.id);
             petImage = petImage.replace("http", "https");
+            petImage = petImage.replace("<currentPet.id>", currentPet.id);
+
 
             if(currentPet.image === null){
               petImage = "images/imgnotfound.jpg";
@@ -268,14 +273,20 @@
         }
     },
 
+    lastOffset: function(){
+        this.modulus = this.petsArray.length  % this.pageNum;
+    },
+
     nextPage: function(){
       if(this.pageNum * 3 < this.petsArray.length){
         this.pageNum +=1;
+        this.itemCount = (this.pageNum * 3) + 3;
       }
     },
     previousPage: function(){
         if(this.pageNum > 0){
           this.pageNum -=1;
+          this.itemCount -= 3;
         }
       },
     reloadForm: function(){

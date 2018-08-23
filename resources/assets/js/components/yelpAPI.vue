@@ -65,30 +65,10 @@ console.log('is this working?');
          // Set up url for fetching adoptable pet data.
          var url = 'https://api.yelp.com/v3/businesses/search';
          const apiKey = '4YfigUosp-VDB6IqL0OsQwXN8R1yNldMtWH_PflYhY2EOTgfMo34jrD6YZj2ghj2Z1936M3RO6XJ6Rh43v4iEF91I1i8KWpgSHoN41WJ38oZ1Fd-Sb2Y8VLZ6l9zW3Yx'; //yelp api key
-         //
-         // url = url.replace("<location>", '40515');
-         // url = url.replace("<categories>", 'pets');
-         // url = url.replace("<term>", 'vet');
-
-          'use strict';
-
-          const yelp = require('yelp-fusion');
-
-          const searchRequest = {
-            categories: 'pets',
-            term: 'vet',
-            location: '40515'
-          };
-
-          client.search(searchRequest).then(response => {
-            .done(this.catchResponse)
-            // const firstResult = response.jsonBody.businesses[0];
-            // const prettyJson = JSON.stringify(firstResult, null, 4);
-            // console.log(prettyJson);
-            console.log(this.catchResponse);
-          }).catch(e => {
-            console.log(e);
-          });
+         url = url.replace("<API_KEY>", apiKey);
+         url = url.replace("<location>", '40515');
+         url = url.replace("<categories>", 'pets');
+         url = url.replace("<term>", 'vet');
 
           // $.getJSON(url)
           //   .done(this.catchResponse)
