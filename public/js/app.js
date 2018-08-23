@@ -43447,6 +43447,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43466,7 +43467,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       animalSex: '',
       itemCount: 3,
       pageNum: 0,
-      modulus: 0,
+      remainder: 0,
+      lastOffset: 0,
       prevBtn: '',
       nextBtn: '',
       showError: false,
@@ -43524,6 +43526,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var pets = data.petfinder.pets;
       var count = 3;
       var statusCode = data.petfinder.header.status.code.$t;
+      var lastOffset = data.petfinder.header.lastOffset.$t;
+      console.log(lastOffset);
+      console.log(data);
 
       if (statusCode !== "100") {
         console.log('there was an error' + statusCode);
@@ -43628,20 +43633,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
 
-    lastOffset: function lastOffset() {
-      this.modulus = this.petsArray.length % this.pageNum;
-    },
-
     nextPage: function nextPage() {
       if (this.pageNum * 3 < this.petsArray.length) {
         this.pageNum += 1;
         this.itemCount = this.pageNum * 3 + 3;
+        this.remainder = this.itemCount % this.petsArray.length;
+      }
+      console.log(this.itemCount + " divided by " + this.petsArray.length + " = a remainder of " + this.remainder);
+      if (this.remainder >= 24) {
+        console.log('there is a remainder less than 3');
       }
     },
     previousPage: function previousPage() {
       if (this.pageNum > 0) {
         this.pageNum -= 1;
         this.itemCount -= 3;
+        this.remainder = this.petsArray.length % this.itemCount;
       }
     },
     reloadForm: function reloadForm() {
@@ -43910,6 +43917,10 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", [
+        _c("strong", [_c("h4", [_vm._v("Offset " + _vm._s(_vm.lastOffset))])])
+      ]),
+      _vm._v(" "),
+      _c("div", [
         _c("strong", [
           _c("h4", [_vm._v("Number of items " + _vm._s(_vm.itemCount) + " ")])
         ])
@@ -43917,7 +43928,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", [
         _c("strong", [
-          _c("h4", [_vm._v("Remainder " + _vm._s(_vm.modulus) + " ")])
+          _c("h4", [_vm._v("Remainder " + _vm._s(_vm.remainder) + " ")])
         ])
       ]),
       _vm._v(" "),

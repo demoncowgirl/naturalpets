@@ -47,8 +47,9 @@
       </div>
   </div>
     <div><strong><h4>Page Number {{pageNum}}</h4></strong></div>
+    <div><strong><h4>Offset {{lastOffset}}</h4></strong></div>
     <div><strong><h4>Number of items {{ itemCount }} </h4></strong></div>
-    <div><strong><h4>Remainder {{ modulus }} </h4></strong></div>
+    <div><strong><h4>Remainder {{ remainder }} </h4></strong></div>
   <div id="petDisplay" class="container-fluid d-flex p-1 m-0">
     <div class="row">
         <div id="prev" class="col-md-1" style="display:none;">
@@ -109,7 +110,8 @@
       animalSex:'',
       itemCount: 3,
       pageNum: 0,
-      modulus: 0,
+      remainder: 0,
+      lastOffset: 0,
       prevBtn:'',
       nextBtn:'',
       showError: false,
@@ -168,6 +170,9 @@
       var pets = data.petfinder.pets;
       var count = 3;
       var statusCode = data.petfinder.header.status.code.$t;
+      var lastOffset = data.petfinder.header.lastOffset.$t;
+      console.log(lastOffset);
+      console.log(data);
 
       if(statusCode !== "100"){
         console.log('there was an error' + statusCode);
@@ -273,20 +278,24 @@
         }
     },
 
-    lastOffset: function(){
-        this.modulus = this.petsArray.length  % this.pageNum;
-    },
-
     nextPage: function(){
       if(this.pageNum * 3 < this.petsArray.length){
         this.pageNum +=1;
         this.itemCount = (this.pageNum * 3) + 3;
+        this.remainder = (this.itemCount % this.petsArray.length);
+
       }
+      console.log(this.itemCount + " divided by " + this.petsArray.length + " = a remainder of " + this.remainder);
+        if(this.remainder >= 24){
+          console.log('there is a remainder less than 3');
+
+        }
     },
     previousPage: function(){
         if(this.pageNum > 0){
           this.pageNum -=1;
           this.itemCount -= 3;
+          this.remainder = this.petsArray.length % this.itemCount;
         }
       },
     reloadForm: function(){
