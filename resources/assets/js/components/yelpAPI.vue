@@ -11,7 +11,6 @@
   </div>
 
 	<div >
-			<!-- <my-task :task="task"></my-task> -->
 
   <div id="output" class="container-fluid" v-for="search in searches" v-if="showOutput">
     <ul>
@@ -29,16 +28,14 @@
 </template>
 
 <script>
-console.log('is this working?');
-// Vue.component('yelpAPI', require('./components/yelpAPI.vue'));
+Vue.component ('yelpAPI', require('./components/yelpAPI.vue'));
 
  export default {
   mounted(){
    },
-   props: ['zipCode'],
    data: function() {
        return {
-         name:'',
+         showOutput: false,
          image_url:'',
          rating:'',
          lat:'',
@@ -51,35 +48,46 @@ console.log('is this working?');
          city:'',
          phone:'',
          image:'',
+         showError: false,
+         showStatus:true,
          apiRequest: null,
-         apiKey: "4YfigUosp-VDB6IqL0OsQwXN8R1yNldMtWH_PflYhY2EOTgfMo34jrD6YZj2ghj2Z1936M3RO6XJ6Rh43v4iEF91I1i8KWpgSHoN41WJ38oZ1Fd-Sb2Y8VLZ6l9zW3Yx"
+         api_key: "4YfigUosp-VDB6IqL0OsQwXN8R1yNldMtWH_PflYhY2EOTgfMo34jrD6YZj2ghj2Z1936M3RO6XJ6Rh43v4iEF91I1i8KWpgSHoN41WJ38oZ1Fd-Sb2Y8VLZ6l9zW3Yx"
        }
      },
      methods: {
-
       getAPI: function(location) {
-
-         // my authentication
-         const client = yelp.client(apiKey);
-
-         // Set up url for fetching adoptable pet data.
          var url = 'https://api.yelp.com/v3/businesses/search';
-         const apiKey = '4YfigUosp-VDB6IqL0OsQwXN8R1yNldMtWH_PflYhY2EOTgfMo34jrD6YZj2ghj2Z1936M3RO6XJ6Rh43v4iEF91I1i8KWpgSHoN41WJ38oZ1Fd-Sb2Y8VLZ6l9zW3Yx'; //yelp api key
-         url = url.replace("<API_KEY>", apiKey);
-         url = url.replace("<location>", '40515');
-         url = url.replace("<categories>", 'pets');
-         url = url.replace("<term>", 'vet');
+         const API_Key = '4YfigUosp-VDB6IqL0OsQwXN8R1yNldMtWH_PflYhY2EOTgfMo34jrD6YZj2ghj2Z1936M3RO6XJ6Rh43v4iEF91I1i8KWpgSHoN41WJ38oZ1Fd-Sb2Y8VLZ6l9zW3Yx';
 
-          // $.getJSON(url)
-          //   .done(this.catchResponse)
-          //   .catch(function(err) { alert('Error retrieving data!');
-          //   });
+        var headers = 'Authorization:Bearer ' + API_KEY;
+
+         const fetch = ({
+           url + headers}
+            }).then((res) => {
+              return res.json();
+            }).then((json) => {
+              console.log(json);
+            });
+      },
+
+      getVet function(){
+      var url = "https://api.yelp.com/v3/businesses/search?categories=<categories>&limit=<limit&location=<zipCode>&format=json&callback=?";
+
+      url= url.replace("<zipCode>", '40515');
+      url= url.replace("<categories>", 'pets');
+      url= url.replace("<limit>", '10');
+      url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?');
+
+      $.getJSON(url)
+        .done(this.catchResponse)
+        .catch(function(err) { alert('Error retrieving data!');
+        });
       },
 
       catchResponse: function(response) {
 
-          // var response = JSON.parse(this.apiRequest.responseText);
-          // console.log(response);
+          var response = JSON.parse(this.apiRequest.responseText);
+          console.log(response);
 
           for(var i =0; i < response.businesses.length; i++){
 
