@@ -28,7 +28,7 @@ class PagesController extends Controller
     public function getPetServices() {
         return view('serviceSearch');
     }
-    public function getVetServices() {
+    public function getVetSearch() {
         return view('vetServices');
     }
     public function getKennels() {

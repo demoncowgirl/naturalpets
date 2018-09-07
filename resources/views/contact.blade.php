@@ -3,7 +3,7 @@
 @section('content')
 <h1>Contact</h1>
 <div id="contactForm" class="container-fluid">
-{!! Form::open(['url' => '/contact']) !!}
+{!! Form::open(['url' => '/??????.store']) !!}
 
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
     {{ Form::label('name', '',['class' => 'form-control', 'placeholder' => 'Enter Name'] ) }}
@@ -19,7 +19,7 @@
   </div>
   <div>
       <!-- {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0']) }} -->
-      {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0 btn disabled', 'disabled' => true]) }}
+      {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0 btn', 'disabled' => false]) }}
   </div>
 
 {!! Form::close() !!}

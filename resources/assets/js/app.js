@@ -18,6 +18,8 @@ Vue.component('example', require('./components/ExampleComponent.vue'));
 
 Vue.component('petfinderapi', require('./components/PetfinderAPI.vue'));
 
+Vue.component('yelpAPI', require('./components/yelpAPI.vue'));
+
 const app = new Vue({
-    el: '#services'
+
 });

@@ -17,7 +17,7 @@ Route::get('about', 'PagesController@getAbout');
 Route::get('contact', 'PagesController@getContact');
 Route::get('profile', 'PagesController@getProfile');
 Route::get('petSearch', 'PagesController@getPetSearch');
-Route::get('vetServices', 'PagesController@getVetServices');
+Route::get('vetServices', 'PagesController@getVetSearch');
 Route::get('kennels', 'PagesController@getKennels');
 Route::get('groomers', 'PagesController@getGroomers');
 Route::get('petSupplies', 'PagesController@getPetSupplies');

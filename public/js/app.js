@@ -1099,9 +1099,9 @@ Vue.component('example', __webpack_require__(39));
 
 Vue.component('petfinderapi', __webpack_require__(42));
 
-var app = new Vue({
-  el: '#services'
-});
+Vue.component('yelpAPI', __webpack_require__(56));
+
+var app = new Vue({});
 
 /***/ }),
 /* 12 */
@@ -44119,6 +44119,121 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(9)
+/* script */
+var __vue_script__ = __webpack_require__(57)
+/* template */
+var __vue_template__ = __webpack_require__(58)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/yelpAPI.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-cd130cba", Component.options)
+  } else {
+    hotAPI.reload("data-v-cd130cba", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: SyntaxError: Unexpected token (56:21)\n\n\u001b[0m \u001b[90m 54 | \u001b[39m  methods\u001b[33m:\u001b[39m {\n \u001b[90m 55 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 56 | \u001b[39m     getAPI\u001b[33m:\u001b[39m \u001b[36mfunction\u001b[39m(){\n \u001b[90m    | \u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 57 | \u001b[39m         \u001b[36mvar\u001b[39m \u001b[33mURL\u001b[39m \u001b[33m=\u001b[39m \u001b[32m'https://api.yelp.com/v3/businesses/search?location=40515&term&categories=vet&limit=10'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 58 | \u001b[39m         \u001b[90m// var  url = \"https://api.yelp.com/v3/businesses/search?location=<zipCode>&categories=<categories>&rating=<rating>&limit=10\";\u001b[39m\n \u001b[90m 59 | \u001b[39m         \u001b[36mvar\u001b[39m \u001b[33mAPI_KEY\u001b[39m \u001b[33m=\u001b[39m \u001b[32m'4YfigUosp-VDB6IqL0OsQwXN8R1yNldMtWH_PflYhY2EOTgfMo34jrD6YZj2ghj2Z1936M3RO6XJ6Rh43v4iEF91I1i8KWpgSHoN41WJ38oZ1Fd-Sb2Y8VLZ6l9zW3Yx'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n");
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { attrs: { id: "container" } },
+    _vm._l(_vm.results, function(vet) {
+      return _vm.showOutput
+        ? _c(
+            "div",
+            { staticClass: "container-fluid", attrs: { id: "vetOutput" } },
+            [
+              _c("div", [
+                _c("ul", [
+                  _c("li", [_vm._v(_vm._s(vet.name))]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v(_vm._s(vet.image_url))]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v(_vm._s(vet.rating))]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v(_vm._s(vet.lat))]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v(_vm._s(vet.lon))]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v(_vm._s(vet.address) + " ")]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v(_vm._s(vet.city))]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v(_vm._s(vet.phone))])
+                ])
+              ])
+            ]
+          )
+        : _vm._e()
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-cd130cba", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
