@@ -8429,6 +8429,7 @@ h1 {
   color: #145A56;
   text-align: center;
   padding: 4px;
+  margin: 0px;
 }
 
 i {
@@ -8444,26 +8445,36 @@ i {
 }
 
 #contactForm {
+  background-image: url("/assets/images/bones30.png");
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   padding: 10px;
   border-style: solid;
   border-width: 1px;
-  max-width: 600px;
-  height: 500px;
+  min-width: 300px;
+  width: auto;
+  height: auto;
+  margin: 20px;
 }
 
 #profileForm {
+  background-image: url("/assets/images/bones30.png");
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   padding: 10px;
   border-style: solid;
   border-width: 1px;
-  max-width: 600px;
-  height: 500px;
-  overflow: scroll;
+  min-width: 300px;
+  width: auto;
+  max-height: 570px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+input:focus {
+  background-color: #DCDCDC;
 }
 
 .form-text {
@@ -8479,9 +8490,8 @@ i {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border: none;
-  background-color: #4EB68C;
-  opacity: .7;
+  border: 1px solid black;
+  opacity: .6;
 }
 
 .output-secton {
@@ -8516,6 +8526,7 @@ ul {
 
 #centerContainer {
   height: auto;
+  max-height: 700px;
   Width: 65%;
   margin-top: -60px;
   padding-top: 20px;
@@ -8550,8 +8561,14 @@ ul {
 }
 
 #terrier {
-  margin-top: 15px;
-  margin-left: -140px;
+  float: left;
+  margin-left: 40px;
+}
+
+#retriever {
+  float: right;
+  padding-right: 20px;
+  padding-bottom: 10px;
 }
 
 #servicesList {

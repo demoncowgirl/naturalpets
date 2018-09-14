@@ -13,13 +13,13 @@
         <li><a class="{{ Request::is ('/') ? 'active': ''}}" href="/">Home</a></li>
         <li><a class="{{ Request::is ('about') ? 'active': ''}}" href="/about">About</a></li>
         <li><a class="{{ Request::is ('contact') ? 'active': ''}}" href="/contact">Contact</a></li>
+        <li><a class="{{ Request::is ('profile') ? 'active': ''}}" href="/profile">Profile</a></li>
         <li><a class="{{ Request::is ('serviceSearch') ? 'active': ''}}" href="/serviceSearch">Pet Services</a></li>
         <li><a class="{{ Request::is ('petSearch') ? 'active': ''}}" href="/petSearch">Pet Search</a></li>
         @auth
           @if (Auth::user()->admin)
             <li><a class="{{ Request::is ('messages') ? 'active': ''}}" href="/messages">Messages</a></li>
           @endif
-            <li><a class="{{ Request::is ('profile') ? 'active': ''}}" href="/profile">Profile</a></li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->name }}</a>
               <ul class="dropdown-menu">
                  <li><a class ="nav-link" href="{{ route('logout') }}"
