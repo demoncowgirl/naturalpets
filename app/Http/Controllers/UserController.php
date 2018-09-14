@@ -13,6 +13,11 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+    public $restful =true;
+
+    public function get_index(){
+      return View::make('users.index')->with('title'. 'Site Users');
+    }
     // public function index()
     // {
     //  $user = User::user()->get();

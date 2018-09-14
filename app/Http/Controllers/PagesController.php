@@ -49,4 +49,7 @@ class PagesController extends Controller
     public function getLove() {
         return view('loveOurPets');
     }
+    public function getUsers() {
+        return view('users_index');
+    }
 }

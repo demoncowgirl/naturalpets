@@ -19,6 +19,7 @@
         @auth
           @if (Auth::user()->admin)
             <li><a class="{{ Request::is ('messages') ? 'active': ''}}" href="/messages">Messages</a></li>
+            <li><a class="{{ Request::is ('users') ? 'active': ''}}" href="/users_index">Users</a></li>
           @endif
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->name }}</a>
               <ul class="dropdown-menu">

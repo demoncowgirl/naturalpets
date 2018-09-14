@@ -1,8 +1,9 @@
 @extends('layouts.services')
 @section('content')
 <h1>Contact</h1>
-<div id="contactForm" class="container-fluid">
-  <form>
+<div id="contactForm" class="container-fluid" >
+  <form action=/inputMessages method="post">
+    {{csrf_field()}}
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
@@ -27,7 +28,12 @@
     <div class="form-group row">
       <div class="col-sm-10" >
         <button type="submit" class="btn btn-dark m-0 btn" style="center">Submit</button>
-      </div>
+          @if (session('status'))
+        <div class="alert alert-success" role="alert">
+        {{ session('status') }}
+        </div>
+        @endif
+    </div>
     </div>
     <div class = "row">
     @include('inc._terriergif')

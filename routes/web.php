@@ -25,7 +25,9 @@ Route::get('serviceSearch', 'PagesController@getPetServices');
 Route::get('elliesList', 'PagesController@getList');
 Route::get('loveOurPets', 'PagesController@getLove');
 Route::get('messages', 'PagesController@getMessages');
+Route::get('users', 'PagesController@getUsers');
 Route::get('search', 'SearchController@getSearchResults');
+
 
 // Route::get('/{id}', function ($id){
 //   return view('id',{'id'=> $id});
@@ -33,7 +35,7 @@ Route::get('search', 'SearchController@getSearchResults');
 Route::get('messages/{id}', 'MessagesController@index');
 Route::post('/contact', 'MessagesController@submit');
 Route::post('messages/{messages}', 'RetrieveMsMsgsController@update');
-
+Route::post('/inputMessages', 'MessagesController@inputMessages');
 // Route::post('/profile', 'ProfileRequest@submit');
 
 
