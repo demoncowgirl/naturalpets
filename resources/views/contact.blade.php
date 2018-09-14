@@ -3,7 +3,11 @@
 <h1>Contact</h1>
 <div id="contactForm" class="container-fluid">
 <<<<<<< HEAD
+<<<<<<< HEAD
 {!! Form::open(['url' => '/??????.store']) !!}
+=======
+{!! Form::open(['url' => '/contact']) !!}
+>>>>>>> parent of a5e1e3b... working on yelp api
 
   <div class="form-group" method="post" action="{{htmlspecialchars($_SERVER["PHP_SELF"])}}">
     {{ Form::label('name', '',['class' => 'form-control', 'placeholder' => 'Enter Name'] ) }}
@@ -19,7 +23,7 @@
   </div>
   <div>
       <!-- {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0']) }} -->
-      {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0 btn', 'disabled' => false]) }}
+      {{ Form::submit ('Submit', ['class' => 'btn btn-dark m-0 btn disabled', 'disabled' => true]) }}
   </div>
 
 {!! Form::close() !!}

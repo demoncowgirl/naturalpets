@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Messages;
 
 class MessagesController extends Controller
 
@@ -20,6 +18,7 @@ class MessagesController extends Controller
       $message = Message::create($request->all());
       if($message)
         return ["status" => "true", "messageId" => $id ];
+
     }
-    return back()->('success', 'Thank you! Your message has been set.');
+
 }

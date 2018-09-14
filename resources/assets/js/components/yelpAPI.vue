@@ -1,35 +1,41 @@
 <template>
-<div id="container">
-  <div id="vetOutput" class="container-fluid" v-for="vet in results" v-if="showOutput">
-    <div>
-      <ul>
-        <li >{{ vet.name }}</li>
-        <li>{{ vet.image_url }}</li>
-        <li>{{ vet.rating }}</li>
-        <li>{{ vet.lat }}</li>
-        <li>{{ vet.lon }}</li>
-        <li>{{ vet.address }} </li>
-        <li>{{ vet.city }}</li>
-        <li>{{ vet.phone }}</li>
-      </ul>
+  <div id="vetSearchInput" class="container-fluid" style="width: auto;">
+    <div class="form-group">
+        <label for="searchZip">ZipCode</label>
+        <input type="text" name="zipCode" value="" class="input-sm" placeholder="Zipcode Required" style="width: auto;" v-model='searchZip' required>
+        <div>
+        <input class="btn btn-secondary" style="color: white;" type="submit" id="submitZip" @click="getPet(); showBtn();">
+        <input class="btn btn-secondary"  value="Clear" style="color:white;" type="button" id="reloadForm" @click="reloadForm();">
+        </div>
     </div>
   </div>
-</div>
+
+	<div >
+
+  <div id="output" class="container-fluid" v-for="search in searches" v-if="showOutput">
+    <ul>
+      <li>{{ vet.name }}</li>
+      <li>{{image_url}}</li>
+      <li>{{ vet.rating }}</li>
+      <li>{{ vet.lat }}</li>
+      <li>{{ vet.lon }}</li>
+      <li>{{ vet.address}} </li>
+      <li>{{ vet.city }}</li>
+      <li>{{ vet.phone }}</li>
+    </ul>
+  </div>
+
 </template>
 
 <script>
+Vue.component ('yelpAPI', require('./components/yelpAPI.vue'));
 
-export default{
-    el: "#results",
-  mounted() {
-    console.log('Component mounted.')
-  },
-  props: ['zipCode'],
-   data: function(){
+ export default {
+  mounted(){
+   },
+   data: function() {
        return {
          showOutput: false,
-         limit: int,
-         name: '',
          image_url:'',
          rating:'',
          lat:'',
@@ -45,96 +51,45 @@ export default{
          showError: false,
          showStatus:true,
          apiRequest: null,
-         API_KEY: "4YfigUosp-VDB6IqL0OsQwXN8R1yNldMtWH_PflYhY2EOTgfMo34jrD6YZj2ghj2Z1936M3RO6XJ6Rh43v4iEF91I1i8KWpgSHoN41WJ38oZ1Fd-Sb2Y8VLZ6l9zW3Yx",
-
+         api_key: "4YfigUosp-VDB6IqL0OsQwXN8R1yNldMtWH_PflYhY2EOTgfMo34jrD6YZj2ghj2Z1936M3RO6XJ6Rh43v4iEF91I1i8KWpgSHoN41WJ38oZ1Fd-Sb2Y8VLZ6l9zW3Yx"
        }
-    }
-  }
+     },
+     methods: {
+      getAPI: function(location) {
+         var url = 'https://api.yelp.com/v3/businesses/search';
+         const API_Key = '4YfigUosp-VDB6IqL0OsQwXN8R1yNldMtWH_PflYhY2EOTgfMo34jrD6YZj2ghj2Z1936M3RO6XJ6Rh43v4iEF91I1i8KWpgSHoN41WJ38oZ1Fd-Sb2Y8VLZ6l9zW3Yx';
 
-  methods: {
+        var headers = 'Authorization:Bearer ' + API_KEY;
 
-     getAPI: function(){
-         var URL = 'https://api.yelp.com/v3/businesses/search?location=40515&term&categories=vet&limit=10';
-         // var  url = "https://api.yelp.com/v3/businesses/search?location=<zipCode>&categories=<categories>&rating=<rating>&limit=10";
-         var API_KEY = '4YfigUosp-VDB6IqL0OsQwXN8R1yNldMtWH_PflYhY2EOTgfMo34jrD6YZj2ghj2Z1936M3RO6XJ6Rh43v4iEF91I1i8KWpgSHoN41WJ38oZ1Fd-Sb2Y8VLZ6l9zW3Yx';
-         var client_id = 'iSw8jvkEOU0wGsEbxnD0oA';
+         const fetch = ({
+           url + headers}
+            }).then((res) => {
+              return res.json();
+            }).then((json) => {
+              console.log(json);
+            });
+      },
 
+      getVet function(){
+      var url = "https://api.yelp.com/v3/businesses/search?categories=<categories>&limit=<limit&location=<zipCode>&format=json&callback=?";
 
-        // var myHeaders = new Headers();
-
-         //
-         // $.ajax({
-         //   url: URL,
-         //   method: 'GET',
-         //   mode: 'no-cors',
-         //   headers: {
-         //     Authorization: myHeader,
-         //   },
-         // }).then((response) => {
-         //      if(response.ok){
-         //      return response.json();
-         //    }else{
-         //      throw new Error();
-         //    }
-         //  })
-         //  .then((jsonData) => {
-         //      console.log(jsonData);
-         //    })
-         //   .catch((err) => {
-         //      console.log('ERROR: ', err.message);
-         //    });
-         //
-
-         var req = new Request(url, {
-           method: 'GET',
-           headers: new Headers({
-             'Authorization: Bearer', API_KEY,
-             'Content-Type': 'application/json'
-           })
-           mode: 'no-cors'
-         });
-
-        fetch (req)
-          .then((response) => {
-             if(response.ok){
-             return response.json();
-           }else{ssss
-             throw new Error();
-           }
-         })
-         .then((jsonData) => {
-             console.log(jsonData);
-           })
-          .catch((err) => {
-             console.log('ERROR: ', err.message);
-           });
-    },
-
-    getVet: function(){
-
-
-      url=url.replace("<client_secret>", this.client_id)
       url= url.replace("<zipCode>", '40515');
-      url= url.replace("<categories>", 'vet');
-      url=url.replace("<rating>", 5);
-      url= url.replace("<limit>", 10);
+      url= url.replace("<categories>", 'pets');
+      url= url.replace("<limit>", '10');
+      url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?');
 
       $.getJSON(url)
         .done(this.catchResponse)
         .catch(function(err) { alert('Error retrieving data!');
         });
-        console.log(url);
-    },
+      },
 
-    catchResponse: function(data) {
-          var vetData=[];
+      catchResponse: function(response) {
 
-          var data = JSON.parse(this.apiRequest.responseText);
-          console.log(data);
+          var response = JSON.parse(this.apiRequest.responseText);
+          console.log(response);
 
           for(var i =0; i < response.businesses.length; i++){
-
-            var currentVet=[];
 
               this.showError = false;
               this.showStatus = false;
@@ -154,13 +109,11 @@ export default{
               currentVet.phone = response.businesses[i].display_phone;
               currentVet.image = response.businesses[i].image_url;
               currentVet.showOutput = true;
+         }
 
-               // this.searchArray = searchArray;
-               this.vetData.push(Object.assign({}, currentVet));
-               this.showOutput=true;
-
-         return vetData;
-        }
+         console.log(response);
       }
-}
+
+
+
 </script>

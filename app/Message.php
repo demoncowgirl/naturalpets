@@ -11,8 +11,6 @@ class Message extends Model
     }
 }
 
-public $table = 'messages';
-
 protected $fillable=['name', 'email_address', 'message'];
 
 protected $dates = ['timestamps'];
