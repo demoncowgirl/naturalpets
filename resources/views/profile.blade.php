@@ -91,6 +91,7 @@
   </div>
     <div class="form-group col-md-3">
       <div class ="checkbox">
+      <br>
       <label><input type="checkbox" value="barnyard">Barnyard</label><br>
       <label><input type="checkbox" value="reptile">Reptile</label><br>
       <label><input type="checkbox" value="smallfurry">Small Furry</label>

@@ -8530,6 +8530,7 @@ ul {
   Width: 65%;
   margin-top: -60px;
   padding-top: 20px;
+  padding-bottom: 20px;
   padding-left: 40px;
   padding-right: 40px;
   -ms-flex-line-pack: center;
@@ -8569,6 +8570,7 @@ ul {
   float: right;
   padding-right: 20px;
   padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 #servicesList {
