@@ -43468,7 +43468,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       itemCount: 3,
       pageNum: 0,
       remainder: 0,
-      lastOffset: 0,
+      // lastOffset: 0,
       prevBtn: '',
       nextBtn: '',
       showError: false,
@@ -43526,8 +43526,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var pets = data.petfinder.pets;
       var count = 3;
       var statusCode = data.petfinder.header.status.code.$t;
-      var lastOffset = data.petfinder.header.lastOffset.$t;
-      console.log(lastOffset);
+      // var lastOffset = data.petfinder.header.lastOffset.$t;
+      // console.log(lastOffset);
       console.log(data);
 
       if (statusCode !== "100") {
@@ -43909,26 +43909,6 @@ var render = function() {
               }
             }
           })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("strong", [_c("h4", [_vm._v("Page Number " + _vm._s(_vm.pageNum))])])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("strong", [_c("h4", [_vm._v("Offset " + _vm._s(_vm.lastOffset))])])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("strong", [
-          _c("h4", [_vm._v("Number of items " + _vm._s(_vm.itemCount) + " ")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("strong", [
-          _c("h4", [_vm._v("Remainder " + _vm._s(_vm.remainder) + " ")])
         ])
       ]),
       _vm._v(" "),

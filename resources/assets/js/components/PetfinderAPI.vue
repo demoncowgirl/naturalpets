@@ -46,10 +46,10 @@
       <input class="btn btn-secondary"  value="Clear" style="color:white;" type="button" id="reloadForm" @click="reloadForm();">
       </div>
   </div>
-    <div><strong><h4>Page Number {{pageNum}}</h4></strong></div>
+    <!-- <div><strong><h4>Page Number {{pageNum}}</h4></strong></div>
     <div><strong><h4>Offset {{lastOffset}}</h4></strong></div>
     <div><strong><h4>Number of items {{ itemCount }} </h4></strong></div>
-    <div><strong><h4>Remainder {{ remainder }} </h4></strong></div>
+    <div><strong><h4>Remainder {{ remainder }} </h4></strong></div> -->
   <div id="petDisplay" class="container-fluid d-flex p-1 m-0">
     <div class="row">
         <div id="prev" class="col-md-1" style="display:none;">
@@ -111,7 +111,7 @@
       itemCount: 3,
       pageNum: 0,
       remainder: 0,
-      lastOffset: 0,
+      // lastOffset: 0,
       prevBtn:'',
       nextBtn:'',
       showError: false,
@@ -170,8 +170,8 @@
       var pets = data.petfinder.pets;
       var count = 3;
       var statusCode = data.petfinder.header.status.code.$t;
-      var lastOffset = data.petfinder.header.lastOffset.$t;
-      console.log(lastOffset);
+      // var lastOffset = data.petfinder.header.lastOffset.$t;
+      // console.log(lastOffset);
       console.log(data);
 
       if(statusCode !== "100"){
