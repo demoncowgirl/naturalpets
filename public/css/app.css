@@ -8351,7 +8351,7 @@ button.close {
 body {
   position: relative;
   padding-top: 0px;
-  background-color: #02B8B4;
+  background-color: #5DAFA8;
 }
 
 .navbar {
@@ -8409,7 +8409,7 @@ body {
 h1 {
   font-family: "GoodDog";
   font-size: 72px;
-  color: #D75C59;
+  color: #145A56;
   text-align: center;
   padding: 4px;
   margin: 0px;
@@ -8503,8 +8503,8 @@ ul {
       align-content: center;
   border-style: solid;
   border-width: 3px;
-  border-color: #000;
-  background-color: #D9D9D9;
+  border-color: #145A56;
+  background-color: #F1F1ED;
 }
 
 #centerContainer {
@@ -8520,8 +8520,8 @@ ul {
       align-content: center;
   border-style: solid;
   border-width: 3px;
-  border-color: #000;
-  background-color: #D9D9D9;
+  border-color: #145A56;
+  background-color: #F1F1ED;
 }
 
 #searchContainer {
@@ -8533,15 +8533,14 @@ ul {
       align-content: center;
   border-style: solid;
   border-width: 3px;
-  border-color: #000;
-  background-color: #D9D9D9;
+  border-color: #145A56;
+  background-color: #F1F1ED;
   overflow-y: auto;
 }
 
 #petImage.img {
   border-width: 1px;
-  border-color: #000;
-  /* border-color: #145A56; */
+  border-color: #145A56;
   border-style: solid;
 }
 
@@ -8570,6 +8569,7 @@ ul {
   width: 100%;
   text-align: center;
   padding: justify;
-  color: #000;
-  background-color: #D75C59;
+  color: #FCFFFD;
+  background-color: #2B7C62;
 }
+
