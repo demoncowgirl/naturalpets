@@ -10,16 +10,17 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.2.0",
+    "@fortawesome/fontawesome-free": "^5.7.1",
     "axios": "^0.17",
-    "bootstrap": "^4.1.2",
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap": "^4.2.1",
+    "bootstrap-sass": "^3.4.0",
     "cross-env": "^5.1",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "jquery": "^3.2",
     "laravel-mix": "^1.7.2",
-    "lodash": "^4.17.4",
-    "vue": "^2.5.17"
+    "lodash": "^4.17.11",
+    "popper.js": "^1.14.7",
+    "vue": "^2.5.22"
   },
   "name": "finalproject-petstop",
   "description": "<p align=\"center\"><img src=\"https://laravel.com/assets/img/components/logo-laravel.svg\"></p>",
@@ -39,6 +40,8 @@
   },
   "homepage": "https://github.com/demoncowgirl/finalproject-petstop#readme",
   "dependencies": {
-    "artisan": "^0.1.2"
+    "artisan": "^0.1.2",
+    "mysql": "^2.16.0",
+    "vue-template-compiler": "^2.5.22"
   }
 }
