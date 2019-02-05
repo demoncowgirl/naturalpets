@@ -31,8 +31,8 @@
 
  export default {
   name: 'vetapi',
-  // mounted(){
-  //  },
+  mounted(){
+   },
    data: function() {
        return {
            showOutput: false,

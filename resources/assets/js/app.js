@@ -14,11 +14,11 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.component('example', require('./components/ExampleComponent.vue'));
+Vue.component('example', require('./components/ExampleComponent.vue').default);
 
-Vue.component('petfinderapi', require('./components/PetfinderAPI.vue'));
+Vue.component('petfinderapi', require('./components/PetfinderAPI.vue').default);
 
-Vue.component('vetapi', require('./components/YelpAPI.vue'));
+Vue.component('vetapi', require('./components/YelpAPI.vue').default);
 
 const app = new Vue({
     el: '#services'

@@ -94,6 +94,7 @@
 <script>
 
  export default {
+   name: 'petfinderapi',
   mounted(){
    },
   data: function() {
