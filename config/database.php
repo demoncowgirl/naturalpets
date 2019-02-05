@@ -2,7 +2,7 @@
 
 $DATABASE_URL = parse_url(getenv("DATABASE_URL"));
 
-  $url = 'mysql://b6045f6dafccaf:39e4ad1d@us-cdbr-iron-east-03.cleardb.net/heroku_312c9b6350b65e0?reconnect=true';
+  $url = 'mysql://b582e334fc785f:ec8b821b@us-cdbr-iron-east-03.cleardb.net/heroku_b6e2add7833402b?reconnect=true';
   // $url='postgres://uypffdrfkfdnsl:2c1dd49d2dc287f817244bc773ebe6f50ad7728c2b65c81592816a2132155453@ec2-54-235-67-106.compute-1.amazonaws.com:5432/dev8pffq9pkh6j';
   // $url = parse_url(getenv("DATABASE_URL"));
   // $host = $url['host'];
@@ -10,9 +10,9 @@ $DATABASE_URL = parse_url(getenv("DATABASE_URL"));
   // $password = $url['pass'];
   // $database = substr($url["path"], 1);
   $host = 'us-cdbr-iron-east-03.cleardb.net';
-  $username = 'b6045f6dafccaf';
-  $password = '39e4ad1d';
-  $database = 'heroku_312c9b6350b65e0';
+  $username = 'b582e334fc785f';
+  $password = 'ec8b821b';
+  $database = 'heroku_b6e2add7833402b';
 
 
 return [
@@ -58,9 +58,9 @@ return [
             'driver' => 'mysql',
             'host' => env('DB_HOST', 'us-cdbr-iron-east-03.cleardb.net'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'heroku_312c9b6350b65e0'),
-            'username' => env('DB_USERNAME', 'b6045f6dafccaf'),
-            'password' => env('DB_PASSWORD', '39e4ad1d'),
+            'database' => env('DB_DATABASE', 'heroku_b6e2add7833402b'),
+            'username' => env('DB_USERNAME', 'b582e334fc785f'),
+            'password' => env('DB_PASSWORD', 'ec8b821b'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
