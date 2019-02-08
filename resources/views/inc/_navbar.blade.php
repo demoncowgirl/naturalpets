@@ -1,9 +1,9 @@
-<nav class="navbar-inverse navbar-toggleable-md navbar-expand-md" style="border: none; margin: 0px; width: 100%; height: 110px;">
+<nav class="navbar-inverse navbar-toggleable-md navbar-expand-md" style="border: none; margin: 0px; width: 100%;  height: 100px;">
   <div class = "container-fluid">
     <div class="navbar-header">
       <a class ="navbar-brand" href="{{ url('/') }}">
         <div id="imageBlock">
-        <img id="logo" src="{{ asset('assets/images/love-825283_640.png') }}" alt="heart with pawprint" style="width:150px;height:150px;">
+        <img id="logo" src="{{ asset('assets/images/love-825283_640.png') }}" alt="heart with pawprint" style="width:200px;height:200px;">
         </div>
           <!-- {{ config('app.name', 'Pet Stop') }} -->
       </a>
@@ -43,3 +43,5 @@
     </div>
   </div>
 </nav>
+<div id="ribbon1" class="row"></div>
+<div id="ribbon2" class="row"></div>

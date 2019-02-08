@@ -17,21 +17,24 @@
 
 <body>
 
-<div id="services">
-
-  @include('inc._navbar')
+    @include('inc._navbar')
+  <div id="services" class="container-fluid">
 
     @if(Request::is('petSearch'))
     @include('inc._searchContainer')
+    @elseif(Request::is('vetServices'))
+    @include('inc._searchContainer')
+    @elseif(Request::is('serviceSearch'))
+    @include('inc._centerContainer')
     <!-- @elseif(!!Request::is('login'))
     @elseif(!!Request::is('register')) -->
-    @else
-    @include('inc._centerContainer')
     @endif
 
-  @include('inc._footer')
+    @include('inc._footer')
 
 </div>
+    @yield('content')
+
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

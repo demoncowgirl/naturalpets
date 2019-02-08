@@ -53,7 +53,7 @@
   <div id="petDisplay" class="container-fluid d-flex p-1 m-0">
     <div class="row">
         <div id="prev" class="col-md-1" style="display:none;">
-          <button type="button" class="btn btn-sm" id="prevBtn" @click="previousPage();">
+          <button type="button" class="btn btn-sm" style="height: 100%;" id="prevBtn" @click="previousPage();">
             <span class ="arrow-icon"><i class="fas fa-arrow-circle-left fa-2x"></i></span>
           </button>
         </div>
@@ -68,7 +68,7 @@
             <div><strong>Breed:</strong> {{ pet.breed }}</div>
             <div><strong>Contact Email:</strong> <a  style="font-size: 13px" :href="'mailto:'+ pet.email">{{ pet.email }}</a></div>
             <div><strong>Contact Phone:</strong> {{ pet.phone }}</div>
-            <img id="petImage" :src="pet.image" width="200" height="auto"/>
+            <img id="petImage" :src="pet.image" width="200" height="auto" class="image-responsive"/>
             <div class="m-2">{{ pet.description }}</div>
             <div id="petOptions">
               <i class="fas fa-paw fa-1x pr-1"></i>
@@ -81,7 +81,7 @@
         </div>
       </div>
         <div id="next" class="col-md-1" style="display:none;">
-          <button type="button" class="btn btn-sm" id="nextBtn" @click="nextPage();">
+          <button type="button" class="btn btn-sm" style="height: 100%" id="nextBtn" @click="nextPage();">
             <span class ="arrow-icon"><i class="fas fa-arrow-circle-right fa-2x"></i></span>
           </button>
         </div>

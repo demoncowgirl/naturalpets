@@ -32961,6 +32961,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-sm",
+                    staticStyle: { height: "100%" },
                     attrs: { type: "button", id: "prevBtn" },
                     on: {
                       click: function($event) {
@@ -33036,6 +33037,7 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("img", {
+                            staticClass: "image-responsive",
                             attrs: {
                               id: "petImage",
                               src: pet.image,
@@ -33081,6 +33083,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-sm",
+                    staticStyle: { height: "100%" },
                     attrs: { type: "button", id: "nextBtn" },
                     on: {
                       click: function($event) {

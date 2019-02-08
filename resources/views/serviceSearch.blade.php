@@ -14,6 +14,6 @@
     </ul>
   <p>Above are links that will allow you to search for a specific pet-oriented service provider. Once you are at that screen, you will be able to search for those providers in your area. Click on the links above to be redirected to a search page that will allow you to search by zip code.
   </p>
-  @include('inc._terriergif')
+  <!-- @include('inc._terriergif') -->
 </div>
 @endsection

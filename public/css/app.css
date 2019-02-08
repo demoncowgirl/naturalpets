@@ -8299,14 +8299,19 @@ button.close {
 body {
   position: relative;
   padding-top: 0px;
-  background-color: #5DAFA8;
+  padding-bottom: 10px;
+  background-color: #5DEBF1;
+  color: #000;
+}
+
+p {
+  padding: 10px;
 }
 
 .navbar {
   overflow: hidden;
   position: absolute;
   z-index: -1;
-  margin-bottom: 10px;
 }
 
 .navbar-nav.li a {
@@ -8326,12 +8331,35 @@ body {
 
 #imageBlock {
   z-index: 2;
-  height: 150px;
+  height: 204px;
   border: solid;
-  border-width: thin;
+  border-width: 2px;
   border-color: #000;
   width: auto;
   background-color: #FCFFFD;
+  box-shadow: 10px 10px 8px #000;
+}
+
+#slideBlock {
+  width: 300px;
+  height: auto;
+  border: solid;
+  border-width: 2px;
+  border-color: #000;
+}
+
+#ribbon1 {
+  display: block;
+  background-color: #C23E36;
+  height: 20px;
+  margin: 0px;
+}
+
+#ribbon2 {
+  display: block;
+  background-color: #1B8E93;
+  height: 45px;
+  margin: 0px;
 }
 
 #animation1 img {
@@ -8357,14 +8385,14 @@ body {
 h1 {
   font-family: "GoodDog";
   font-size: 72px;
-  color: #145A56;
+  color: #1B8E93;
   text-align: center;
-  padding: 4px;
+  padding: 8px;
   margin: 0px;
 }
 
 i {
-  color: #145A56;
+  color: #1B8E93;
 }
 
 #prevBtn,
@@ -8383,7 +8411,6 @@ i {
   border-width: 1px;
   min-width: 300px;
   width: auto;
-  height: auto;
   margin: 20px;
 }
 
@@ -8398,6 +8425,12 @@ i {
   max-height: 570px;
   height: auto;
   margin-bottom: 20px;
+}
+
+#slides {
+  background-color: #5DEBF1;
+  align-content: center;
+  height: 100%;
 }
 
 input:focus {
@@ -8441,7 +8474,7 @@ ul {
   align-content: center;
   border-style: solid;
   border-width: 3px;
-  border-color: #145A56;
+  border-color: #1B8E93;
   background-color: #F1F1ED;
 }
 
@@ -8449,7 +8482,7 @@ ul {
   height: auto;
   max-height: 700px;
   Width: 65%;
-  margin-top: -60px;
+  margin-top: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 40px;
@@ -8457,26 +8490,26 @@ ul {
   align-content: center;
   border-style: solid;
   border-width: 3px;
-  border-color: #145A56;
+  border-color: #1B8E93;
   background-color: #F1F1ED;
 }
 
 #searchContainer {
   height: 100%;
   max-width: 73%;
-  margin-top: -60px;
+  margin-top: 20px;
   padding: 10px;
   align-content: center;
   border-style: solid;
   border-width: 3px;
-  border-color: #145A56;
+  border-color: #1B8E93;
   background-color: #F1F1ED;
   overflow-y: auto;
 }
 
 #petImage.img {
   border-width: 1px;
-  border-color: #145A56;
+  border-color: #1B8E93;
   border-style: solid;
 }
 
@@ -8496,16 +8529,17 @@ ul {
   text-align: left;
 }
 
-.page-footer {
+footer {
   padding-top: 10px;
   position: fixed;
-  z-index: -1;
+  z-index: 1;
   left: 0;
   bottom: 0;
   width: 100%;
   text-align: center;
   padding: justify;
+  font-weight: 600;
   color: #FCFFFD;
-  background-color: #2B7C62;
+  background-color: #1B8E93;
 }
 

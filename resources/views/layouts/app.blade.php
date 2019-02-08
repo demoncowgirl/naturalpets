@@ -21,20 +21,15 @@
 
 </head>
 <body>
-<div class="container">
-  <div id="app" class="d-flex flex-column">
-      <!-- provides navbar on every page -->
       @include('inc._navbar')
+      <!-- provides navbar on every page -->
 
     	<!--@if(Request::is('/home'))
         <!-- include showcase only on home page -->
       	 <!--@include('inc._showcase')
       @endif-->
-
       <!-- includes footer -->
       @include('inc._footer')
-  </div>
-</div>
 
   @yield('content')
 

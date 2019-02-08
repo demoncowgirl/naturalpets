@@ -1,4 +1,4 @@
-<footer class="page-footer font-small pt-1" style="border-bottom: 3px solid #000">
+<footer class="footer font-small pt-1" style="border-bottom: 3px solid #000">
   <div class="container-fluid text-center text-md-left">
     <!-- Grid row -->
     <div class="row">
