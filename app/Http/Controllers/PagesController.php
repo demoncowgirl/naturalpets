@@ -9,6 +9,12 @@ class PagesController extends Controller
     public function getHome() {
         return view('home');
     }
+    // public function getLogin() {
+    //     return view('login');
+    // }
+    // public function getRegister() {
+    //     return view('register');
+    // }
     public function getLoginSuccessful() {
         return view('loginSuccessful');
     }
@@ -51,5 +57,8 @@ class PagesController extends Controller
     }
     public function getUsers() {
         return view('users_index');
+    }
+    public function getBlog() {
+        return view('blog');
     }
 }

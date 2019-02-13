@@ -1,4 +1,4 @@
-@extends('layouts.services')
+@extends('layouts.app')
 
 @section('content')
 <div class="container" style="margin-top: 40px;">
@@ -66,5 +66,4 @@
         </div>
     </div>
 </div>
-@Section('inc_footer')
 @endsection
