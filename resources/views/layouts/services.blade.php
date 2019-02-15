@@ -30,10 +30,9 @@
     @elseif(!!Request::is('register')) -->
     @endif
 
+</div>
     @include('inc._footer')
 
-</div>
-    @yield('content')
 
 
     <!-- Scripts -->

@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- @section('title', 'Service Search') -->
-<h1>Pet Service Search</h1>
+<h1>Pet Services</h1>
   <div id="servicesList">
     <ul>
         <li><a class="{{ Request::is ('/vetServices') ? 'active': ''}}" href='/vetServices'><strong>Veterinary Clinics</strong></a></li>
