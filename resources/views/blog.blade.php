@@ -5,14 +5,13 @@
 @section('title', '| Blog')
 
 @extends('layouts.app')
-@include('inc._navbar')
-{{-- @include('inc._header') --}}
 
 @section('content')
 <div class="col-lg-12">
   <div class= "d-flex flex-row">
     <div class="col-lg-2"></div>
     <div class="col-lg-7">
+      <h1>Blog Posts</h1>
       <div class="post mt-3">
       @foreach($posts as $post)
         <h3 style="font-family: GoodDog;">{{ $post -> title}}</h3>

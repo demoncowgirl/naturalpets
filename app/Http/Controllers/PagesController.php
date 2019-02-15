@@ -9,15 +9,15 @@ class PagesController extends Controller
     public function getHome() {
         return view('home');
     }
-    // public function getLogin() {
-    //     return view('login');
-    // }
+    public function getLogin() {
+        return view('login');
+    }
     // public function getRegister() {
     //     return view('register');
     // }
-    public function getLoginSuccessful() {
-        return view('loginSuccessful');
-    }
+    // public function getLoginSuccessful() {
+    //     return view('loginSuccessful');
+    // }
     public function getAbout() {
         return view('about');
     }

@@ -17,8 +17,9 @@
 
 <body>
 
-    @include('inc._navbar')
   <div id="services" class="container-fluid">
+
+    @include('inc._navbar')
 
     @if(Request::is('petSearch'))
     @include('inc._searchContainer')
@@ -30,8 +31,12 @@
     @elseif(!!Request::is('register')) -->
     @endif
 
-</div>
+    @if(!Request::is('serviceSearch'))
     @include('inc._footer')
+    @endif
+
+</div>
+
 
 
 

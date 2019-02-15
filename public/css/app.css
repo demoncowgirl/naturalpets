@@ -8308,6 +8308,11 @@ p {
   padding: 10px;
 }
 
+h1,
+h3 {
+  font-family: GoodDog;
+}
+
 .navbar {
   overflow: hidden;
   position: absolute;
@@ -8363,9 +8368,20 @@ p {
 }
 
 #animation1 img {
-  margin-top: 10px;
+  margin-top: 9px;
   overflow: hidden;
   float: right;
+}
+
+.footer hr {
+  display: block;
+  margin-top: -16px;
+  margin-left: auto;
+  width: 100%;
+  margin-right: auto;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #000;
 }
 
 #animation2 img {

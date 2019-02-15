@@ -54,7 +54,7 @@ Route::get('blog', function(){
         ->orderBy('created_at', 'desc')
         ->limit(4)
         ->get();
-  return view('pages.blog', ['posts'=>$posts]);
+  return view('blog', ['posts'=>$posts]);
 });
 Route::get('/single/{slug}')->name('blog.single')->uses('BlogController@getSingle');
 // ->where("/^[a-zA-Z0-9-_]+$/");
