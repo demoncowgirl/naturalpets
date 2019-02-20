@@ -38,17 +38,17 @@
            showOutput: false,
            searchZip: '',
            vetsArray: [],
-           // image_url:'',
-           // rating:'',
-           // lat:'',
-           // lon:'',
-           // active_url: '',
-           // id:'',
+           name:'',
+           rating:'',
+           lat:'',
+           lon:'',
+           active_url: '',
+           id:'',
            is_closed:'',
            zipCode:'',
-           // address:'',
-           // city:'',
-           // phone:'',
+           address:'',
+           city:'',
+           phone:'',
            // image:'',
            showError: false,
            showStatus:true,
@@ -76,22 +76,15 @@
 
     reloadForm: function(){
       window.location.reload(true);
-      }
     },
 
       getVet: function(){
-      var url = "https://api.yelp.com/v3/businesses/search?categories=pets&limit=<limit>&location=<zipCode>&format=json&callback=?";
+      var url = "https://api.yelp.com/v3/businesses/search?categories=vet&limit=<limit>&location=<zipCode>&format=json&callback=?";
 
-      url= url.replace("<zipCode>", this.searchCode);
-      // url= url.replace("<subcategory>", 'vet');
+      url= url.replace("<zipCode>", this.searchZip);
       url= url.replace("<limit>", '10');
       url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?');
-
-      $.getJSON(url)
-        .done(this.catchResponse)
-        .catch(function(err) { alert('Error retrieving data!');
-        });
-      },
+    },
 
       catchResponse: function(response) {
 
@@ -126,6 +119,8 @@
       showBtn: function() {
          // document.getElementById('prev').style.display="block";
          // document.getElementById('next').style.display="block";
-      },
-  }
+      }
+  },
+}
+
 </script>

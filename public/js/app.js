@@ -2150,17 +2150,17 @@ __webpack_require__.r(__webpack_exports__);
       showOutput: false,
       searchZip: '',
       vetsArray: [],
-      // image_url:'',
-      // rating:'',
-      // lat:'',
-      // lon:'',
-      // active_url: '',
-      // id:'',
+      name: '',
+      rating: '',
+      lat: '',
+      lon: '',
+      active_url: '',
+      id: '',
       is_closed: '',
       zipCode: '',
-      // address:'',
-      // city:'',
-      // phone:'',
+      address: '',
+      city: '',
+      phone: '',
       // image:'',
       showError: false,
       showStatus: true,
@@ -2184,48 +2184,44 @@ __webpack_require__.r(__webpack_exports__);
     },
     reloadForm: function reloadForm() {
       window.location.reload(true);
+    },
+    getVet: function getVet() {
+      var url = "https://api.yelp.com/v3/businesses/search?categories=vet&limit=<limit>&location=<zipCode>&format=json&callback=?";
+      url = url.replace("<zipCode>", this.searchZip);
+      url = url.replace("<limit>", '10');
+      url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?');
+    },
+    catchResponse: function catchResponse(response) {
+      var response = JSON.parse(this.apiRequest.responseText);
+      console.log(response);
+
+      for (var i = 0; i < response.businesses.length; i++) {
+        this.showError = false;
+        this.showStatus = false; // used in search
+
+        currentVet.name = response.businesses[i].name;
+        currentVet.rating = response.businesses[i].rating;
+        currentVet.lat = response.businesses[i].lat;
+        currentVet.lon = response.businesses[i].lon;
+        currentVet.active_url = response.businesses[i].url; // for response, not displayed
+
+        currentVet.id = response.businesses[i].id;
+        currentVet.is_closed = response.businesses[i].is_closed;
+        currentVet.zipCode = response.businesses[i].id; //for response, displayed
+
+        currentVet.address = response.businesses[i].display_address;
+        currentVet.city = response.businesses[i].location.city;
+        currentVet.phone = response.businesses[i].display_phone;
+        currentVet.image = response.businesses[i].image_url;
+        currentVet.showOutput = true;
+      }
+
+      console.log(response);
+    },
+    // hides next and previous buttons until submit button is clicked
+    showBtn: function showBtn() {// document.getElementById('prev').style.display="block";
+      // document.getElementById('next').style.display="block";
     }
-  },
-  getVet: function getVet() {
-    var url = "https://api.yelp.com/v3/businesses/search?categories=pets&limit=<limit>&location=<zipCode>&format=json&callback=?";
-    url = url.replace("<zipCode>", this.searchCode); // url= url.replace("<subcategory>", 'vet');
-
-    url = url.replace("<limit>", '10');
-    url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?');
-    $.getJSON(url).done(this.catchResponse).catch(function (err) {
-      alert('Error retrieving data!');
-    });
-  },
-  catchResponse: function catchResponse(response) {
-    var response = JSON.parse(this.apiRequest.responseText);
-    console.log(response);
-
-    for (var i = 0; i < response.businesses.length; i++) {
-      this.showError = false;
-      this.showStatus = false; // used in search
-
-      currentVet.name = response.businesses[i].name;
-      currentVet.rating = response.businesses[i].rating;
-      currentVet.lat = response.businesses[i].lat;
-      currentVet.lon = response.businesses[i].lon;
-      currentVet.active_url = response.businesses[i].url; // for response, not displayed
-
-      currentVet.id = response.businesses[i].id;
-      currentVet.is_closed = response.businesses[i].is_closed;
-      currentVet.zipCode = response.businesses[i].id; //for response, displayed
-
-      currentVet.address = response.businesses[i].display_address;
-      currentVet.city = response.businesses[i].location.city;
-      currentVet.phone = response.businesses[i].display_phone;
-      currentVet.image = response.businesses[i].image_url;
-      currentVet.showOutput = true;
-    }
-
-    console.log(response);
-  },
-  // hides next and previous buttons until submit button is clicked
-  showBtn: function showBtn() {// document.getElementById('prev').style.display="block";
-    // document.getElementById('next').style.display="block";
   }
 });
 
