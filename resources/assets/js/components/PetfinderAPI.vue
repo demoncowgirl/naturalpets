@@ -140,7 +140,7 @@
     },
 
     getPet: function (){
-      var url = "https://api.petfinder.com/pet.find?key=<apiKey>&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
+      var url = "https://api.petfinder.com/pet.find?key=Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
 
       // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
       url = url.replace("<apiKey>", this.apiKey);
