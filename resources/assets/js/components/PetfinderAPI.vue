@@ -122,15 +122,15 @@
       fetchingStatus: '<h1>Fetching a list of potential new best friends...</h1>',
 
       apiRequest: null,
-      apiKey: "d37c684a8dee07c9424f59462cfd9f15"
+      apiKey: "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u"
     }
   },
   methods: {
     getAPI: function(location) {
       // Set up url for fetching adoptable pet data.
       var url = 'https://api.petfinder.com/pet.getRandom';
-      var apiKey = 'd37c684a8dee07c9424f59462cfd9f15'; //petfinder api key
-      var secret = 'e44ea7e83d9bf772aebb3e512bbf4628'; //petfinder secret
+      var apiKey = 'Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u'; //petfinder api key
+      var secret = '9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ'; //petfinder secret
     },
 
     // hides next and previous buttons until submit button is clicked
