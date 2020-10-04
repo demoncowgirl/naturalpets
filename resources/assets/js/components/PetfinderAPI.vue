@@ -144,9 +144,9 @@
           let res = JSON.stringify(responseJson)
           //console.log("Response: "+ res)
           var responseArray = JSON.parse(res);
-          console.log(responseArray);
-          //var token = responseArray.access_token;
-          //console.log(token);
+          //console.log(responseArray);
+          var token = responseArray.access_token;
+          console.log(token);
           return responseJson;
           })
           .catch((error) => {
@@ -187,11 +187,7 @@
 
       },
 
-
       // var url = 'https://api.petfinder.com/v2/animals/pet.getRandom';
-
-
-    },
 
     // hides next and previous buttons until submit button is clicked
     showBtn: function() {
