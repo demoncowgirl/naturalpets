@@ -127,53 +127,69 @@
     }
   },
   methods: {
-      getAuthToken: function() {
+  getAuthToken: function() {
 
-        //set up url for fetching auth token
-        fetch('https://api.petfinder.com/v2/oauth2/token', {
-          method: 'POST',
-          headers: {
-          'Content-Type': 'application/json',
-            },
-            body: JSON.stringify
-            ({ "grant_type": "client_credentials",
-            "client_id": "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u",
-            "client_secret": "9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ"}),
-            }).then((response) => response.json())
-              .then((responseJson) => {
-              let res = JSON.stringify(responseJson)
-              //console.log("Response: "+ res)
-              var responseArray = JSON.parse(res);
-              //console.log(responseArray);
-              var token = responseArray.access_token;
-              //console.log(token);
-              return responseJson;
-              })
-              .catch((error) => {
-              console.error(error);
-              })
-      },
-
-      getData: function(location, token)
-
-      // Set up url for fetching adoptable pet data.
-      fetch('https://api.petfinder.com/v2/animals', {
+    //set up url for fetching auth token
+    fetch('https://api.petfinder.com/v2/oauth2/token', {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer <token>',
+      'Content-Type': 'application/json',
+        },
+        body: JSON.stringify
+        ({ "grant_type": "client_credentials",
+        "client_id": "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u",
+        "client_secret": "9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ"}),
+        }).then((response) => response.json())
+          .then((responseJson) => {
+          let res = JSON.stringify(responseJson)
+          //console.log("Response: "+ res)
+          var responseArray = JSON.parse(res);
+          console.log(responseArray);
+          //var token = responseArray.access_token;
+          //console.log(token);
+          return responseJson;
+          })
+          .catch((error) => {
+          console.error(error);
+          })
+  },
+
+  getData: function(token, location) {
+
+  $.ajax({
+  url: 'https://api.petfinder.com/v2/animals',
+  method: "GET",
+  headers: {
+    "Authorization":
+    "Bearer <token>",
+    },
+    }).then(function(data) {
+    console.log(data);
+    }).catch(function(err) {
+    console.error(err);
+    });
+
+
+      var token = responseArray.access_token;
+
+      // Set up url for fetching adoptable pet data.
+      get('https://api.petfinder.com/v2/animals', {
+      method: 'GET',
+      headers: {
+      'Authorization: Bearer <token>'}
+      });
+
+      $http.post("https://api.petfinder.com/v2/animals", requestData, {
+      headers: { 'Authorization': <token>}
+      }).success(function(responseData) {
+      var url = 'https://api.petfinder.com/v2/animals?type=dog&page=1';
+      console.log(responseData);
+
       },
-      .then((resp) => resp.json())
-      .then(function(data) {
-      console.log(data);
-      return data;
-      })
-      .catch((error) => {
-      console.error(error);
-      })
-    })
+
 
       // var url = 'https://api.petfinder.com/v2/animals/pet.getRandom';
-      // var url = 'https://api.petfinder.com/v2/animals?type=dog&page=1';
+
 
     },
 
@@ -352,3 +368,4 @@
   },
 }
 </script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
