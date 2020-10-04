@@ -122,15 +122,59 @@
       fetchingStatus: '<h1>Fetching a list of potential new best friends...</h1>',
 
       apiRequest: null,
-      apiKey: "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u"
+      apiKey: "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u",
+      apiSecret: "9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ"
     }
   },
   methods: {
-    getAPI: function(location) {
+      getAuthToken: function() {
+
+        //set up url for fetching auth token
+        fetch('https://api.petfinder.com/v2/oauth2/token', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+            },
+            body: JSON.stringify
+            ({ "grant_type": "client_credentials",
+            "client_id": "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u",
+            "client_secret": "9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ"}),
+            }).then((response) => response.json())
+              .then((responseJson) => {
+              let res = JSON.stringify(responseJson)
+              //console.log("Response: "+ res)
+              var responseArray = JSON.parse(res);
+              //console.log(responseArray);
+              var token = responseArray.access_token;
+              //console.log(token);
+              return responseJson;
+              })
+              .catch((error) => {
+              console.error(error);
+              })
+      },
+
+      getData: function(location, token)
+
       // Set up url for fetching adoptable pet data.
-      var url = 'https://api.petfinder.com/pet.getRandom';
-      var apiKey = 'Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u'; //petfinder api key
-      var secret = '9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ'; //petfinder secret
+      fetch('https://api.petfinder.com/v2/animals', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer <token>',
+      },
+      .then((resp) => resp.json())
+      .then(function(data) {
+      console.log(data);
+      return data;
+      })
+      .catch((error) => {
+      console.error(error);
+      })
+    })
+
+      // var url = 'https://api.petfinder.com/v2/animals/pet.getRandom';
+      // var url = 'https://api.petfinder.com/v2/animals?type=dog&page=1';
+
     },
 
     // hides next and previous buttons until submit button is clicked
@@ -140,13 +184,11 @@
     },
 
     getPet: function (){
-      var url = "https://api.petfinder.com/pet.find?key=Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u&animal=<animal>&location=<zipCode>&output=basic&format=json&callback=?";
 
       // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
-      url = url.replace("<apiKey>", this.apiKey);
       url = url.replace("<zipCode>", this.searchZip);
-      url = url.replace("<animal>", this.animalType);
-      url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
+      url = url.replace("<type>", this.animalType);
+      // url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
 
       if(this.animalAge.length > 0){
         (url = url + '&age=' + this.animalAge)
