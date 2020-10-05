@@ -146,61 +146,58 @@
           var responseArray = JSON.parse(res);
           //console.log(responseArray);
           var token = responseArray.access_token;
-          console.log(token);
+          console.log('Auth Token: ' + token);
           return responseJson;
           })
           .catch((error) => {
           console.error(error);
           })
+          console.log('This works!');
   },
 
-  getData: function(token, location) {
 
-  $.ajax({
-  url: 'https://api.petfinder.com/v2/animals',
-  method: "GET",
-  headers: {
-    "Authorization":
-    "Bearer <token>",
-    },
-    }).then(function(data) {
-    console.log(data);
-    }).catch(function(err) {
-    console.error(err);
+
+  getData: function (token, location) {
+
+        $.ajax({
+        url: 'https://api.petfinder.com/v2/animals',
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer <token>",
+          },
+          }).then(function(data) {
+          console.log(data);
+          }).catch(function(err) {
+          console.error(err);
+          });
+          console.log('This works, too!');
+},
+
+//Something is not working here
+
+  getPets: function (){
+    // Set up url for fetching adoptable pet data.
+    fetch('https://api.petfinder.com/v2/animals')
+    .then((resp) => resp.json())
+    .then petsJson => {
+      let searchResults = JSON.stringify(petsJson)
+    return petsJson;
+    }
+    .catch(function(error) {
+      console.log(error);
     });
 
+    var url = 'https://api.petfinder.com/v2/animals';
+    // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
+    url = url.replace("<zipCode>", this.searchZip);
+    url = url.replace("<type>", this.animalType);
+    url = url.replace("<cross_origin>", '?format=json&access_token=<tokeny>&callback=?'); //added to end for cross-origin request
 
-      var token = responseArray.access_token;
 
-      // Set up url for fetching adoptable pet data.
-      get('https://api.petfinder.com/v2/animals', {
-      method: 'GET',
-      headers: {
-      'Authorization: Bearer <token>'}
-      });
+      if(this.animalAge.length > 0){
+        (url = url + '&type=' + this.animalType)
+        }
 
-      $http.post("https://api.petfinder.com/v2/animals", requestData, {
-      headers: { 'Authorization': <token>}
-      }).success(function(responseData) {
-      var url = 'https://api.petfinder.com/v2/animals?type=dog&page=1';
-      console.log(responseData);
-
-      },
-
-      // var url = 'https://api.petfinder.com/v2/animals/pet.getRandom';
-
-    // hides next and previous buttons until submit button is clicked
-    showBtn: function() {
-       document.getElementById('prev').style.display="block";
-       document.getElementById('next').style.display="block";
-    },
-
-    getPet: function (){
-
-      // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
-      url = url.replace("<zipCode>", this.searchZip);
-      url = url.replace("<type>", this.animalType);
-      // url = url.replace("<cross_origin>", '?format=json&key=<apiKey>&callback=?'); //added to end for cross-origin request
 
       if(this.animalAge.length > 0){
         (url = url + '&age=' + this.animalAge)
@@ -308,7 +305,7 @@
             //  }
 
              // retrieves first image if there are multiple images
-            var petImage = "http://photos.petfinder.com/photos/pets/<currentPet.id>";
+            var petImage = "http://photos.petfinder.com/v2/photos/pets/<currentPet.id>";
             petImage = petImage.replace("http", "https");
             petImage = petImage.replace("<currentPet.id>", currentPet.id);
 
@@ -323,6 +320,12 @@
            this.showOutput=true;
             }
          },
+
+         // hides next and previous buttons until submit button is clicked
+         showBtn: function() {
+            document.getElementById('prev').style.display="block";
+            document.getElementById('next').style.display="block";
+       },
 
       displayOptions: function() {
         var x = document.getElementById("petOptions");
@@ -364,4 +367,3 @@
   },
 }
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
