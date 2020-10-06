@@ -11,7 +11,7 @@
   <div class="collapse navbar-collapse ">
     <ul class="nav navbar-nav float-right">
         <li><a class="{{ Request::is ('/') ? 'active': ''}}" href="/">Home</a></li>
-        <li><a class="{{ Request::is ('blog') ? 'active': ''}}" href="/blog">Blog</a></li>
+        <!-- <li><a class="{{ Request::is ('blog') ? 'active': ''}}" href="/blog">Blog</a></li> -->
         <li><a class="{{ Request::is ('contact') ? 'active': ''}}" href="/contact">Contact</a></li>
         <!-- <li><a class="{{ Request::is ('profile') ? 'active': ''}}" href="/profile">Profile</a></li> -->
         <li><a class="{{ Request::is ('serviceSearch') ? 'active': ''}}" href="/serviceSearch">Pet Services</a></li>
