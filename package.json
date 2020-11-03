@@ -1,40 +1,4 @@
 {
-  "private": true,
-  "scripts": {
-    "dev": "npm run development",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch-poll": "npm run watch -- --watch-poll",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.11.6",
-    "axios": "^0.18.1",
-    "bootstrap": "^4.5.2",
-    "bootstrap-sass": "^3.4.1",
-    "cross-env": "^5.2.1",
-    "jquery": "^3.5.1",
-    "laravel-mix": "^4.1.4",
-    "lodash": "^4.17.20",
-    "mysql": "^2.18.1",
-    "popper.js": "^1.16.1",
-    "vue": "^2.6.12",
-    "webpack": "^4.29.1",
-    "webpack-config": "^7.5.0",
-    "webpack-mix": "^2.0.2"
-  },
-  "dependencies": {
-    "laravel/framework": "^8.0",
-    "phpunit/phpunit": "^8.5",
-    "artisan": "^0.1.2",
-    "jquery-validation": "^1.19.2",
-    "node-sass": "^4.14.1",
-    "parsleyjs": "^2.9.2",
-    "sass": "^1.17.0",
-    "webpack-cli": "^3.2.3"
-  },
   "name": "naturalpets",
   "version": "1.0.0",
   "description": "<p align=\"center\"><img src=\"https://laravel.com/assets/img/components/logo-laravel.svg\"></p>",
@@ -42,9 +6,32 @@
   "directories": {
     "test": "tests"
   },
+  "dependencies": {
+    "artisan": "^0.1.2",
+    "axios": "^0.18.1",
+    "bootstrap": "^4.5.3",
+    "bootstrap-sass": "^3.4.1",
+    "cross-env": "^5.2.1",
+    "jquery": "^3.5.1",
+    "jquery-validation": "^1.19.2",
+    "laravel-mix": "^5.0.7",
+    "lodash": "^4.17.20",
+    "mysql": "^2.18.1",
+    "node-sass": "^4.14.1",
+    "parsleyjs": "^2.9.2",
+    "popper.js": "^1.16.1",
+    "sass": "^1.28.0",
+    "vue": "^2.6.12",
+    "webpack-config": "^7.5.0",
+    "webpack-mix": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/demoncowgirl/naturalpets.git"
+    "url": "git+https://github.com/demoncowgirl/naturalpets.git"
   },
   "author": "Beth Salvatore",
   "license": "ISC",

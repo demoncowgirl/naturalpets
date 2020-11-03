@@ -100,9 +100,9 @@ export default {
       output: 'basic',
       searchZip: '',
       petsArray: [],
-      option: '',
+      // option: '',
       newOptionsArray: [], // array of manipulated options from api
-      animalType: 'Dog',
+      animalType: '',
       animalSize: '',
       animalAge: '',
       animalSex: '',
@@ -120,104 +120,81 @@ export default {
       apiRequest: null,
       apiKey: "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u",
       apiSecret: "9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ",
-      token: '',
-      url: '',
-      apiURL: ''
+
     }
   },
 
   methods: {
     getAuthToken: function() {
 
-      //set up url for fetching auth token
+      //Get Auth Token
+      var apiKey = "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u";
+      var apiSecret = "9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ";
+
+
       fetch('https://api.petfinder.com/v2/oauth2/token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            "grant_type": "client_credentials",
-            "client_id": "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u",
-            "client_secret": "9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ"
-          }),
-        }).then((response) => response.json())
-        .then((responseJson) => {
-          let res = JSON.stringify(responseJson)
-          //console.log("Response: "+ res)
-          var responseArray = JSON.parse(res);
-          //console.log(responseArray);
-          var token = responseArray.access_token;
-          console.log('Auth Token: ' + token);
-          return responseJson;
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-      console.log('This works!');
-    },
-
-    getData: function(token) {
-
-      $.ajax({
-        url: 'https://api.petfinder.com/v2/animals',
-        method: "GET",
+        method: 'POST',
+        body: 'grant_type=client_credentials&client_id=' + apiKey + '&client_secret=' + apiSecret,
         headers: {
-          "Mode": "no-cors",
-          "Authorization": "Bearer <token>",
-          crossDomain: true,
-        },
-        beforeSend: function(xhr) {
-            xhr.withCredentials = true;
-          }
-          .catch(function(err) {
-            console.log(err);
-          }),
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(function(resp) {
+        // Return the response as JSON
+        return resp.json();
+      }).then(function(data) {
+        // Log the API data
+        console.log(data);
+      }).catch(function(err) {
+        // Log any errors
+        console.log('something went wrong', err);
       });
     },
 
-    getPet: function(location) {
+    getPet: function(location, data) {
 
-      //fetch data from api
-      fetch('https://api.petfinder.com/v2/animals', {
-          mode: 'no-cors',
-          method: 'GET',
-        }, ).then(response => response.json())
-        .then((data) => response.json())
-        .catch((error) => {
-          console.error(error);
-          return data;
-          console.log('This works!');
-        })
+      fetch('https://api.petfinder.com/v2/animals?postcode=' + zipCode + '&status=' + 'adoptable' + '&type=' + animalType + '&age=' + animalAge + '&size=' + animalSize + '&gender=' + animalSex, {
+        headers: {
+          'Authorization': data.token_type + ' ' + data.access_token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': 'no-cors',
+        }
+      }).then(function(resp) {
 
-      url = this.apiURL;
-      // url = url.replace("<lastOffset>", '10'); //change return number from 25 to 10
-      url = url.replace("<zipCode>", this.searchZip);
-      url = url.replace("<type>", this.animalType);
-      //url = url.replace("<cross_origin>", '?format=json&access_token=<token>&callback=?'); //added to end for cross-origin request
+        // Return the response as JSON
+        return resp.json();
 
+      }).then(function(data) {
 
-      if (this.animalAge.length > 0) {
-        (url = url + '&type=' + this.animalType)
-      }
+        // Log the API data
+        console.log('token', data);
 
-
-      if (this.animalAge.length > 0) {
-        (url = url + '&age=' + this.animalAge)
-      }
-
-      if (this.animalSize.length > 0) {
-        (url = url + '&size=' + this.animalSize)
-      }
-
-      if (this.animalSex.length > 0) {
-        (url = url + '&sex=' + this.animalSex)
-      }
-
-      $.getJSON(url)
-        .done(this.catchResponse)
-        .catch(function(err) {
-          alert('Error retrieving data!');
+        // Return a second API call
+        // This one uses the token we received for authentication
+        return fetch('https://api.petfinder.com/v2/animals?organization=' + org + '&status=' + status, {
+          headers: {
+            'Authorization': data.token_type + ' ' + data.access_token,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Access-Control-Allow-Origin': 'no-cors',
+          }
         });
+
+      }).then(function(resp) {
+
+        // Return the API response as JSON
+        return resp.json();
+
+      }).then(function(data) {
+
+        // Log the pet data
+        console.log('pets', data);
+
+      }).catch(function(err) {
+
+        // Log any errors
+        console.log('something went wrong', err);
+
+      });
+
     },
 
     catchResponse: function(data) {
