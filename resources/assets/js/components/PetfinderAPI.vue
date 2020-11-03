@@ -119,8 +119,7 @@ export default {
       fetchingStatus: '<h1>Fetching a list of potential new best friends...</h1>',
       apiRequest: null,
       apiKey: "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u",
-      apiSecret: "9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ",
-      url: "GET https://api.petfinder.com/v2/animals"
+      apiSecret: "9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ"
 
     }
   },
@@ -153,7 +152,7 @@ export default {
 
     getPet: function(location, data) {
 
-      fetch(url + ? postcode = ' + zipCode + ' & status = ' + '
+      fetch(this.$url + ? postcode = ' + zipCode + ' & status = ' + '
         adoptable ' + ' & type = ' + animalType + ' & age = ' + animalAge + ' & size = ' + animalSize + ' & gender = ' + animalSex, {
         headers : {
           'Authorization': data.token_type + ' ' + data.access_token,
@@ -172,11 +171,11 @@ export default {
 
       // Return a second API call
       // This one uses the token we received for authentication
-      return fetch('https://api.petfinder.com/v2/animals?organization=' + org + '&status=' + status, {
+      return fetch(this.$url + '&status=' + status, {
         headers: {
           'Authorization': data.token_type + ' ' + data.access_token,
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Access-Control-Allow-Origin': 'no-cors',
+          'Access-Control-Allow-Origin': 'no-cors'
         }
       });
 

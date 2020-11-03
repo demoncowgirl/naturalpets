@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -20,6 +19,10 @@ Vue.component('petfinderapi', require('./components/PetfinderAPI.vue').default);
 
 Vue.component('vetapi', require('./components/YelpAPI.vue').default);
 
+
+// global variable
+Vue.prototype.$url = 'https://api.petfinder.com/v2/animals';
+
 const app = new Vue({
-    el: '#services'
+  el: '#services'
 });
