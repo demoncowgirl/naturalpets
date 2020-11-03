@@ -130,6 +130,7 @@ export default {
       //Get Auth Token
       var apiKey = "Pzl6OrmbLxqQuKEejdrl2EBMrVfaYGoboHsw4e1zb8ztBRHL5u";
       var apiSecret = "9EWRCDwHXJIAowYJ3xmRa438xDseehynjYsQQJMQ";
+      var url = this.$url;
 
 
       fetch('https://api.petfinder.com/v2/oauth2/token', {
@@ -152,9 +153,9 @@ export default {
 
     getPet: function(location, data) {
 
-      fetch(this.$url + ? postcode = ' + zipCode + ' & status = ' + '
+      fetch(url + '?postcode = ' + zipCode + ' & status = ' + '
         adoptable ' + ' & type = ' + animalType + ' & age = ' + animalAge + ' & size = ' + animalSize + ' & gender = ' + animalSex, {
-        headers : {
+        headers: {
           'Authorization': data.token_type + ' ' + data.access_token,
           'Content-Type': 'application/x-www-form-urlencoded',
           'Access-Control-Allow-Origin': 'no-cors',
@@ -171,7 +172,7 @@ export default {
 
       // Return a second API call
       // This one uses the token we received for authentication
-      return fetch(this.$url + '&status=' + status, {
+      return fetch(url + '&status=' + status, {
         headers: {
           'Authorization': data.token_type + ' ' + data.access_token,
           'Content-Type': 'application/x-www-form-urlencoded',
